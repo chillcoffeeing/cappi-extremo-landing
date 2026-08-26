@@ -1,0 +1,282 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Testimonials from '../components/react/Testimonials.tsx';
+import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+
+import heroBg from '../assets/gallery/fiesta-1.jpg?url';
+import chevronDownSvg from '../assets/ui/chevron-down.svg?raw';
+
+import h9 from '../assets/gallery/all/horizontal-images/IMG_4191.jpg?url';
+import h10 from '../assets/gallery/all/horizontal-images/IMG_4187.jpg?url';
+import h11 from '../assets/gallery/all/horizontal-images/IMG_4181.jpg?url';
+import h12 from '../assets/gallery/all/horizontal-images/IMG_4164.jpg?url';
+import h13 from '../assets/gallery/all/horizontal-images/IMG_4161.jpg?url';
+import h14 from '../assets/gallery/all/horizontal-images/IMG_3602.jpg?url';
+import h15 from '../assets/gallery/all/horizontal-images/IMG_3601.jpg?url';
+import h16 from '../assets/gallery/all/horizontal-images/IMG_3597.jpg?url';
+
+const services = [
+	{
+		name: 'Fiestas y Eventos',
+		priceLabel: 'Cotizar evento',
+		image: h14,
+		features: [
+			'Animación y recreación personalizada',
+			'Temáticas a elección',
+			'Equipo profesional',
+			'Espacios cubiertos y al aire libre',
+		],
+		cta: 'Solicitar cotización',
+	},
+	{
+		name: 'Animación y Recreación',
+		priceLabel: 'Cotizar servicio',
+		image: h15,
+		features: [
+			'Juegos dirigidos y dinámicas grupales',
+			'Personal capacitado en recreación infantil',
+			'Adaptable a colegios, empresas o eventos privados',
+			'Equipos y materiales incluidos',
+		],
+		cta: 'Solicitar cotización',
+	},
+];
+
+const steps = [
+	{ number: '1', title: 'Cuéntanos qué estás celebrando', description: 'Fecha, cantidad de niños, tipo de evento.' },
+	{ number: '2', title: 'Te enviamos una propuesta a medida', description: 'Diseñamos algo único para tu celebración.' },
+	{ number: '3', title: 'Confirmas y coordinamos todo', description: 'Nos encargamos de cada detalle.' },
+];
+
+const galleryImages = [
+	{ src: h9, alt: 'Fiesta temática con decoración personalizada' },
+	{ src: h10, alt: 'Niños participando en juegos dirigidos' },
+	{ src: h11, alt: 'Celebración con globos y animación' },
+	{ src: h12, alt: 'Dinámicas grupales con personal de animación' },
+	{ src: h13, alt: 'Actividades recreativas al aire libre' },
+	{ src: h14, alt: 'Eventos privados con equipo profesional' },
+	{ src: h15, alt: 'Juegos de equipo para colegios' },
+	{ src: h16, alt: 'Recreación infantil incluida en el servicio' },
+];
+
+const testimonials = [
+	{
+		quote: 'Las fiestas temáticas son de otro nivel. Nuestro hijo las espera con ansias todo el año.',
+		name: 'Miguel Á.',
+		context: 'Papá de Thiago · 9 años',
+	},
+	{
+		quote: 'La organización es impecable y el trato con los niños, espectacular. Repetimos sin dudarlo.',
+		name: 'Andrés R.',
+		context: 'Papá de Valentina · 7 años',
+	},
+	{
+		quote: 'Contratamos la animación para el cumpleaños de Sofía y fue perfecto. Todos los niños se divirtieron.',
+		name: 'Laura P.',
+		context: 'Mamá de Sofía · 8 años',
+	},
+	{
+		quote: 'El equipo se adaptó a nuestro espacio y creó una experiencia única. Recomendadísimos.',
+		name: 'Carolina M.',
+		context: 'Mamá de Mateo · 9 años',
+	},
+];
+
+const faqs = [
+	{
+		question: '¿Con cuánta anticipación debo reservar?',
+		answer: 'Recomendamos al menos 2 semanas de anticipación para eventos grandes y 1 semana para fiestas íntimas. Contáctanos lo antes posible y coordinamos.',
+	},
+	{
+		question: '¿Qué incluye el paquete básico?',
+		answer: 'El paquete básico incluye animación profesional, juegos dirigidos, material recreativo y coordinación del evento. Los detalles se personalizan según tus necesidades.',
+	},
+	{
+		question: '¿Trabajan en espacios fuera de la sede de Cappi?',
+		answer: 'Sí. Nuestros servicios de animación y recreación son adaptables a cualquier espacio: colegios, empresas, casas particulares o espacios al aire libre.',
+	},
+];
+---
+
+<Layout title="Otros servicios — Cappi Extremo" description="Fiestas, eventos y animaciones a la medida de tu celebración. Cotiza tu evento con Cappi Xtremo.">
+
+	<!-- Hero -->
+	<section class="relative z-10 isolate overflow-hidden">
+		<img src={heroBg} alt="" aria-hidden="true" loading="eager" fetchpriority="high"
+			class="absolute inset-0 -z-10 h-full w-full object-cover" />
+		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
+		<div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+			<div class="flex flex-col items-center text-center">
+				<p data-motion="fade-up" class="text-xl font-semibold uppercase tracking-wide text-white">
+					Cappi <span class="text-primary">Xtremo</span>
+				</p>
+				<h1 data-motion="fade-up" class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+					Más formas de vivir la <span class="text-primary">experiencia</span> Cappi
+				</h1>
+				<p data-motion="fade-up" class="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-white md:text-xl">
+					Fiestas, eventos y animaciones a la medida de tu celebración.
+				</p>
+				<div data-motion="fade-up" class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase text-primary-foreground">
+					<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 3l1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z" />
+					</svg>
+					100% personalizable
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<SectionPattern bottom="orange-pattern-fade" />
+
+	<!-- Servicios -->
+	<section class="py-16 md:py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+				Nuestros servicios
+			</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
+				El servicio perfecto para tu <UnderlineStroke>celebración</UnderlineStroke>
+			</h2>
+			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-lg leading-relaxed text-neutral-600">
+				Cada evento es único. Diseñamos experiencias a la medida para que tu celebración sea inolvidable.
+			</p>
+
+			<div class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
+				{services.map((service) => (
+					<article data-motion="fade-up" class="flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+						<div class="relative h-[250px] w-full overflow-hidden">
+							<img src={service.image} alt={service.name} loading="lazy" class="h-full w-full object-cover" />
+						</div>
+						<div class="flex flex-1 flex-col p-6 md:p-8">
+							<h3 class="text-xl font-semibold text-neutral-900 md:text-2xl">{service.name}</h3>
+							<div class="mt-3">
+								<span class="text-sm font-medium text-neutral-500">{service.priceLabel}</span>
+							</div>
+							<ul class="mt-6 flex-1 space-y-3">
+								{service.features.map((f) => (
+									<li class="flex items-start gap-2 text-base text-neutral-600">
+										<svg class="mt-0.5 size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="M20 6 9 17l-5-5" />
+										</svg>
+										{f}
+									</li>
+								))}
+							</ul>
+							<a href="/contacto" class="mt-8 inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-base font-semibold text-neutral-800 transition-colors hover:border-primary hover:text-primary">
+								{service.cta}
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Cómo funciona una cotización -->
+	<SectionPattern top="blue-pattern" flipTop />
+	<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
+				¿Cómo funciona?
+			</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
+				<UnderlineStroke color="text-primary" nowrap={false}>Cotización sencilla</UnderlineStroke>
+			</h2>
+
+			<div class="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-3">
+				{steps.map((step) => (
+					<div data-motion="fade-up" class="flex flex-col items-center text-center">
+						<span class="flex size-14 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
+							{step.number}
+						</span>
+						<h3 class="mt-4 text-lg font-semibold text-secondary-foreground">{step.title}</h3>
+						<p class="mt-2 text-sm leading-relaxed text-secondary-foreground/80">{step.description}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Galería -->
+	<section class="py-16 md:py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Galería</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
+				Así se vive la experiencia <UnderlineStroke>CAPPI</UnderlineStroke>
+			</h2>
+			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
+				Cada foto cuenta una celebración distinta, la próxima puede ser la tuya.
+			</p>
+			<div class="mt-14 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+				{galleryImages.map((image) => (
+					<figure data-motion="fade-up" class="group relative aspect-square overflow-hidden shadow-sm">
+						<img src={image.src} alt={image.alt} loading="lazy" decoding="async"
+							class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+					</figure>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonios -->
+	<section class="py-12 md:py-20">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Testimonios</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
+				Lo que dicen las familias
+			</h2>
+			<div class="mt-14">
+				<Testimonials client:visible items={testimonials} />
+			</div>
+		</div>
+	</section>
+
+	<!-- FAQ -->
+	<SectionPattern top="blue-pattern" flipTop />
+	<section class="relative z-10 isolate bg-secondary py-12 md:py-20">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
+				Respondemos tus dudas
+			</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
+				<UnderlineStroke color="text-primary" nowrap={false}>Preguntas frecuentes</UnderlineStroke>
+			</h2>
+			<div class="mx-auto mt-14 max-w-3xl divide-y divide-white/25 border-y border-white/25">
+				{faqs.map((faq) => (
+					<details data-motion="fade-up" class="group">
+						<summary
+							class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-lg font-semibold text-secondary-foreground transition-opacity hover:opacity-80 [&::-webkit-details-marker]:hidden">
+							{faq.question}
+							<Fragment set:html={chevronDownSvg.replace('<svg', '<svg class="size-5 shrink-0 transition-transform duration-200 group-open:rotate-180"')} />
+						</summary>
+						<p class="pb-6 pr-8 leading-relaxed text-secondary-foreground/85">{faq.answer}</p>
+					</details>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA final -->
+	<section class="relative z-10 isolate overflow-hidden">
+		<img src={heroBg} alt="" aria-hidden="true" loading="lazy"
+			class="absolute inset-0 -z-10 h-full w-full object-cover" />
+		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
+		<div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
+			<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center text-3xl font-semibold text-white md:text-[40px] md:leading-tight">
+				¿Listo para crear una celebración inolvidable?
+			</h2>
+			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
+				<a href="/contacto"
+					class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
+					Solicitar cotización
+				</a>
+				<a href="/contacto"
+					class="text-base font-medium uppercase text-white transition-opacity hover:opacity-70">
+					Tengo preguntas
+				</a>
+			</div>
+		</div>
+	</section>
+
+</Layout>

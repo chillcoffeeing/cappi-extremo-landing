@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/react/Testimonials.tsx';
+import GalleryCarousel from '../components/react/GalleryCarousel.tsx';
 import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
 import ImageAccent from '../components/astro/ImageAccent.astro';
@@ -15,14 +16,24 @@ import heroBg from '../assets/gallery/motos-full-view-2.jpg?url';
 import motosFullView1 from '../assets/gallery/motos-full-view-1.jpg?url';
 import fiesta1 from '../assets/gallery/fiesta-1.jpg?url';
 import juegos1 from '../assets/gallery/juegos-1.jpg?url';
-import motos1 from '../assets/gallery/motos-1.jpg?url';
-import fiesta2 from '../assets/gallery/fiesta-2.jpg?url';
-import motos2 from '../assets/gallery/motos-2.jpg?url';
-import fiesta3 from '../assets/gallery/fiesta-3.jpg?url';
-import motos3 from '../assets/gallery/motos-3.jpg?url';
-import motos4 from '../assets/gallery/motos-4.jpg?url';
-import motos5 from '../assets/gallery/motos-5.jpg?url';
 import teamFullView from '../assets/gallery/team-full-view.jpg?url';
+
+import h1 from '../assets/gallery/all/horizontal-images/IMG_4596.jpg?url';
+import h2 from '../assets/gallery/all/horizontal-images/IMG_4595.jpg?url';
+import h3 from '../assets/gallery/all/horizontal-images/IMG_4593.jpg?url';
+import h4 from '../assets/gallery/all/horizontal-images/IMG_4578.jpg?url';
+import h5 from '../assets/gallery/all/horizontal-images/IMG_4576.jpg?url';
+import h6 from '../assets/gallery/all/horizontal-images/IMG_4565.jpg?url';
+import h7 from '../assets/gallery/all/horizontal-images/IMG_4213.jpg?url';
+import h8 from '../assets/gallery/all/horizontal-images/IMG_4198.jpg?url';
+import v1 from '../assets/gallery/all/vertical-images/IMG_5611.jpg?url';
+import v2 from '../assets/gallery/all/vertical-images/IMG_5610.jpg?url';
+import v3 from '../assets/gallery/all/vertical-images/IMG_5592.jpg?url';
+import v4 from '../assets/gallery/all/vertical-images/IMG_5584.jpg?url';
+import v5 from '../assets/gallery/all/vertical-images/IMG_5571.jpg?url';
+import v6 from '../assets/gallery/all/vertical-images/IMG_5568.jpg?url';
+import v7 from '../assets/gallery/all/vertical-images/IMG_5554.jpg?url';
+import v8 from '../assets/gallery/all/vertical-images/IMG_5549.jpg?url';
 
 const NEXT_CAMP_START = '2027-06-15T09:00:00-04:00';
 
@@ -31,19 +42,19 @@ const serviceCards = [
 		image: motosFullView1,
 		title: 'Planes vacacionales',
 		cta: 'Ver nuestros planes vacacionales',
-		href: '/campamentos',
+		href: '/planes-vacacionales',
 	},
 	{
 		image: fiesta1,
 		title: 'Fiestas y eventos',
 		cta: 'Ver servicio',
-		href: '#',
+		href: '/otros-servicios',
 	},
 	{
 		image: juegos1,
 		title: 'Animación y recreación',
 		cta: 'Ver servicio',
-		href: '#',
+		href: '/otros-servicios',
 	},
 ];
 
@@ -54,15 +65,26 @@ const countdownUnits = [
 	{ key: 'seconds', label: 'Segundos' },
 ];
 
-const galleryImages = [
-	{ src: juegos1, alt: 'Niños jugando en equipo durante una actividad al aire libre' },
-	{ src: motos1, alt: 'Niño conduciendo un mini cuatriciclo en el plan vacacional' },
-	{ src: fiesta2, alt: 'Celebración con globos y juegos en una fiesta temática' },
-	{ src: motos2, alt: 'Grupo de niños listos para el circuito de motos' },
-	{ src: fiesta3, alt: 'Niños bailando en la fiesta del plan vacacional' },
-	{ src: motos3, alt: 'Recorrido en cuatriciclos por el parque' },
-	{ src: motos4, alt: 'Niños disfrutando la pista de juegos extremos' },
-	{ src: motos5, alt: 'Cascos y motos listas para la próxima aventura' },
+const galleryRow1 = [
+	{ src: h1, alt: 'Actividades al aire libre en Cappi Xtremo' },
+	{ src: h2, alt: 'Grupo de niños disfrutando aventuras' },
+	{ src: h3, alt: 'Deportes y juegos extremos' },
+	{ src: h4, alt: 'Experiencia vacacional inolvidable' },
+	{ src: h5, alt: 'Niños en actividad recreativa' },
+	{ src: h6, alt: 'Circuito de aventura en el parque' },
+	{ src: h7, alt: 'Aventura y diversión para todos' },
+	{ src: h8, alt: 'Momentos de diversión en Cappi' },
+];
+
+const galleryRow2 = [
+	{ src: v1, alt: 'Niño conduciendo cuatriciclo' },
+	{ src: v2, alt: 'Actividades deportivas en equipo' },
+	{ src: v3, alt: 'Juegos de agua y aventura' },
+	{ src: v4, alt: 'Exploración y descubrimiento' },
+	{ src: v5, alt: 'Nuevos amigos en el plan vacacional' },
+	{ src: v6, alt: 'Talleres creativos al aire libre' },
+	{ src: v7, alt: 'Circuitos de obstáculos' },
+	{ src: v8, alt: 'Energía y diversión sin parar' },
 ];
 
 const faqs = [
@@ -190,7 +212,7 @@ const philosophyItems = [
 
 				<div class="mt-8 flex flex-col items-center gap-4 sm:flex-row">
 					<a
-						href="/campamentos"
+						href="/planes-vacacionales"
 						class="rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
 					>
 						Ver fechas y plan vacacional
@@ -235,7 +257,7 @@ const philosophyItems = [
 
 			<div data-motion="fade-up" class="mt-14 flex justify-center">
 				<a
-					href="/campamentos"
+					href="/planes-vacacionales"
 					class="rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
 				>
 					Conoce nuestros planes vacacionales
@@ -259,7 +281,7 @@ const philosophyItems = [
 			<div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
 				{
 					serviceCards.map((card) => (
-						<article data-motion="fade-up" class="group relative isolate flex h-[460px] flex-col items-center justify-end overflow-hidden text-center shadow-sm">
+						<a href={card.href} data-motion="fade-up" class="group relative isolate flex h-[460px] flex-col items-center justify-end overflow-hidden text-center shadow-sm transition-shadow hover:shadow-md">
 							<img
 								src={card.image}
 								alt=""
@@ -272,14 +294,11 @@ const philosophyItems = [
 
 							<div class="flex flex-col items-center gap-5 px-6 pb-10">
 								<h4 class="text-xl font-semibold uppercase tracking-wide text-white">{card.title}</h4>
-								<a
-									href={card.href}
-									class="rounded-full bg-white px-5 py-2.5 text-sm font-semibold uppercase text-neutral-900 transition-colors hover:bg-neutral-100"
-								>
+								<span class="rounded-full bg-white px-5 py-2.5 text-sm font-semibold uppercase text-neutral-900 transition-colors group-hover:bg-neutral-100">
 									{card.cta}
-								</a>
+								</span>
 							</div>
-						</article>
+						</a>
 					))
 				}
 			</div>
@@ -312,13 +331,13 @@ const philosophyItems = [
 
 			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
 				<a
-					href="/campamentos"
+					href="/planes-vacacionales"
 					class="rounded-full bg-white px-6 py-3 text-base font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-100"
 				>
 					Apartar cupo para mi hijo
 				</a>
 				<a
-					href="/campamentos"
+					href="/planes-vacacionales"
 					class="text-base font-medium uppercase text-neutral-900 transition-opacity hover:opacity-70"
 				>
 					Ver detalles del plan vacacional
@@ -351,20 +370,9 @@ const philosophyItems = [
 				Cada foto cuenta una aventura distinta, la próxima puede ser la de tu hijo.
 			</p>
 
-			<div class="mt-14 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-				{
-					galleryImages.map((image) => (
-						<figure data-motion="fade-up" class="group relative aspect-square overflow-hidden shadow-sm">
-							<img
-								src={image.src}
-								alt={image.alt}
-								loading="lazy"
-								decoding="async"
-								class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-							/>
-						</figure>
-					))
-				}
+			<div class="mt-14 space-y-4 sm:space-y-6">
+				<GalleryCarousel client:visible images={galleryRow1} direction="left" />
+				<GalleryCarousel client:visible images={galleryRow2} direction="right" />
 			</div>
 		</div>
 	</section>
