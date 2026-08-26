@@ -19,6 +19,13 @@ import dv10 from '../../assets/gallery/all/vertical-images/IMG_4143.jpg?url';
 import dv11 from '../../assets/gallery/all/vertical-images/IMG_4142.jpg?url';
 import dv12 from '../../assets/gallery/all/vertical-images/IMG_4138.jpg?url';
 
+export function getStaticPaths() {
+	return [
+		{ params: { slug: 'daycamp' } },
+		{ params: { slug: 'vacacional' } },
+	];
+}
+
 interface PlanData {
 	name: string;
 	summary: string;
