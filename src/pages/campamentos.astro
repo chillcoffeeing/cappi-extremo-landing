@@ -1,0 +1,183 @@
+---
+import Layout from '../layouts/Layout.astro';
+import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+
+import heroBg from '../assets/gallery/motos-full-view-1.jpg?url';
+import motosFullView2 from '../assets/gallery/motos-full-view-2.jpg?url';
+import juegos1 from '../assets/gallery/juegos-1.jpg?url';
+import fiesta1 from '../assets/gallery/fiesta-1.jpg?url';
+
+const plans = [
+	{
+		name: 'Daycamp',
+		price: '$1,200',
+		period: 'por semana',
+		features: ['Actividades diarias de 9am a 3pm', 'Almuerzo y meriendas incluidas', 'Deportes, juegos y talleres', 'Personal capacitado en primeros auxilios'],
+		cta: 'Inscribir ahora',
+		highlight: false,
+		image: juegos1,
+	},
+	{
+		name: 'Vacacional',
+		price: '$3,500',
+		period: 'por semana',
+		features: ['Experiencia completa de lunes a viernes', 'Almuerzo, meriendas y cena', 'Aventuras, motos y juegos extremos', 'Planes vacacionales especiales temáticos', 'Fotografías del plan vacacional'],
+		cta: 'Inscribir ahora',
+		highlight: true,
+		image: motosFullView2,
+	},
+	{
+		name: 'Fiestas',
+		price: 'Cotizar',
+		period: 'evento',
+		features: ['Animación y recreación personalizada', 'Temáticas personalizadas', 'Equipo profesional', 'Espacios cubiertos y al aire libre'],
+		cta: 'Solicitar cotización',
+		highlight: false,
+		image: fiesta1,
+	},
+];
+
+const sessions = [
+	{ name: 'Semana 1', dates: '15 - 19 de junio', status: 'Disponible' },
+	{ name: 'Semana 2', dates: '22 - 26 de junio', status: 'Disponible' },
+	{ name: 'Semana 3', dates: '29 de junio - 3 de julio', status: 'Disponible' },
+	{ name: 'Semana 4', dates: '6 - 10 de julio', status: 'Por confirmar' },
+];
+---
+
+<Layout title="Planes vacacionales — Cappi Extremo" description="Conoce nuestros planes vacacionales, daycamp y fiestas temáticas. Inscripciones abiertas para el próximo verano.">
+
+	<!-- Hero -->
+	<section class="relative z-10 isolate overflow-hidden">
+		<img src={heroBg} alt="" aria-hidden="true" loading="eager" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
+		<div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+			<div class="flex flex-col items-center text-center">
+				<p data-motion="fade-up" class="text-xl font-semibold uppercase tracking-wide text-white">Cappi <span class="text-primary">Xtremo</span></p>
+				<h1 data-motion="fade-up" class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+					Elige el plan perfecto para las <span class="text-primary">vacaciones</span> de tu hijo
+				</h1>
+				<p data-motion="fade-up" class="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-white md:text-xl">
+					Daycamp, plan vacacional o fiestas temáticas. Todas nuestras opciones incluyen seguridad, diversión y memorias inolvidables.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<SectionPattern bottom="orange-pattern-fade" />
+
+	<!-- Planes -->
+	<section class="py-16 md:py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+				Nuestros planes
+			</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
+				Planes <UnderlineStroke>vacacionales</UnderlineStroke>
+			</h2>
+			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-lg leading-relaxed text-neutral-600">
+				Cada plan está diseñado para que tu hijo viva una experiencia completa de diversión, aventura y aprendizaje.
+			</p>
+
+			<div class="mt-14 space-y-6">
+				{plans.map((plan) => (
+					<article data-motion="fade-up" class:list={[
+						"relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-shadow hover:shadow-md md:flex-row",
+						plan.highlight ? "border-primary bg-primary/5" : "border-neutral-200 bg-white",
+					]}>
+						{plan.highlight && (
+							<span class="absolute left-4 top-4 z-10 rounded-full bg-primary px-4 py-1 text-xs font-semibold uppercase text-primary-foreground">
+								Más popular
+							</span>
+						)}
+						<div class="relative h-48 w-full shrink-0 overflow-hidden md:h-auto md:w-72 lg:w-80">
+							<img src={plan.image} alt={plan.name} loading="lazy" class="h-full w-full object-cover" />
+						</div>
+						<div class="flex flex-1 flex-col p-6 md:p-8">
+							<h3 class="text-xl font-semibold text-neutral-900 md:text-2xl">{plan.name}</h3>
+							<div class="mt-3">
+								<span class="text-4xl font-bold text-neutral-900 md:text-5xl">{plan.price}</span>
+								<span class="ml-1 text-sm text-neutral-500">{plan.period}</span>
+							</div>
+							<ul class="mt-6 flex-1 space-y-3">
+								{plan.features.map((f) => (
+									<li class="flex items-start gap-2 text-base text-neutral-600">
+										<svg class="mt-0.5 size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="M20 6 9 17l-5-5" />
+										</svg>
+										{f}
+									</li>
+								))}
+							</ul>
+							<a href="/coming-soon" class:list={[
+								"mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-semibold transition-colors",
+								plan.highlight
+									? "bg-primary text-primary-foreground hover:bg-primary/90"
+									: "border border-neutral-300 text-neutral-800 hover:border-primary hover:text-primary",
+							]}>
+								{plan.cta}
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Sesiones -->
+	<SectionPattern top="blue-pattern" flipTop />
+	<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
+				Fechas disponibles
+			</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
+				<UnderlineStroke color="text-primary" nowrap={false}>Sesiones 2027</UnderlineStroke>
+			</h2>
+
+			<div class="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
+				{sessions.map((s) => (
+					<div data-motion="fade-up" class="flex items-center justify-between rounded-2xl bg-white/10 px-6 py-5">
+						<div>
+							<p class="font-semibold text-secondary-foreground md:text-lg">{s.name}</p>
+							<p class="text-sm text-secondary-foreground/75">{s.dates}</p>
+						</div>
+						<span class:list={[
+							"rounded-full px-3 py-1 text-xs font-semibold",
+							s.status === "Disponible" ? "bg-primary text-primary-foreground" : "bg-white/20 text-secondary-foreground",
+						]}>
+							{s.status}
+						</span>
+					</div>
+				))}
+			</div>
+
+			<div class="mt-12 flex flex-col items-center gap-4">
+				<a href="/coming-soon" class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
+					Inscribir a mi hijo
+				</a>
+				<a href="/contacto" class="text-base font-medium uppercase text-secondary-foreground transition-opacity hover:opacity-70">
+					Tengo preguntas
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA final (sin pattern bottom de Sesiones porque la siguiente sección es imagen full-bleed) -->
+	<section class="relative z-10 isolate overflow-hidden">
+		<img src={fiesta1} alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
+		<div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+			<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center text-3xl font-semibold text-white md:text-[40px] md:leading-tight">
+				¿Listo para que tu hijo viva la mejor experiencia?
+			</h2>
+			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
+				<a href="/contacto" class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
+					Contáctanos
+				</a>
+			</div>
+		</div>
+	</section>
+
+</Layout>

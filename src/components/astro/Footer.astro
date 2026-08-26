@@ -1,0 +1,59 @@
+---
+import { WHATSAPP_URL, EMAIL_URL } from "../../lib/social";
+import logoSrc from "../../assets/cappi-extremo-logo.png?url";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-white">
+	<div
+		class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-4 px-4 py-10 sm:px-6 md:min-h-40 md:grid md:grid-cols-5 md:max-w-max md:text-center lg:px-8"
+	>
+		<a
+			href={WHATSAPP_URL}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-lg font-medium uppercase text-neutral-700 transition-colors hover:text-primary"
+		>
+			WhatsApp
+		</a>
+
+		<a
+			href={EMAIL_URL}
+			class="text-lg font-medium uppercase text-neutral-700 transition-colors hover:text-primary"
+		>
+			Mail
+		</a>
+
+		<a href="/" aria-label="Cappi Extremo — Inicio" class="order-first flex w-full justify-center md:order-none md:w-auto">
+			<img src={logoSrc} alt="Cappi Extremo" class="h-24 w-auto" />
+		</a>
+
+		<a
+			href="/coming-soon"
+			class=" text-lg font-medium uppercase text-neutral-700 transition-colors hover:text-primary"
+		>
+			Inscribirse
+		</a>
+
+		<a
+			href="/coming-soon"
+			class="text-lg font-medium uppercase text-neutral-700 transition-colors hover:text-primary"
+		>
+			Login
+		</a>
+	</div>
+
+	<div class="border-t border-neutral-200">
+		<div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-4 py-6 text-sm text-neutral-600 sm:px-6 lg:px-8">
+			<a href="/" class="transition-colors hover:text-primary">Inicio</a>
+			<a href="/campamentos" class="transition-colors hover:text-primary">Planes vacacionales</a>
+			<a href="/programas" class="transition-colors hover:text-primary">Programas</a>
+			<a href="/familias" class="transition-colors hover:text-primary">Portal Familias</a>
+			<a href="/contacto" class="transition-colors hover:text-primary">Contacto</a>
+			<a href="/privacidad" class="transition-colors hover:text-primary">Políticas de privacidad</a>
+			<a href="/terminos" class="transition-colors hover:text-primary">Términos y condiciones</a>
+		</div>
+		<p class="text-center text-sm text-neutral-600 pb-6">© {year} Cappi Extremo. Todos los derechos reservados.</p>
+	</div>
+</footer>

@@ -1,0 +1,43 @@
+---
+/**
+ * Adorna secciones con los patrones ondulados de `src/assets/ui/*-pattern.svg`.
+ * Envuelve el <section> y opcionalmente inyecta un patrón antes (top)
+ * o después (bottom) del mismo, pegado al borde para transición sin costuras.
+ *
+ * Patrón según fondo contiguo:
+ * - `orange-pattern`: sólido arriba, borde inferior ondulado → cierra banda bg-primary.
+ * - `orange-pattern-gradient`: igual, con degradado primario→blanco → cierre sobre fondo blanco.
+ * - `orange-pattern-fade`: misma forma que `orange-pattern` con degradado horizontal izquierda (transparente) → derecha (primario) → salida del hero.
+ * - `blue-pattern`: sólido abajo, borde superior ondulado → abre banda bg-secondary.
+ */
+import orangePattern from '../../assets/ui/orange-pattern.svg?url';
+import orangePatternGradient from '../../assets/ui/orange-pattern-gradient.svg?url';
+import orangePatternFade from '../../assets/ui/orange-pattern-fade.svg?url';
+import bluePattern from '../../assets/ui/blue-pattern.svg?url';
+
+const PATTERN_MAP: Record<string, string> = {
+	'orange-pattern': orangePattern,
+	'orange-pattern-gradient': orangePatternGradient,
+	'orange-pattern-fade': orangePatternFade,
+	'blue-pattern': bluePattern,
+};
+
+const PATTERNS = ["orange-pattern", "orange-pattern-gradient", "orange-pattern-fade", "blue-pattern"] as const;
+
+interface Props {
+	/** Nombre del patrón, inyectado ANTES del section */
+	top?: (typeof PATTERNS)[number];
+	/** Nombre del patrón, inyectado DESPUÉS del section */
+	bottom?: (typeof PATTERNS)[number];
+	/** Espeja verticalmente el patrón superior (ej. orange-pattern para ENTRAR a una banda primario) */
+	flipTop?: boolean;
+	/** Espeja verticalmente el patrón inferior */
+	flipBottom?: boolean;
+}
+
+const { top, bottom, flipTop = false, flipBottom = false } = Astro.props;
+---
+
+	{top && <img src={PATTERN_MAP[top]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-top" class:list={["-mb-px block h-auto w-full", flipTop && "-scale-y-100"]} />}
+	<slot />
+	{bottom && <img src={PATTERN_MAP[bottom]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-bottom" class:list={["-mt-px block h-auto w-full", flipBottom && "-scale-y-100"]} />}

@@ -1,23 +1,44 @@
+---
+import "../styles/global.css";
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = "Cappi Extremo", description = "Las vacaciones más divertidas para tu hijo. Planes vacacionales, fiestas y eventos infantiles." } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
+		<script is:inline>
+			document.documentElement.classList.add("js");
+		</script>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content={description} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
 	</head>
-	<body>
-		<slot />
+	<body class="flex min-h-dvh flex-col">
+		<Header />
+		<main class="flex-1">
+			<slot />
+		</main>
+		<Footer />
+		<script>
+			import "../scripts/reveal";
+		</script>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

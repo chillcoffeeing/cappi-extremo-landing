@@ -1,0 +1,44 @@
+---
+interface Props {
+	/** Clase de color del trazo (aplicada al SVG como currentColor) */
+	color?: string;
+	/** Clase de altura del trazo */
+	height?: string;
+	/** Clase de posición vertical del trazo respecto al texto */
+	bottom?: string;
+	/** Grosor del trazo en px (se mantiene exacto por non-scaling-stroke) */
+	strokeWidth?: number;
+	/** Evita que el texto subrayado se parta en varias líneas (default true) */
+	nowrap?: boolean;
+	/** Clases extra para el span contenedor */
+	class?: string;
+}
+
+const {
+	color = "text-tertiary",
+	height = "h-2.5",
+	bottom = "-bottom-2",
+	strokeWidth = 5,
+	nowrap = true,
+	class: spanClass = "",
+} = Astro.props;
+---
+
+<span class:list={["relative inline-block", nowrap && "whitespace-nowrap", spanClass]}>
+	<slot />
+	<svg
+		class:list={["absolute inset-x-0 w-full", bottom, height, color]}
+		viewBox="0 0 220 12"
+		fill="none"
+		preserveAspectRatio="none"
+		aria-hidden="true"
+		data-motion-underline
+	>
+		<path
+			d="M4 9C36 4 78 3 116 5c30 1.6 66 2.6 100 .8"
+			stroke="currentColor"
+			stroke-width={strokeWidth}
+			stroke-linecap="round"
+			vector-effect="non-scaling-stroke"></path>
+	</svg>
+</span>

@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colores de marca */
+  --color-primary: #f7a721;
+  --color-secondary: #04bee4;
+  --color-tertiary: #97d84e;
+
+  /* Foregrounds sobre fondos de marca */
+  --color-primary-foreground: #000000;
+  --color-secondary-foreground: #ffffff;
+
+  /* Tipografía */
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Estados iniciales de animaciones (solo con JS activo; respeta reduced-motion) */
+html.js [data-motion] {
+  opacity: 0;
+}
+
+html.js svg[data-motion-underline] {
+  clip-path: inset(0 0% 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-motion] {
+    opacity: 1;
+  }
+}

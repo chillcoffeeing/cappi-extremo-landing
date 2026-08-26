@@ -1,0 +1,43 @@
+---
+/**
+ * Franja decorativa para imágenes full view (ej. foto del equipo).
+ * Se usa como wrapper del <img>: dibuja una franja de poco más de la mitad
+ * del ancho total y altura fija h-8, arriba o debajo de la imagen,
+ * alineada a la izquierda o a la derecha según props.
+ */
+const COLORS = {
+	primary: "bg-primary",
+	secondary: "bg-secondary",
+	tertiary: "bg-tertiary",
+} as const;
+
+interface Props {
+	/** Variante de color de la franja */
+	color?: keyof typeof COLORS;
+	/** Posición respecto a la imagen */
+	position?: "top" | "bottom";
+	/** Alineación horizontal de la franja */
+	align?: "left" | "right";
+}
+
+const { color = "primary", position = "bottom", align = "left" } = Astro.props;
+
+const stripeClass = ["h-8 w-[55%]", COLORS[color]];
+const alignClass = align === "right" ? "justify-end" : "justify-start";
+---
+
+	{
+		position === "top" && (
+			<div class:list={["flex", alignClass]}>
+				<div class:list={stripeClass} aria-hidden="true" data-motion={`accent-${align}`}></div>
+			</div>
+		)
+	}
+	<slot />
+	{
+		position === "bottom" && (
+			<div class:list={["flex", alignClass]}>
+				<div class:list={stripeClass} aria-hidden="true" data-motion={`accent-${align}`}></div>
+			</div>
+		)
+	}
