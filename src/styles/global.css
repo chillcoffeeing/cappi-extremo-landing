@@ -10,8 +10,69 @@
   --color-primary-foreground: #000000;
   --color-secondary-foreground: #ffffff;
 
+  /* Madera clara (fondo de sección y acentos) */
+  --color-wood: #d9c6a3;
+
   /* Tipografía */
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Fondo de madera clara con vetas curvas (nuevo tipo de fondo) */
+.bg-wood {
+  background-color: var(--color-wood);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='400' viewBox='0 0 260 400'%3E%3Cg fill='none' stroke='%239a7440' stroke-opacity='0.22' stroke-width='2'%3E%3Cpath d='M20 0 C 38 80 8 180 20 280 S 34 400 20 400'/%3E%3Cpath d='M55 0 C 40 90 75 190 55 300 S 45 400 55 400'/%3E%3Cpath d='M90 0 C 112 70 72 200 90 290 S 106 400 90 400'/%3E%3Cpath d='M125 0 C 113 95 139 185 125 295 S 105 400 125 400'/%3E%3Cpath d='M160 0 C 176 85 138 205 160 285 S 174 400 160 400'/%3E%3Cpath d='M195 0 C 175 100 207 180 195 300 S 215 400 195 400'/%3E%3Cpath d='M230 0 C 244 75 212 195 230 290 S 218 400 230 400'/%3E%3C/g%3E%3Cg fill='none' stroke='%239a7440' stroke-opacity='0.13' stroke-width='1.5'%3E%3Cpath d='M38 0 C 50 110 26 170 38 270 S 52 400 38 400'/%3E%3Cpath d='M72 0 C 60 95 88 210 72 310 S 64 400 72 400'/%3E%3Cpath d='M108 0 C 124 80 92 200 108 295 S 122 400 108 400'/%3E%3Cpath d='M143 0 C 131 100 159 180 143 300 S 155 400 143 400'/%3E%3Cpath d='M178 0 C 192 90 160 205 178 285 S 190 400 178 400'/%3E%3Cpath d='M212 0 C 196 105 222 190 212 295 S 226 400 212 400'/%3E%3C/g%3E%3C/svg%3E"),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.06) 0,
+      rgba(0, 0, 0, 0.06) 1px,
+      transparent 1px,
+      transparent 150px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #ddcaa6 0,
+      #ddcaa6 150px,
+      #cbb78f 150px,
+      #cbb78f 300px
+    );
+  background-repeat: repeat, repeat, repeat;
+}
+
+/* Variante sólida de madera (sin vetas) para ítems */
+/* Variante sólida de madera (sin vetas) para ítems */
+.bg-wood-solid {
+  background-color: var(--color-wood);
+}
+
+/* Disfuminado lateral para carruseles (galería y testimonios).
+   El color del borde se toma de --fade-edge-color (por defecto blanco);
+   si el carrusel está sobre una sección de color, definir esa variable
+   en el contenedor padre para que el difuminado coincida con el fondo. */
+.carousel-fade {
+  position: relative;
+}
+
+.carousel-fade::before,
+.carousel-fade::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12%;
+  max-width: 120px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carousel-fade::before {
+  left: 0;
+  background: linear-gradient(to right, var(--fade-edge-color, #ffffff), transparent);
+}
+
+.carousel-fade::after {
+  right: 0;
+  background: linear-gradient(to left, var(--fade-edge-color, #ffffff), transparent);
 }
 
 /* Estados iniciales de animaciones (solo con JS activo; respeta reduced-motion) */

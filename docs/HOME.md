@@ -18,6 +18,7 @@ index.astro
 │   ├── <SectionPattern>        (top="orange-pattern" flipTop)
 │   ├── Section 3: Servicios    (fondo primario, z-10)
 │   ├── <SectionPattern>        (bottom="orange-pattern")
+│   ├── Section 3.1: Jugadas extremas (fondo blanco, grid 3x3 actividades)
 │   ├── Section 4: Testimonios  (fondo blanco, isla React client:visible)
 │   ├── Section 5: Galería      (fondo blanco, cero JS)
 │   ├── Section 6: Staff        (fondo blanco, ImageAccent)
@@ -78,7 +79,7 @@ Cada sección de la home sigue uno de estos patrones:
 ### Eyebrow + h2 (fondo blanco)
 
 ```astro
-<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary md:text-base">
   {eyebrow}
 </p>
 <h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
@@ -89,7 +90,7 @@ Cada sección de la home sigue uno de estos patrones:
 ### Eyebrow + h2 (fondo secundario)
 
 ```astro
-<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
+<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground md:text-base">
   {eyebrow}
 </p>
 <h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
@@ -123,12 +124,12 @@ Fondo fotográfico oscurecido. Contenido centrado vertical y horizontalmente.
 
 ### Contenido
 
-| Elemento | Copy | Clases |
-|----------|------|--------|
-| p | CAPPI XTREMO | `text-xl font-semibold uppercase tracking-wide` · "Cappi Xtremo" en `<span class="text-primary">` |
-| h1 | ¡Las vacaciones más **divertidas** están por comenzar! | `mt-4 max-w-3xl text-5xl font-bold tracking-tight text-white` · "divertidas" en `<span class="text-primary">` |
-| h2 | Deporte, amigos, aventura y risas sin parar... | `mt-6 max-w-2xl text-lg font-normal leading-relaxed text-white` |
-| Botones | "Ver fechas y plan vacacional" + "Únete ahora" | `mt-8 flex flex-col items-center gap-4 sm:flex-row` |
+| Elemento | Copy | Móvil | Desktop (`md:`) |
+|----------|------|-------|----------------|
+| p | CAPPI XTREMO | `text-lg font-semibold uppercase tracking-wide` · "Cappi Xtremo" en `<span class="text-primary">` | `md:text-xl` |
+| h1 | ¡Las vacaciones más **divertidas** están por comenzar! | `mt-4 max-w-3xl text-3xl font-bold tracking-tight text-white` · "divertidas" en `<span class="text-primary">` | `md:text-5xl` |
+| h2 | Deporte, amigos, aventura y risas sin parar... | `mt-6 max-w-2xl text-sm font-normal leading-relaxed text-white` | `md:text-base` |
+| Botones | "Ver fechas y plan vacacional" + "Únete ahora" | `mt-8 flex flex-col items-center gap-4 sm:flex-row`; botones `text-base font-medium` | `md:font-semibold` |
 
 ### Botones del hero (variante grande)
 
@@ -224,6 +225,39 @@ Unidad: número `text-6xl font-bold tabular-nums tracking-tight text-neutral-900
 | Link | Ver detalles del plan vacacional | `text-base font-medium uppercase text-neutral-900 transition-opacity hover:opacity-70` → `/campamentos` |
 
 Envueltos en `mt-10 flex flex-col items-center gap-4`.
+
+---
+
+## 3.1 Jugadas extremas (Actividades)
+
+Fondo blanco. Grid de 9 tarjetas (3×3 en desktop) con foto + franja de color por columna.
+
+| Aspecto | Valor |
+|---------|-------|
+| Ritmo | `py-12 md:py-20` |
+| Eyebrow | "Actividades" · `text-primary` |
+| h2 | "Jugadas extremas" |
+| p intro | `max-w-[700px]` · `text-neutral-600` |
+| Grid | `mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3` |
+
+Cada tarjeta (`<article>`):
+
+```
+overflow-hidden shadow-sm
+├── img: h-40 w-full object-cover (loading="lazy", alt={title})
+└── div franja: flex h-[70px] items-center justify-center px-3 text-center text-sm font-semibold uppercase tracking-wide text-white
+    └── style background-color por columna
+```
+
+Franjas de color según columna (lectura de izquierda → derecha, fila por fila):
+
+| Columna | Color | Aplica a (posiciones 1,4,7 / 2,5,8 / 3,6,9) |
+|---------|-------|----------------------------------------------|
+| 1 | `#805611` | Pádel Fest · Deportes · VAR ritmo |
+| 2 | `#59802E` | Paseo a caballo · Spa · Planetario |
+| 3 | `#026A80` | Acuático · Rally barro · Rústicos |
+
+Datos (`activitiesCards` en frontmatter): 9 items `{ image, title, color }`. Imágenes placeholder reutilizadas de la galería (`h1`–`h8` + `motos-full-view-1`); reemplazar por fotos específicas de cada actividad cuando existan.
 
 ---
 
@@ -389,14 +423,17 @@ Banner fotográfico oscurecido. Mismo patrón del hero.
 
 ## Jerarquía tipográfica
 
-| Nivel | Uso | Clases |
-|-------|-----|--------|
-| h1 | solo hero | `text-5xl font-bold tracking-tight text-white` |
-| h2 | títulos de sección | `text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight` |
-| h3 | items filosofía / título countdown | `text-lg font-medium` / `text-3xl font-semibold uppercase tracking-tight` |
-| h4 | títulos tarjetas servicio | `text-xl font-semibold uppercase tracking-wide text-white` |
-| Eyebrow | pre-título de sección | `text-sm font-semibold uppercase tracking-widest text-primary` |
-| Countdown | números grandes | `text-6xl sm:text-7xl font-bold tabular-nums tracking-tight text-neutral-900` |
+Patrón responsive móvil → desktop (ver SISTEMA-DISENO §2). El tamaño base es para móvil; el paso `md:` aplica en escritorio (≥768px).
+
+| Nivel | Uso | Móvil (base) | Desktop (`md:`) |
+|-------|-----|--------------|-----------------|
+| h1 | solo hero | `text-3xl font-bold tracking-tight text-white` | `md:text-5xl` |
+| h2 | títulos de sección | `text-3xl font-semibold text-neutral-900` | `md:text-[40px] md:leading-tight` |
+| h3 | items filosofía | `text-lg font-medium` | `md:text-xl` |
+| h3 | título countdown | `text-3xl font-semibold uppercase tracking-tight text-neutral-900` | (igual) |
+| h4 | títulos tarjetas servicio | `text-xl font-semibold uppercase tracking-wide text-white` | `md:text-2xl` |
+| Eyebrow | pre-título de sección | `text-sm font-semibold uppercase tracking-widest text-primary` | `md:text-base` |
+| Countdown | números grandes | `text-6xl font-bold tabular-nums tracking-tight text-neutral-900` | `sm:text-7xl` |
 
 ---
 

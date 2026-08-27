@@ -51,16 +51,33 @@ Fuente única: **Poppins**, del peso light (300) al bold (700), cargada en `src/
 
 `--font-sans` se redefine con Poppins en `@theme`, por lo que es la fuente por defecto de todo el sitio (el preflight de Tailwind la aplica a `<html>`). No hace falta poner `font-sans` manualmente.
 
-Escala tipográfica recomendada (solo medidas estándar de Tailwind):
+### Escala tipográfica responsive (móvil → desktop)
 
-| Elemento        | Clases                                        |
-| --------------- | --------------------------------------------- |
-| H1 (hero)       | `text-4xl sm:text-5xl font-bold tracking-tight` |
-| H2              | `text-3xl font-semibold tracking-tight`         |
-| H3              | `text-2xl font-semibold`                        |
-| Body            | `text-base font-normal leading-relaxed`         |
-| Caption / meta  | `text-sm font-light`                            |
-| Botón           | `text-sm font-semibold`                         |
+Criterio introducido en el hero y aplicado a todo el sitio: **en móvil los tamaños son más
+contenidos; en `md:` (≥768px) escalan hacia arriba**. Siempre se define primero el tamaño
+base (móvil) y luego el `md:` (desktop). No se usan breakpoints intermedios (`sm:`) para la
+tipografía de títulos, salvo en contadores numéricos.
+
+El hero (`src/pages/index.astro`) es la implementación de referencia de este patrón.
+
+| Nivel | Móvil (base) | Desktop (`md:`) | Peso / extra |
+| ----- | ------------ | --------------- | ------------ |
+| H1 (solo hero) | `text-3xl` (30px) | `md:text-5xl` (48px) | `font-bold tracking-tight` · `text-white` sobre foto |
+| H2 (título de sección) | `text-3xl` (30px) | `md:text-[40px]` (40px) | `font-semibold` · `md:leading-tight` |
+| H3 (ítem filosofía) | `text-lg` (18px) | `md:text-xl` (20px) | `font-medium` |
+| H3 (título countdown) | `text-3xl` (30px) | (igual) | `font-semibold uppercase tracking-tight` |
+| H4 (tarjeta de servicio) | `text-xl` (20px) | `md:text-2xl` (24px) | `font-semibold uppercase tracking-wide` |
+| Eyebrow (hero) | `text-lg` (18px) | `md:text-xl` (20px) | `font-semibold uppercase tracking-wide` |
+| Eyebrow (sección) | `text-sm` (14px) | `md:text-base` (16px) | `font-semibold uppercase tracking-widest` |
+| Subtítulo / p secundario | `text-sm` (14px) | `md:text-base` (16px) | `font-normal leading-relaxed` |
+| Body / p intro | `text-base` (16px) | (igual) | `font-normal leading-relaxed` |
+| Caption / meta | `text-xs` (12px) | `md:text-sm` (14px) | `font-light` / `font-medium` |
+| Botón grande | `text-base` (16px) | (igual, `font-medium md:font-semibold`) | pill `rounded-full` |
+| Botón base / compacto | `text-sm` (14px) | (igual) | `font-semibold` |
+
+> Nota de migración: el hero ya implementa todas las clases responsivas de la tabla. El
+> resto de secciones debe seguir el mismo patrón (`md:` en cada nivel); donde el markup
+> actual solo declara el tamaño móvil, añadir el paso `md:` correspondiente.
 
 ---
 
@@ -253,3 +270,83 @@ Reglas:
 - Cada animación corre **una sola vez** al entrar en viewport (`inView` + stop).
 - El hero queda estático a propósito (LCP).
 - **Stacking**: durante la animación, el transform del patrón crea contexto de apilamiento y lo pintaría por encima de las secciones estáticas vecinas. Toda sección contigua a un patrón lleva `relative z-10` para que la onda emerja **desde detrás** de ella (hero, banda primario y banda secundario en la Home).
+- **Punto de disparo**: las animaciones se activan cuando el elemento llega al **5% de altura desde abajo** del viewport (`inView` con `margin: "0px 0px -5% 0px"`, root reducido a los 95% superiores). Antes se disparaban cerca del borde inferior.
+
+---
+
+## 12. Fondo de madera clara (decoración de sección)
+
+Nuevo tipo de fondo de sección: **madera clara/marrón** con vetas (tablones verticales). Implementado
+como utilidad `.bg-wood` en `src/styles/global.css` (color base `--color-wood: #c9a36b` + dos
+`repeating-linear-gradient` que simulan tablones y costuras). No es un componente: se aplica como
+clase al `<section>`.
+
+Reglas:
+
+- Color base declarado como token `--color-wood` en `@theme` (sigue la regla de no hardcodear hex suelto).
+- Se usa como fondo de sección completa (`relative isolate bg-wood`); el contenido va en el contenedor interior.
+- Capas del fondo (de arriba abajo): (1) **vetas curvas** en SVG (`<path>` con curvas Bézier, color `%239a7440` a 22% de opacidad, repetidas) que simulan las vetas de madera; (2) costuras finas entre tablones; (3) tablones verticales alternando `#ddcaa6` / `#cbb78f`.
+- Las vetas **no** usan `clip-path: path()` porque ese recorte trabaja con coordenadas fijas en píxeles y no escala al ancho responsive del sitio; se prefiere el SVG de fondo repetido, que sí es fluido.
+- Los textos sobre madera usan `text-neutral-900` (contraste suficiente sobre el marrón claro).
+- Combinable con tarjetas de colores (primario / secundario / terciario / madera) para ítems visuales.
+- No confundir con los fondos de marca (`bg-primary` / `bg-secondary`): la madera es un fondo temático aparte.
+
+---
+
+## 11. Medio círculo lateral (decoración de fondo)
+
+Círculo (por defecto 150px de diámetro, configurable) que emerge a medio oculto por el borde
+lateral de una sección con fondo de color. Es puramente decorativo (parte del fondo) y va
+**por detrás del contenido**.
+
+Implementado en `src/components/astro/SideCircle.astro`. Regla de color: el círculo usa el color
+**opuesto** al fondo de la sección (sobre `bg-primary` → círculo `secondary`; sobre `bg-secondary`
+→ círculo `primary`).
+
+```astro
+---
+import SideCircle from '../components/astro/SideCircle.astro';
+---
+
+<section class="relative z-10 isolate overflow-hidden bg-primary">
+  <SideCircle color="secondary" side="right" position="center" size="medium" />
+  <!-- contenido -->
+</section>
+```
+
+| Prop      | Valores                                   | Default     | Descripción |
+| --------- | ----------------------------------------- | ----------- | ----------- |
+| `color`   | `primary` · `secondary`                  | `secondary` | Color del círculo (normalmente el opuesto al bg de la sección) |
+| `side`    | `left` · `right`                         | `right`     | Borde lateral por donde emerge el medio círculo |
+| `position`| `top` · `center` · `bottom`               | `center`    | Alineación vertical del círculo dentro de la sección |
+| `size`    | `xs` · `small` · `medium` · `large` · `xl` | `medium`  | Diámetro del círculo (ver tabla de tamaños) |
+| `class`   | `string`                                 | —           | Clases extra que se añaden al círculo |
+
+Tamaños (`size`):
+
+| `size`  | Diámetro   |
+| ------- | ---------- |
+| `xs`    | `70px`     |
+| `small` | `100px`    |
+| `medium`| `150px`    |
+| `large` | `200px`    |
+| `xl`    | `300px`    |
+
+Posicionamiento (clases generadas):
+
+- **`side`**: `left` → `left-0 -translate-x-1/2` (mitad fuera del borde izquierdo); `right` →
+  `right-0 translate-x-1/2` (mitad fuera del borde derecho).
+- **`position`**: `top` → `top-10` (2.5rem desde el borde superior); `bottom` → `bottom-10`
+  (2.5rem desde el borde inferior); `center` → `top-1/2 -translate-y-1/2` (centrado verticalmente).
+
+Reglas:
+
+- **Requiere `overflow-hidden`** en la sección contenedora: el medio círculo se descuadra `-50%`
+  fuera del borde lateral y el `overflow-hidden` recorta la mitad que queda afuera, dejando solo
+  la semicircunferencia visible.
+- Siempre `absolute -z-10` (detrás del contenido); la sección debe ser `relative isolate`.
+- `pointer-events-none` + `aria-hidden="true"`: no interactivo ni accesible.
+- El diámetro es configurable vía la prop `size` (no está fijo).
+- Solo se usa sobre secciones con fondo de color (`bg-primary`, `bg-secondary`, `bg-wood`, etc.);
+  **no** se coloca en secciones de fondo blanco.
+- No usar sobre fondos fotográficos ni blancos (solo bandas de color primario/secundario).

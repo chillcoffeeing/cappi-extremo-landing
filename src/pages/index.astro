@@ -2,9 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/react/Testimonials.tsx';
 import GalleryCarousel from '../components/react/GalleryCarousel.tsx';
+import { testimonials } from '../data/testimonials';
 import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
 import ImageAccent from '../components/astro/ImageAccent.astro';
+import SideCircle from '../components/astro/SideCircle.astro';
+import { faqs } from '../data/faqs';
 
 import flagIcon from '../assets/ui/flag.svg?url';
 import peopleIcon from '../assets/ui/people.svg?url';
@@ -12,7 +15,8 @@ import laughIcon from '../assets/ui/laugh.svg?url';
 import shieldIcon from '../assets/ui/shield.svg?url';
 import chevronDownSvg from '../assets/ui/chevron-down.svg?raw';
 
-import heroBg from '../assets/gallery/motos-full-view-2.jpg?url';
+import heroPosterBg from '../assets/gallery/motos-full-view-2.jpg?url';
+import heroVideoMp4Bg from '../assets/videos/hero-video-bg.mp4?url';
 import motosFullView1 from '../assets/gallery/motos-full-view-1.jpg?url';
 import fiesta1 from '../assets/gallery/fiesta-1.jpg?url';
 import juegos1 from '../assets/gallery/juegos-1.jpg?url';
@@ -65,6 +69,20 @@ const countdownUnits = [
 	{ key: 'seconds', label: 'Segundos' },
 ];
 
+const COLORS = { col1: '#805611', col2: '#59802E', col3: '#026A80' };
+
+const activitiesCards = [
+	{ image: h1, title: 'Pádel Fest', color: COLORS.col1 },
+	{ image: h2, title: 'Paseo a caballo', color: COLORS.col2 },
+	{ image: h3, title: 'Acuático', color: COLORS.col3 },
+	{ image: h4, title: 'Deportes', color: COLORS.col1 },
+	{ image: h5, title: 'Spa', color: COLORS.col2 },
+	{ image: h6, title: 'Rally barro', color: COLORS.col3 },
+	{ image: h7, title: 'VAR ritmo', color: COLORS.col1 },
+	{ image: h8, title: 'Planetario', color: COLORS.col2 },
+	{ image: motosFullView1, title: 'Rústicos', color: COLORS.col3 },
+];
+
 const galleryRow1 = [
 	{ src: h1, alt: 'Actividades al aire libre en Cappi Xtremo' },
 	{ src: h2, alt: 'Grupo de niños disfrutando aventuras' },
@@ -87,76 +105,7 @@ const galleryRow2 = [
 	{ src: v8, alt: 'Energía y diversión sin parar' },
 ];
 
-const faqs = [
-	{
-		question: '¿Cómo inscribo a mi hijo?',
-		answer:
-			'Entra a la sección de planes vacacionales, elige el plan y la sesión que prefieras y pulsa "Inscribir ahora". El proceso toma menos de cinco minutos.',
-	},
-	{
-		question: '¿Qué debe llevar mi hijo al plan vacacional?',
-		answer:
-			'Ropa cómoda para moverse, traje de baño, protector solar y una muda extra. Te enviaremos la lista completa por correo antes de comenzar.',
-	},
-	{
-		question: '¿Qué actividades hacen los campistas?',
-		answer:
-			'Deportes, juegos de agua, talleres creativos, circuitos de aventura y jornadas temáticas. Cada día combina actividad física, juego y tiempo en equipo.',
-	},
-	{
-		question: '¿Hay una acampada en el daycamp?',
-		answer:
-			'Sí. En el daycamp los campistas viven una jornada completa con almuerzo, meriendas y todas las actividades incluidas.',
-	},
-	{
-		question: '¿Qué medidas de seguridad tienen durante el plan vacacional?',
-		answer:
-			'Todo el personal está entrenado en primeros auxilios, las actividades son supervisadas en todo momento y contamos con protocolos claros por cada espacio.',
-	},
-	{
-		question: '¿Puedo pagar en cuotas?',
-		answer:
-			'Sí. Puedes pagar el plan vacacional en cuotas; el calendario de pagos se muestra al momento de inscribir.',
-	},
-	{
-		question: '¿Ofrecen otros servicios aparte del plan vacacional?',
-		answer:
-			'Además del plan vacacional ofrecemos fiestas y eventos, así como animación y recreación para cumpleaños y celebraciones.',
-	},
-];
 
-const testimonials = [
-	{
-		quote: 'Mi hijo vuelve cansado, sucio y feliz. Exactamente lo que esperábamos del verano.',
-		name: 'Carolina M.',
-		context: 'Mamá de Mateo · 9 años',
-	},
-	{
-		quote: 'La organización es impecable y el trato con los niños, espectacular. Repetimos sin dudarlo.',
-		name: 'Andrés R.',
-		context: 'Papá de Valentina · 7 años',
-	},
-	{
-		quote: 'Sofía no paraba de contar las actividades día tras día. La mejor experiencia de sus vacaciones.',
-		name: 'Laura P.',
-		context: 'Mamá de Sofía · 8 años',
-	},
-	{
-		quote: 'Seguridad, diversión y un equipo encantador. Como padres, tranquilidad total.',
-		name: 'Javier T.',
-		context: 'Papá de Diego · 10 años',
-	},
-	{
-		quote: 'El plan vacacional superó todo lo que imaginábamos. Ya estamos contando los días para el próximo.',
-		name: 'Daniela C.',
-		context: 'Mamá de Emma · 6 años',
-	},
-	{
-		quote: 'Las fiestas temáticas son de otro nivel. Nuestro hijo las espera con ansias todo el año.',
-		name: 'Miguel Á.',
-		context: 'Papá de Thiago · 9 años',
-	},
-];
 
 const philosophyItems = [
 	{
@@ -184,28 +133,23 @@ const philosophyItems = [
 
 <Layout>
 	<section class="relative z-10 isolate overflow-hidden">
-		<img
-			src={heroBg}
-			alt=""
-			aria-hidden="true"
-			loading="eager"
-			fetchpriority="high"
-			decoding="async"
-			class="absolute inset-0 -z-10 h-full w-full object-cover"
-		/>
+		<video poster={heroPosterBg}  preload="none" autoplay muted loop class="absolute inset-0 -z-10 h-full w-full object-cover">
+			<source src={heroVideoMp4Bg} type="video/mp4">
+		</video>
+		
 		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
 
-		<div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
-			<div class="flex flex-col items-center text-center">
-				<p class="text-xl font-semibold uppercase tracking-wide">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="flex flex-col justify-center items-center text-center min-h-130 py-10 md:min-h-170">
+				<p class="text-lg md:text-xl font-semibold uppercase tracking-wide">
 					<span class="text-primary">Cappi Xtremo</span>
 				</p>
 
-				<h1 class="mt-4 max-w-3xl text-5xl font-bold tracking-tight text-white">
+				<h1 class="mt-4 max-w-4xl text-3xl md:text-5xl xl:text-6xl font-bold tracking-tight text-white">
 					¡Las vacaciones más <span class="text-primary">divertidas</span> están por comenzar!
 				</h1>
 
-				<h2 class="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-white">
+				<h2 class="mt-6 max-w-2xl text-sm md:text-base font-normal leading-relaxed text-white">
 					Deporte, amigos, aventura y risas sin parar. Dale a tu hijo un verano que va a recordar
 					para siempre.
 				</h2>
@@ -213,13 +157,13 @@ const philosophyItems = [
 				<div class="mt-8 flex flex-col items-center gap-4 sm:flex-row">
 					<a
 						href="/planes-vacacionales"
-						class="rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+						class="rounded-full bg-primary px-6 py-3 text-base font-medium md:font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
 					>
 						Ver fechas y plan vacacional
 					</a>
 					<a
 						href="#"
-						class="rounded-full bg-white px-6 py-3 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100"
+						class="rounded-full bg-white px-6 py-3 text-base font-medium md:font-semibold text-neutral-900 transition-colors hover:bg-neutral-100"
 					>
 						Únete ahora
 					</a>
@@ -267,7 +211,9 @@ const philosophyItems = [
 	</section>
 
 	<SectionPattern top="orange-pattern" flipTop />
-	<section class="relative z-10 isolate bg-primary">
+	<section class="relative z-10 isolate overflow-hidden bg-primary">
+		<SideCircle color="secondary" side="right" position="center" />
+		<SideCircle color="secondary" side="left" position="top" size="large" />
 		<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8">
 			<h2 data-motion="fade-up" class="text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
 				Bienvenidos a <UnderlineStroke>Cappi Xtremo</UnderlineStroke>
@@ -349,9 +295,47 @@ const philosophyItems = [
 
 	<section class="py-12 md:py-20">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary md:text-base">
+				Actividades
+			</p>
+			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
+				<UnderlineStroke>Jugadas extremas</UnderlineStroke>
+			</h2>
+			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
+				Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se
+				divierten, los campistas también desarrollan liderazgo, trabajo en equipo, confianza y respeto a
+				su propio ritmo y sin darse cuenta.
+			</p>
+
+			<div data-motion="fade-up" class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					activitiesCards.map((item) => (
+						<article class="overflow-hidden shadow-sm">
+							<img
+								src={item.image}
+								alt={item.title}
+								loading="lazy"
+								decoding="async"
+								class="h-40 w-full object-cover"
+							/>
+							<div
+								class="flex h-[70px] items-center justify-center px-3 text-center text-2xl font-semibold uppercase tracking-wide text-white"
+								style={`background-color:${item.color}`}
+							>
+								{item.title}
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="py-12 md:py-20">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Testimonios</p>
 			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Lo que dicen las familias
+				<UnderlineStroke>Lo que dicen las familias</UnderlineStroke>
 			</h2>
 
 			<div class="mt-14">
@@ -364,7 +348,7 @@ const philosophyItems = [
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Galería</p>
 			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Así se vive Cappi Xtremo
+				Así se vive <UnderlineStroke>Cappi Xtremo</UnderlineStroke>
 			</h2>
 			<p data-motion="fade-up" class="mx-auto mt-4 max-w-175 text-center text-base leading-relaxed text-neutral-600">
 				Cada foto cuenta una aventura distinta, la próxima puede ser la de tu hijo.
@@ -401,7 +385,9 @@ const philosophyItems = [
 	</section>
 
 	<SectionPattern top="blue-pattern" flipTop />
-	<section class="relative z-10 isolate bg-secondary py-12 md:py-20">
+	<section class="relative z-10 isolate overflow-hidden bg-secondary py-12 md:py-20">
+		<SideCircle color="primary" side="left" position="center" />
+		<SideCircle color="primary" side="right" position="bottom" size="large" />
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
 				Respondemos tus dudas
@@ -442,7 +428,7 @@ const philosophyItems = [
 
 		<div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
 			<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center text-3xl font-semibold text-white md:text-[40px] md:leading-tight">
-				¿Tienes preguntas sobre nuestros planes vacacionales? Escríbenos.
+				¿Tienes preguntas sobre nuestros <UnderlineStroke>planes vacacionales</UnderlineStroke>? Escríbenos.
 			</h2>
 
 			<div data-motion="fade-up" class="mt-8 flex justify-center">

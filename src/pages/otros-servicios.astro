@@ -1,20 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/react/Testimonials.tsx';
 import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
+import SideCircle from '../components/astro/SideCircle.astro';
+import GalleryCarousel from '../components/react/GalleryCarousel.tsx';
+import { faqs } from '../data/faqs';
+import { testimonials } from '../data/testimonials';
 
 import heroBg from '../assets/gallery/fiesta-1.jpg?url';
 import chevronDownSvg from '../assets/ui/chevron-down.svg?raw';
 
-import h9 from '../assets/gallery/all/horizontal-images/IMG_4191.jpg?url';
-import h10 from '../assets/gallery/all/horizontal-images/IMG_4187.jpg?url';
-import h11 from '../assets/gallery/all/horizontal-images/IMG_4181.jpg?url';
-import h12 from '../assets/gallery/all/horizontal-images/IMG_4164.jpg?url';
-import h13 from '../assets/gallery/all/horizontal-images/IMG_4161.jpg?url';
 import h14 from '../assets/gallery/all/horizontal-images/IMG_3602.jpg?url';
 import h15 from '../assets/gallery/all/horizontal-images/IMG_3601.jpg?url';
-import h16 from '../assets/gallery/all/horizontal-images/IMG_3597.jpg?url';
 
 const services = [
 	{
@@ -49,54 +48,21 @@ const steps = [
 	{ number: '3', title: 'Confirmas y coordinamos todo', description: 'Nos encargamos de cada detalle.' },
 ];
 
-const galleryImages = [
-	{ src: h9, alt: 'Fiesta temática con decoración personalizada' },
-	{ src: h10, alt: 'Niños participando en juegos dirigidos' },
-	{ src: h11, alt: 'Celebración con globos y animación' },
-	{ src: h12, alt: 'Dinámicas grupales con personal de animación' },
-	{ src: h13, alt: 'Actividades recreativas al aire libre' },
-	{ src: h14, alt: 'Eventos privados con equipo profesional' },
-	{ src: h15, alt: 'Juegos de equipo para colegios' },
-	{ src: h16, alt: 'Recreación infantil incluida en el servicio' },
-];
+const galleryModules = import.meta.glob(
+	'../assets/gallery/all/**/*.{jpg,jpeg,png,webp,avif,gif}',
+	{ eager: true, query: '?url', import: 'default' },
+) as Record<string, string>;
 
-const testimonials = [
-	{
-		quote: 'Las fiestas temáticas son de otro nivel. Nuestro hijo las espera con ansias todo el año.',
-		name: 'Miguel Á.',
-		context: 'Papá de Thiago · 9 años',
-	},
-	{
-		quote: 'La organización es impecable y el trato con los niños, espectacular. Repetimos sin dudarlo.',
-		name: 'Andrés R.',
-		context: 'Papá de Valentina · 7 años',
-	},
-	{
-		quote: 'Contratamos la animación para el cumpleaños de Sofía y fue perfecto. Todos los niños se divirtieron.',
-		name: 'Laura P.',
-		context: 'Mamá de Sofía · 8 años',
-	},
-	{
-		quote: 'El equipo se adaptó a nuestro espacio y creó una experiencia única. Recomendadísimos.',
-		name: 'Carolina M.',
-		context: 'Mamá de Mateo · 9 años',
-	},
-];
+const allGalleryImages = Object.entries(galleryModules).map(([, src]) => ({
+	src,
+	alt: 'Experiencia Cappi Xtremo',
+}));
 
-const faqs = [
-	{
-		question: '¿Con cuánta anticipación debo reservar?',
-		answer: 'Recomendamos al menos 2 semanas de anticipación para eventos grandes y 1 semana para fiestas íntimas. Contáctanos lo antes posible y coordinamos.',
-	},
-	{
-		question: '¿Qué incluye el paquete básico?',
-		answer: 'El paquete básico incluye animación profesional, juegos dirigidos, material recreativo y coordinación del evento. Los detalles se personalizan según tus necesidades.',
-	},
-	{
-		question: '¿Trabajan en espacios fuera de la sede de Cappi?',
-		answer: 'Sí. Nuestros servicios de animación y recreación son adaptables a cualquier espacio: colegios, empresas, casas particulares o espacios al aire libre.',
-	},
-];
+const galleryRow1 = allGalleryImages.slice(0, Math.ceil(allGalleryImages.length / 2));
+const galleryRow2 = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
+
+
+
 ---
 
 <Layout title="Otros servicios — Cappi Extremo" description="Fiestas, eventos y animaciones a la medida de tu celebración. Cotiza tu evento con Cappi Xtremo.">
@@ -146,7 +112,7 @@ const faqs = [
 				{services.map((service) => (
 					<article data-motion="fade-up" class="flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md">
 						<div class="relative h-[250px] w-full overflow-hidden">
-							<img src={service.image} alt={service.name} loading="lazy" class="h-full w-full object-cover" />
+							<Image src={service.image} alt={service.name} width={800} height={500} loading="lazy" class="h-full w-full object-cover" />
 						</div>
 						<div class="flex flex-1 flex-col p-6 md:p-8">
 							<h3 class="text-xl font-semibold text-neutral-900 md:text-2xl">{service.name}</h3>
@@ -176,6 +142,7 @@ const faqs = [
 	<!-- Cómo funciona una cotización -->
 	<SectionPattern top="blue-pattern" flipTop />
 	<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
+		<SideCircle color="primary" side="right" position="bottom" size="large" />
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
 				¿Cómo funciona?
@@ -197,6 +164,7 @@ const faqs = [
 			</div>
 		</div>
 	</section>
+	<SectionPattern top="blue-pattern" flipBottom />
 
 	<!-- Galería -->
 	<section class="py-16 md:py-24">
@@ -208,13 +176,9 @@ const faqs = [
 			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
 				Cada foto cuenta una celebración distinta, la próxima puede ser la tuya.
 			</p>
-			<div class="mt-14 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-				{galleryImages.map((image) => (
-					<figure data-motion="fade-up" class="group relative aspect-square overflow-hidden shadow-sm">
-						<img src={image.src} alt={image.alt} loading="lazy" decoding="async"
-							class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-					</figure>
-				))}
+			<div class="mt-14 space-y-4 sm:space-y-6">
+				<GalleryCarousel client:visible images={galleryRow1} direction="left" />
+				<GalleryCarousel client:visible images={galleryRow2} direction="right" />
 			</div>
 		</div>
 	</section>
@@ -224,7 +188,7 @@ const faqs = [
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Testimonios</p>
 			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Lo que dicen las familias
+				<UnderlineStroke>Lo que dicen las familias</UnderlineStroke>
 			</h2>
 			<div class="mt-14">
 				<Testimonials client:visible items={testimonials} />
@@ -235,6 +199,7 @@ const faqs = [
 	<!-- FAQ -->
 	<SectionPattern top="blue-pattern" flipTop />
 	<section class="relative z-10 isolate bg-secondary py-12 md:py-20">
+		<SideCircle color="primary" side="left" position="top" size="large" />
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
 				Respondemos tus dudas

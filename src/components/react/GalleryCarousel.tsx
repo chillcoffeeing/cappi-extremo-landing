@@ -50,9 +50,9 @@ export default function GalleryCarousel({
 }: GalleryCarouselProps) {
   const [emblaRef] = useEmblaCarousel({ loop: true, align: "start" }, [
     AutoScroll({
-      speed: 1,
+      speed: 0.4,
       direction: direction === "right" ? "forward" : "backward",
-      stopOnMouseEnter: false,
+      stopOnMouseEnter: true,
       stopOnInteraction: false,
     }),
   ]);
@@ -66,13 +66,10 @@ export default function GalleryCarousel({
     animCtrl.current = null;
   };
 
-  const open = useCallback(
-    (image: GalleryImage, rect: DOMRect) => {
-      cancel();
-      setLightbox({ src: image.src, alt: image.alt, rect });
-    },
-    [],
-  );
+  const open = useCallback((image: GalleryImage, rect: DOMRect) => {
+    cancel();
+    setLightbox({ src: image.src, alt: image.alt, rect });
+  }, []);
 
   const close = useCallback(() => {
     const img = imgRef.current;
@@ -161,6 +158,7 @@ export default function GalleryCarousel({
 
   return (
     <>
+      <div className="carousel-fade">
       <div
         role="region"
         aria-label="Galería de fotos"
@@ -195,6 +193,7 @@ export default function GalleryCarousel({
             </li>
           ))}
         </ul>
+      </div>
       </div>
 
       {lightbox && (

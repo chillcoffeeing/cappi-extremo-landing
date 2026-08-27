@@ -38,6 +38,6 @@ interface Props {
 const { top, bottom, flipTop = false, flipBottom = false } = Astro.props;
 ---
 
-	{top && <img src={PATTERN_MAP[top]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-top" class:list={["-mb-px block h-auto w-full", flipTop && "-scale-y-100"]} />}
+	{top && <img src={PATTERN_MAP[top]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-top" class:list={["-mb-px block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-1":"-mt-1"]} />}
 	<slot />
-	{bottom && <img src={PATTERN_MAP[bottom]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-bottom" class:list={["-mt-px block h-auto w-full", flipBottom && "-scale-y-100"]} />}
+	{bottom && <img src={PATTERN_MAP[bottom]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-bottom" class:list={["-mt-px block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-1":"-mt-1"]} />}

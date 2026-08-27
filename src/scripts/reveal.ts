@@ -9,7 +9,7 @@ function once(el: Element, play: () => void) {
       play();
       stop();
     },
-    { amount: 0.25 },
+    { amount: 0.2, margin: "0px 0px -5% 0px" },
   );
 }
 
