@@ -1,0 +1,100 @@
+---
+import SideCircle from '../../astro/SideCircle.astro';
+import SectionHeading from '../../titles/SectionHeading.astro';
+import CtaList from '../../cta/CtaList.astro';
+import type { Cta } from '../../cta/CtaList.astro';
+
+export interface Session {
+	name: string;
+	dates: string;
+	status: string;
+}
+
+export interface Circle {
+	side: 'left' | 'right';
+	position?: 'top' | 'center' | 'bottom';
+	size?: 'xs' | 'small' | 'medium' | 'large' | 'xl';
+}
+
+export interface Props {
+	/** Banda secondary (oscuro) o fondo blanco */
+	tone?: 'dark' | 'light';
+	eyebrow?: string;
+	title: string;
+	underline?: string;
+	sessions: Session[];
+	/** CTA bajo la rejilla (variant dark) */
+	ctas?: Cta[];
+	/** Link "Inscribir" por sesión (variant light) */
+	inscribirHref?: string;
+	/** Círculos decorativos (variant dark) */
+	circles?: Circle[];
+}
+
+const {
+	tone = 'dark',
+	eyebrow,
+	title,
+	underline,
+	sessions,
+	ctas = [],
+	inscribirHref = '/coming-soon',
+	circles = [],
+} = Astro.props;
+
+const dark = tone === 'dark';
+const paddingClass = dark ? 'py-16 md:py-24' : 'py-16 md:py-24';
+
+const itemClass = dark
+	? 'flex items-center justify-between rounded-2xl bg-white/10 px-6 py-5'
+	: 'flex items-center justify-between rounded-2xl border border-neutral-200 bg-white px-6 py-5 shadow-sm';
+const nameClass = dark ? 'font-semibold text-secondary-foreground' : 'font-semibold text-neutral-900';
+const datesClass = dark ? 'text-secondary-foreground/75' : 'text-neutral-500';
+const statusClass = (disponible: boolean) =>
+	dark
+		? `rounded-full px-3 py-1 text-xs font-semibold ${disponible ? 'bg-primary text-primary-foreground' : 'bg-white/20 text-secondary-foreground'}`
+		: `rounded-full px-3 py-1 text-xs font-semibold ${disponible ? 'bg-primary text-primary-foreground' : 'bg-neutral-100 text-neutral-500'}`;
+---
+
+<section class={`relative z-10 isolate ${dark ? 'bg-secondary' : ''} ${paddingClass}`}>
+	{circles.map((c) => (
+		<SideCircle color="primary" side={c.side} position={c.position} size={c.size} />
+	))}
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SectionHeading
+			eyebrow={eyebrow}
+			title={title}
+			underline={underline}
+			underlineColor={dark ? 'text-primary' : 'text-tertiary'}
+			tone={dark ? 'dark' : 'light'}
+		/>
+
+		<div class="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
+			{sessions.map((s) => (
+				<div data-motion="fade-up" class={itemClass}>
+					<div>
+						<p class={nameClass}>{s.name}</p>
+						<p class={datesClass}>{s.dates}</p>
+					</div>
+					{dark ? (
+						<span class={statusClass(s.status === 'Disponible')}>{s.status}</span>
+					) : (
+						<div class="flex flex-col items-end gap-2">
+							<span class={statusClass(s.status === 'Disponible')}>{s.status}</span>
+							<a href={inscribirHref} class="text-xs font-medium uppercase text-primary transition-opacity hover:opacity-70">
+								Inscribir
+							</a>
+						</div>
+					)}
+				</div>
+			))}
+		</div>
+
+		{ctas.length > 0 && (
+			<CtaList
+				ctas={ctas.map((c) => ({ ...c, linkColor: c.variant === 'link' ? 'text-secondary-foreground' : undefined }))}
+				class="mt-12"
+			/>
+		)}
+	</div>
+</section>

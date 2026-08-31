@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+/* Cursor pointer en todos los elementos clicables.
+   Los elementos deshabilitados / no interactivos conservan el cursor correcto. */
+@layer base {
+  a,
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  select,
+  label,
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="range"],
+  [tabindex]:not([tabindex="-1"]) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
 @theme {
   /* Colores de marca */
   --color-primary: #f7a721;
@@ -15,6 +37,60 @@
 
   /* Tipografía */
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Escala tipográfica del sitio:
+   Móvil: p 14px · h1 40px · h2 28px · h3 20px · h4 16px.
+   Desktop (≥md): +20 % (16.8 / 48 / 33.6 / 24 / 19.2 px). */
+@layer base {
+  p {
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  h4 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+@media (min-width: 768px) {
+  @layer base {
+    p {
+      font-size: 1.05rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 2.1rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+    }
+  }
 }
 
 /* Fondo de madera clara con vetas curvas (nuevo tipo de fondo) */

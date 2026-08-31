@@ -1,0 +1,75 @@
+---
+import UnderlineStroke from './UnderlineStroke.astro';
+
+export interface Props {
+	/** Texto corto en mayúsculas sobre el título */
+	eyebrow?: string;
+	/** Fragmento del eyebrow resaltado en primary */
+	eyebrowHighlight?: string;
+	/** Título de la sección */
+	title: string;
+	/** Palabras subrayadas con UnderlineStroke */
+	underline?: string;
+	/** Clase de color del trazo (default verde/terciario) */
+	underlineColor?: string;
+	/** Evita que el subrayado se parta en varias líneas */
+	underlineNowrap?: boolean;
+	/** Tono según el fondo: secciones blancas, bandas secondary o bandas primary */
+	tone?: 'light' | 'dark' | 'primary';
+	/** Párrafo introductorio centrado */
+	intro?: string;
+	/** Clases extra para el <p> intro */
+	introClass?: string;
+	/** Clases extra para el <h2> */
+	titleClass?: string;
+}
+
+const {
+	eyebrow,
+	eyebrowHighlight,
+	title,
+	underline,
+	underlineColor = 'text-tertiary',
+	underlineNowrap = true,
+	tone = 'light',
+	intro,
+	introClass = '',
+	titleClass = '',
+} = Astro.props;
+
+const eyebrowClass =
+	tone === 'dark' ? 'text-secondary-foreground' : tone === 'primary' ? 'text-neutral-800' : 'text-primary';
+
+const titleBase =
+	tone === 'dark'
+		? 'mt-3 text-center font-semibold uppercase text-secondary-foreground md:leading-tight'
+		: 'mt-3 text-center font-semibold text-neutral-900 md:leading-tight';
+
+const introBase =
+	tone === 'dark'
+		? 'text-secondary-foreground/85'
+		: tone === 'primary'
+			? 'text-neutral-800'
+			: 'text-neutral-600';
+---
+
+{
+	eyebrow && (
+		<p data-motion="fade-up" class:list={['text-center font-semibold uppercase tracking-widest', eyebrowClass]}>
+			{eyebrow}
+			{eyebrowHighlight && <span class="text-primary">{eyebrowHighlight}</span>}
+		</p>
+	)
+}
+<h2 data-motion="fade-up" class:list={[titleBase, titleClass]}>
+	{title}
+	{underline && <UnderlineStroke color={underlineColor} nowrap={underlineNowrap}>{underline}</UnderlineStroke>}
+</h2>
+{intro && (
+	<p
+		data-motion="fade-up"
+		class:list={['mx-auto mt-4 max-w-[700px] text-center leading-relaxed', introBase, introClass]}
+	>
+		{intro}
+	</p>
+)}

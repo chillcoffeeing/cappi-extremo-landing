@@ -1,21 +1,24 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import Testimonials from '../components/react/Testimonials.tsx';
-import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import ServicesSection from '../components/sections/cards/ServicesSection.astro';
+import StepsSection from '../components/sections/steps/StepsSection.astro';
+import GallerySection from '../components/sections/gallery/GallerySection.astro';
+import TestimonialsSection from '../components/sections/testimonials/TestimonialsSection.astro';
+import FaqSection from '../components/sections/faq/FaqSection.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+import type { Service } from '../components/sections/cards/ServicesSection.astro';
+import type { Step } from '../components/sections/steps/StepsSection.astro';
+import type { GalleryImage } from '../components/sections/gallery/GallerySection.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
-import SideCircle from '../components/astro/SideCircle.astro';
-import GalleryCarousel from '../components/react/GalleryCarousel.tsx';
 import { faqs } from '../data/faqs';
 import { testimonials } from '../data/testimonials';
 
 import heroBg from '../assets/gallery/fiesta-1.jpg?url';
-import chevronDownSvg from '../assets/ui/chevron-down.svg?raw';
-
-import h14 from '../assets/gallery/all/horizontal-images/IMG_3602.jpg?url';
+import h14 from '../assets/gallery/all/horizontal-images/IMG_4187.jpg?url';
 import h15 from '../assets/gallery/all/horizontal-images/IMG_3601.jpg?url';
 
-const services = [
+const services: Service[] = [
 	{
 		name: 'Fiestas y Eventos',
 		priceLabel: 'Cotizar evento',
@@ -42,7 +45,7 @@ const services = [
 	},
 ];
 
-const steps = [
+const steps: Step[] = [
 	{ number: '1', title: 'Cuéntanos qué estás celebrando', description: 'Fecha, cantidad de niños, tipo de evento.' },
 	{ number: '2', title: 'Te enviamos una propuesta a medida', description: 'Diseñamos algo único para tu celebración.' },
 	{ number: '3', title: 'Confirmas y coordinamos todo', description: 'Nos encargamos de cada detalle.' },
@@ -53,195 +56,85 @@ const galleryModules = import.meta.glob(
 	{ eager: true, query: '?url', import: 'default' },
 ) as Record<string, string>;
 
-const allGalleryImages = Object.entries(galleryModules).map(([, src]) => ({
+const allGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(([, src]) => ({
 	src,
 	alt: 'Experiencia Cappi Xtremo',
 }));
 
-const galleryRow1 = allGalleryImages.slice(0, Math.ceil(allGalleryImages.length / 2));
-const galleryRow2 = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
-
-
-
+const galleryRow1: GalleryImage[] = allGalleryImages.slice(0, Math.ceil(allGalleryImages.length / 2));
+const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
 ---
 
 <Layout title="Otros servicios — Cappi Extremo" description="Fiestas, eventos y animaciones a la medida de tu celebración. Cotiza tu evento con Cappi Xtremo.">
 
-	<!-- Hero -->
-	<section class="relative z-10 isolate overflow-hidden">
-		<img src={heroBg} alt="" aria-hidden="true" loading="eager" fetchpriority="high"
-			class="absolute inset-0 -z-10 h-full w-full object-cover" />
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-		<div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
-			<div class="flex flex-col items-center text-center">
-				<p data-motion="fade-up" class="text-xl font-semibold uppercase tracking-wide text-white">
-					Cappi <span class="text-primary">Xtremo</span>
-				</p>
-				<h1 data-motion="fade-up" class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-					Más formas de vivir la <span class="text-primary">experiencia</span> Cappi
-				</h1>
-				<p data-motion="fade-up" class="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-white md:text-xl">
-					Fiestas, eventos y animaciones a la medida de tu celebración.
-				</p>
-				<div data-motion="fade-up" class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase text-primary-foreground">
-					<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<path d="M12 3l1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z" />
-					</svg>
-					100% personalizable
-				</div>
-			</div>
-		</div>
-	</section>
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="Cappi "
+		eyebrowHighlight="Xtremo"
+		title="Más formas de vivir la "
+		highlight="experiencia"
+		titleAfter=" Cappi"
+		subtitle="Fiestas, eventos y animaciones a la medida de tu celebración."
+		badge="100% personalizable"
+	/>
 
 	<SectionPattern bottom="orange-pattern-fade" />
 
-	<!-- Servicios -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">
-				Nuestros servicios
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				El servicio perfecto para tu <UnderlineStroke>celebración</UnderlineStroke>
-			</h2>
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-lg leading-relaxed text-neutral-600">
-				Cada evento es único. Diseñamos experiencias a la medida para que tu celebración sea inolvidable.
-			</p>
+	<ServicesSection
+		eyebrow="Nuestros servicios"
+		title="El servicio perfecto para tu "
+		underline="celebración"
+		intro="Cada evento es único. Diseñamos experiencias a la medida para que tu celebración sea inolvidable."
+		services={services}
+		ctaHref="/contacto"
+	/>
 
-			<div class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
-				{services.map((service) => (
-					<article data-motion="fade-up" class="flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md">
-						<div class="relative h-[250px] w-full overflow-hidden">
-							<Image src={service.image} alt={service.name} width={800} height={500} loading="lazy" class="h-full w-full object-cover" />
-						</div>
-						<div class="flex flex-1 flex-col p-6 md:p-8">
-							<h3 class="text-xl font-semibold text-neutral-900 md:text-2xl">{service.name}</h3>
-							<div class="mt-3">
-								<span class="text-sm font-medium text-neutral-500">{service.priceLabel}</span>
-							</div>
-							<ul class="mt-6 flex-1 space-y-3">
-								{service.features.map((f) => (
-									<li class="flex items-start gap-2 text-base text-neutral-600">
-										<svg class="mt-0.5 size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-											<path d="M20 6 9 17l-5-5" />
-										</svg>
-										{f}
-									</li>
-								))}
-							</ul>
-							<a href="/contacto" class="mt-8 inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-base font-semibold text-neutral-800 transition-colors hover:border-primary hover:text-primary">
-								{service.cta}
-							</a>
-						</div>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<!-- Cómo funciona una cotización -->
 	<SectionPattern top="blue-pattern" flipTop />
-	<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
-		<SideCircle color="primary" side="right" position="bottom" size="large" />
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
-				¿Cómo funciona?
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
-				<UnderlineStroke color="text-primary" nowrap={false}>Cotización sencilla</UnderlineStroke>
-			</h2>
-
-			<div class="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-3">
-				{steps.map((step) => (
-					<div data-motion="fade-up" class="flex flex-col items-center text-center">
-						<span class="flex size-14 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
-							{step.number}
-						</span>
-						<h3 class="mt-4 text-lg font-semibold text-secondary-foreground">{step.title}</h3>
-						<p class="mt-2 text-sm leading-relaxed text-secondary-foreground/80">{step.description}</p>
-					</div>
-				))}
-			</div>
-		</div>
-	</section>
+	<StepsSection
+		eyebrow="¿Cómo funciona?"
+		underline="Cotización sencilla"
+		steps={steps}
+		columns={3}
+		circles={[{ side: 'right', position: 'bottom', size: 'large' }]}
+	/>
 	<SectionPattern top="blue-pattern" flipBottom />
 
-	<!-- Galería -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Galería</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Así se vive la experiencia <UnderlineStroke>CAPPI</UnderlineStroke>
-			</h2>
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
-				Cada foto cuenta una celebración distinta, la próxima puede ser la tuya.
-			</p>
-			<div class="mt-14 space-y-4 sm:space-y-6">
-				<GalleryCarousel client:visible images={galleryRow1} direction="left" />
-				<GalleryCarousel client:visible images={galleryRow2} direction="right" />
-			</div>
-		</div>
-	</section>
+	<GallerySection
+		eyebrow="Galería"
+		title="Así se vive la experiencia "
+		underline="CAPPI"
+		intro="Cada foto cuenta una celebración distinta, la próxima puede ser la tuya."
+		rows={[
+			{ images: galleryRow1, direction: 'left' },
+			{ images: galleryRow2, direction: 'right' },
+		]}
+	/>
 
-	<!-- Testimonios -->
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Testimonios</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				<UnderlineStroke>Lo que dicen las familias</UnderlineStroke>
-			</h2>
-			<div class="mt-14">
-				<Testimonials client:visible items={testimonials} />
-			</div>
-		</div>
-	</section>
+	<TestimonialsSection
+		eyebrow="Testimonios"
+		title="Lo que dicen "
+		underline="las familias"
+		items={testimonials}
+	/>
 
-	<!-- FAQ -->
 	<SectionPattern top="blue-pattern" flipTop />
-	<section class="relative z-10 isolate bg-secondary py-12 md:py-20">
-		<SideCircle color="primary" side="left" position="top" size="large" />
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
-				Respondemos tus dudas
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
-				<UnderlineStroke color="text-primary" nowrap={false}>Preguntas frecuentes</UnderlineStroke>
-			</h2>
-			<div class="mx-auto mt-14 max-w-3xl divide-y divide-white/25 border-y border-white/25">
-				{faqs.map((faq) => (
-					<details data-motion="fade-up" class="group">
-						<summary
-							class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-lg font-semibold text-secondary-foreground transition-opacity hover:opacity-80 [&::-webkit-details-marker]:hidden">
-							{faq.question}
-							<Fragment set:html={chevronDownSvg.replace('<svg', '<svg class="size-5 shrink-0 transition-transform duration-200 group-open:rotate-180"')} />
-						</summary>
-						<p class="pb-6 pr-8 leading-relaxed text-secondary-foreground/85">{faq.answer}</p>
-					</details>
-				))}
-			</div>
-		</div>
-	</section>
+	<FaqSection
+		tone="dark"
+		eyebrow="Respondemos tus dudas"
+		title="Preguntas "
+		underline="frecuentes"
+		items={faqs}
+		circles={[{ side: 'left', position: 'top', size: 'large' }]}
+	/>
 
-	<!-- CTA final -->
-	<section class="relative z-10 isolate overflow-hidden">
-		<img src={heroBg} alt="" aria-hidden="true" loading="lazy"
-			class="absolute inset-0 -z-10 h-full w-full object-cover" />
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-		<div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
-			<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center text-3xl font-semibold text-white md:text-[40px] md:leading-tight">
-				¿Listo para crear una celebración inolvidable?
-			</h2>
-			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
-				<a href="/contacto"
-					class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
-					Solicitar cotización
-				</a>
-				<a href="/contacto"
-					class="text-base font-medium uppercase text-white transition-opacity hover:opacity-70">
-					Tengo preguntas
-				</a>
-			</div>
-		</div>
-	</section>
+	<CtaSection
+		variant="image"
+		bgImage={heroBg}
+		title="¿Listo para crear una celebración inolvidable?"
+		buttons={[
+			{ label: 'Solicitar cotización', href: '/contacto', variant: 'white' },
+			{ label: 'Tengo preguntas', href: '/contacto', variant: 'link' },
+		]}
+	/>
 
 </Layout>

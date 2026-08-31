@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface Program {
+	icon: 'motos' | 'fiesta' | 'juegos';
+	title: string;
+	description: string;
+	image: ImageMetadata;
+	features: string[];
+	cta: string;
+	href: string;
+}
+
+export interface Props {
+	programs: Program[];
+}
+
+const { programs } = Astro.props;
+
+const programEyebrow: Record<Program['icon'], string> = {
+	motos: 'Plan vacacional',
+	fiesta: 'Eventos',
+	juegos: 'Recreación',
+};
+---
+
+<section class="py-16 md:py-24">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="space-y-24">
+			{programs.map((program, i) => (
+				<div data-motion="fade-up" class="grid grid-cols-1 gap-10 items-center lg:grid-cols-2">
+					<div class={i % 2 === 1 ? 'lg:order-2' : undefined}>
+						<p class="font-semibold uppercase tracking-widest text-primary">{programEyebrow[program.icon]}</p>
+						<h3 class="mt-3 font-semibold text-neutral-900">{program.title}</h3>
+						<p class="mt-4 leading-relaxed text-neutral-600">{program.description}</p>
+						<ul class="mt-6 space-y-3">
+							{program.features.map((f) => (
+								<li class="flex items-center gap-2 text-base text-neutral-600">
+									<svg class="size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M20 6 9 17l-5-5" />
+									</svg>
+									{f}
+								</li>
+							))}
+						</ul>
+						<a href={program.href} class="mt-8 inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
+							{program.cta}
+						</a>
+					</div>
+					<div class={i % 2 === 1 ? 'lg:order-1' : undefined}>
+						<div class="relative overflow-hidden rounded-2xl shadow-sm">
+							<Image src={program.image} alt={program.title} width={800} height={400} loading="lazy" class="h-64 w-full object-cover sm:h-80 lg:h-96" />
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>

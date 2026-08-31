@@ -1,0 +1,92 @@
+---
+import SectionPattern from '../../astro/SectionPattern.astro';
+import SideCircle from '../../astro/SideCircle.astro';
+
+export interface Pill {
+	text: string;
+	fat?: boolean;
+}
+
+export interface IncludedItem {
+	label: string;
+	color: 'primary' | 'secondary' | 'tertiary' | 'wood';
+	icon: string;
+}
+
+export interface Props {
+	/** Píldoras de horario/contacto */
+	pills: Pill[];
+	/** Ubicación bajo las píldoras */
+	location: string;
+	/** Ítems incluidos (ícono svg crudo + color) */
+	items: IncludedItem[];
+	cta: { label: string; href: string };
+}
+
+const ITEM_COLORS: Record<IncludedItem['color'], string> = {
+	primary: 'bg-primary text-primary-foreground',
+	secondary: 'bg-secondary text-secondary-foreground',
+	tertiary: 'bg-tertiary text-neutral-900',
+	wood: 'bg-wood-solid text-neutral-900',
+};
+
+const { pills, location, items, cta } = Astro.props;
+---
+
+<section class="relative isolate bg-wood">
+	<SideCircle color="secondary" side="right" position="center" size="medium" />
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+		<div data-motion="fade-up" class="flex justify-center">
+			<div class="flex w-fit flex-col gap-6 md:gap-0 items-center md:flex-row sm:rounded-full">
+				{pills.map((p, i) => (
+					<div
+						class:list={[
+							'flex items-center justify-center rounded-full md:rounded-xl bg-amber-950 border-4 border-white/80 px-6 py-3 text-center text-base font-semibold text-white',
+							p.fat ? 'sm:px-10 sm:py-4 sm:text-lg' : '',
+							i === 1
+								? 'text-lg h-18 '
+								: 'h-12 ' + (i === 0 ? 'md:rounded-l-full md:border-r-0' : 'md:rounded-r-full md:border-l-0'),
+						]}
+					>
+						{p.text}
+					</div>
+				))}
+			</div>
+		</div>
+
+		<h3 data-motion="fade-up" class="mt-10 text-center font-semibold text-neutral-900">
+			{location}
+		</h3>
+
+		<div data-motion="fade-up" class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+			{items.map((item) => (
+				<div class:list={['flex flex-col items-center gap-4 rounded-2xl border-[3px] border-white/50 p-6 text-center', ITEM_COLORS[item.color]]}>
+					<div class="flex size-16 items-center justify-center rounded-full bg-white/25">
+						<svg
+							class="size-8"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+							set:html={item.icon}
+						/>
+					</div>
+					<p class="font-semibold">{item.label}</p>
+				</div>
+			))}
+		</div>
+
+		<div data-motion="fade-up" class="mt-12 flex justify-center">
+			<a
+				href={cta.href}
+				class="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+			>
+				{cta.label}
+			</a>
+		</div>
+	</div>
+	<SectionPattern bottom="blue-pattern" flipTop />
+</section>

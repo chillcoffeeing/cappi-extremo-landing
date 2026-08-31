@@ -1,0 +1,80 @@
+---
+import SideCircle from '../../astro/SideCircle.astro';
+import SectionHeading from '../../titles/SectionHeading.astro';
+import Countdown from '../../date-components/Countdown.astro';
+import CtaList from '../../cta/CtaList.astro';
+import type { Cta } from '../../cta/CtaList.astro';
+
+export interface ServiceCard {
+	image: string;
+	title: string;
+	cta: string;
+	href: string;
+}
+
+export interface Props {
+	headingTitle: string;
+	underline?: string;
+	intro?: string;
+	cards: ServiceCard[];
+	countdownId: string;
+	countdownTarget: string;
+	/** Variante de tamaño del countdown (hero para home) */
+	countdownSize?: 'hero' | 'standard';
+	ctas: Cta[];
+}
+
+const {
+	headingTitle,
+	underline,
+	intro,
+	cards,
+	countdownId,
+	countdownTarget,
+	countdownSize = 'hero',
+	ctas,
+} = Astro.props;
+---
+
+<section class="relative z-10 isolate overflow-hidden bg-primary">
+	<SideCircle color="secondary" side="right" position="center" />
+	<SideCircle color="secondary" side="left" position="top" size="large" />
+	<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8">
+		<SectionHeading title={headingTitle} underline={underline} intro={intro} tone="primary" />
+
+		<div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
+			{cards.map((card) => (
+				<a href={card.href} data-motion="fade-up" class="group relative isolate flex h-[460px] flex-col items-center justify-end overflow-hidden text-center shadow-sm transition-shadow hover:shadow-md">
+					<img
+						src={card.image}
+						alt=""
+						aria-hidden="true"
+						loading="lazy"
+						decoding="async"
+						class="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+					/>
+					<div class="absolute inset-0 -z-10 bg-neutral-950/60" aria-hidden="true"></div>
+
+					<div class="flex flex-col items-center gap-5 px-6 pb-10">
+						<h4 class="font-semibold uppercase tracking-wide text-white">{card.title}</h4>
+						<span class="rounded-full bg-white px-5 py-2.5 text-sm font-semibold uppercase text-neutral-900 transition-colors group-hover:bg-neutral-100">
+							{card.cta}
+						</span>
+					</div>
+				</a>
+			))}
+		</div>
+
+		<h3
+			id={`${countdownId}-title`}
+			data-motion="fade-up"
+			class="mt-16 text-center font-semibold uppercase tracking-tight text-neutral-900 md:mt-24"
+		>
+			Días hasta que empieza el próximo plan vacacional
+		</h3>
+
+		<Countdown id={countdownId} target={countdownTarget} size={countdownSize} />
+
+		<CtaList ctas={ctas} size="sm" class="mt-10" />
+	</div>
+</section>

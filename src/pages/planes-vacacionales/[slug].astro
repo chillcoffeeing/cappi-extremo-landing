@@ -1,18 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import UnderlineStroke from '../../components/astro/UnderlineStroke.astro';
+import SectionHero from '../../components/sections/hero/SectionHero.astro';
+import ActivitiesSection from '../../components/sections/cards/ActivitiesSection.astro';
+import WoodBandSection from '../../components/sections/cta/WoodBandSection.astro';
+import PriceSection from '../../components/sections/pricing/PriceSection.astro';
+import SessionsSection from '../../components/sections/schedule/SessionsSection.astro';
+import GallerySection from '../../components/sections/gallery/GallerySection.astro';
+import TestimonialsSection from '../../components/sections/testimonials/TestimonialsSection.astro';
+import StepsSection from '../../components/sections/steps/StepsSection.astro';
+import FaqSection from '../../components/sections/faq/FaqSection.astro';
+import CtaSection from '../../components/sections/cta/CtaSection.astro';
+import type { ActivityItem } from '../../components/sections/cards/ActivitiesSection.astro';
+import type { Pill, IncludedItem } from '../../components/sections/cta/WoodBandSection.astro';
+import type { Session } from '../../components/sections/schedule/SessionsSection.astro';
+import type { Step } from '../../components/sections/steps/StepsSection.astro';
+import type { GalleryImage } from '../../components/sections/gallery/GallerySection.astro';
 import SectionPattern from '../../components/astro/SectionPattern.astro';
-import SideCircle from '../../components/astro/SideCircle.astro';
-import GalleryCarousel from '../../components/react/GalleryCarousel.tsx';
-import Testimonials from '../../components/react/Testimonials.tsx';
 import { faqs } from '../../data/faqs';
 import { testimonials } from '../../data/testimonials';
 
 import heroBg from '../../assets/gallery/motos-full-view-1.jpg?url';
 import motosFullView1 from '../../assets/gallery/motos-full-view-1.jpg?url';
-import chevronDownSvg from '../../assets/ui/chevron-down.svg?raw';
 
-import h1 from '../../assets/gallery/all/horizontal-images/IMG_4596.jpg?url';
+import h1 from '../../assets/gallery/all/horizontal-images/IMG_3594.jpg?url';
 import h2 from '../../assets/gallery/all/horizontal-images/IMG_4595.jpg?url';
 import h3 from '../../assets/gallery/all/horizontal-images/IMG_4593.jpg?url';
 import h4 from '../../assets/gallery/all/horizontal-images/IMG_4578.jpg?url';
@@ -29,18 +39,15 @@ import v6 from '../../assets/gallery/all/vertical-images/IMG_5568.jpg?url';
 import v7 from '../../assets/gallery/all/vertical-images/IMG_5554.jpg?url';
 import v8 from '../../assets/gallery/all/vertical-images/IMG_5549.jpg?url';
 
-import dv1 from '../../assets/gallery/all/vertical-images/IMG_5548.jpg';
-import dv2 from '../../assets/gallery/all/vertical-images/IMG_5528.jpg';
-import dv3 from '../../assets/gallery/all/vertical-images/IMG_5504.jpg';
-import dv4 from '../../assets/gallery/all/vertical-images/IMG_5493.jpg';
-import dv5 from '../../assets/gallery/all/vertical-images/IMG_5468.jpg';
-import dv6 from '../../assets/gallery/all/vertical-images/IMG_5465.jpg';
-import dv7 from '../../assets/gallery/all/vertical-images/IMG_4749.jpg';
-import dv8 from '../../assets/gallery/all/vertical-images/IMG_4157.jpg';
-import dv9 from '../../assets/gallery/all/vertical-images/IMG_4152.jpg';
-import dv10 from '../../assets/gallery/all/vertical-images/IMG_4143.jpg';
-import dv11 from '../../assets/gallery/all/vertical-images/IMG_4142.jpg';
-import dv12 from '../../assets/gallery/all/vertical-images/IMG_4138.jpg';
+import activity1 from '../../assets/gallery/padel-fest.jpg?url';
+import activity2 from '../../assets/gallery/paseo-a-caballo.jpg?url';
+import activity3 from '../../assets/gallery/acuatico.jpg?url';
+import activity4 from '../../assets/gallery/deportes.jpg?url';
+import activity5 from '../../assets/gallery/spa.jpg?url';
+import activity6 from '../../assets/gallery/rally-barro.jpg?url';
+import activity7 from '../../assets/gallery/var-ritmo.jpg?url';
+import activity8 from '../../assets/gallery/planetario.jpg?url';
+import activity9 from '../../assets/gallery/rusticos.jpg?url';
 
 export function getStaticPaths() {
 	return [
@@ -59,7 +66,6 @@ interface PlanData {
 	mealsIncluded: string;
 	mainActivities: string;
 	notIncluded: string[];
-	galleryImages: { image: ImageMetadata; alt: string }[];
 }
 
 const plans: Record<string, PlanData> = {
@@ -78,14 +84,6 @@ const plans: Record<string, PlanData> = {
 		mealsIncluded: 'Almuerzo y meriendas',
 		mainActivities: 'Deportes, juegos de agua, talleres creativos, circuitos de aventura',
 		notIncluded: ['Transporte', 'Útiles escolares para talleres'],
-		galleryImages: [
-			{ image: dv1, alt: 'Actividades deportivas en el daycamp' },
-			{ image: dv2, alt: 'Niños jugando en equipo' },
-			{ image: dv3, alt: 'Juegos de agua y aventura' },
-			{ image: dv4, alt: 'Talleres creativos al aire libre' },
-			{ image: dv5, alt: 'Exploración y descubrimiento' },
-			{ image: dv6, alt: 'Nuevos amigos en el plan vacacional' },
-		],
 	},
 	vacacional: {
 		name: 'Vacacional',
@@ -103,32 +101,24 @@ const plans: Record<string, PlanData> = {
 		mealsIncluded: 'Almuerzo, meriendas y cena',
 		mainActivities: 'Motos, circuitos de aventura, juegos extremos, actividades temáticas, tiempo en equipo',
 		notIncluded: ['Transporte'],
-		galleryImages: [
-			{ image: dv7, alt: 'Niño conduciendo cuatriciclo en el plan vacacional' },
-			{ image: dv8, alt: 'Circuito de aventura en el parque' },
-			{ image: dv9, alt: 'Grupo de niños en el circuito de motos' },
-			{ image: dv10, alt: 'Juegos extremos y adrenalina' },
-			{ image: dv11, alt: 'Cascos y motos listas para la aventura' },
-			{ image: dv12, alt: 'Momentos de diversión sin parar' },
-		],
 	},
 };
 
-const sessions = [
+const sessions: Session[] = [
 	{ name: 'Semana 1', dates: '15 - 19 de junio', status: 'Disponible' },
 	{ name: 'Semana 2', dates: '22 - 26 de junio', status: 'Disponible' },
 	{ name: 'Semana 3', dates: '29 de junio - 3 de julio', status: 'Disponible' },
 	{ name: 'Semana 4', dates: '6 - 10 de julio', status: 'Por confirmar' },
 ];
 
-const steps = [
+const steps: Step[] = [
 	{ number: '1', title: 'Crea tu cuenta', description: 'Regístrate en nuestro portal de familias.' },
 	{ number: '2', title: 'Registra a tu hijo', description: 'Agrega los datos de tu hijo en minutos.' },
 	{ number: '3', title: 'Elige la sesión', description: 'Selecciona la semana que prefieras.' },
 	{ number: '4', title: 'Reporta tu pago', description: 'Zelle, Binance, transferencia o efectivo.' },
 ];
 
-const galleryRow1 = [
+const galleryRow1: GalleryImage[] = [
 	{ src: h1, alt: 'Actividades al aire libre en Cappi Xtremo' },
 	{ src: h2, alt: 'Grupo de niños disfrutando aventuras' },
 	{ src: h3, alt: 'Deportes y juegos extremos' },
@@ -139,7 +129,7 @@ const galleryRow1 = [
 	{ src: h8, alt: 'Momentos de diversión en Cappi' },
 ];
 
-const galleryRow2 = [
+const galleryRow2: GalleryImage[] = [
 	{ src: v1, alt: 'Niño conduciendo cuatriciclo' },
 	{ src: v2, alt: 'Actividades deportivas en equipo' },
 	{ src: v3, alt: 'Juegos de agua y aventura' },
@@ -152,25 +142,25 @@ const galleryRow2 = [
 
 const COLORS = { col1: '#805611', col2: '#59802E', col3: '#026A80' };
 
-const activitiesCards = [
-	{ image: h1, title: 'Pádel Fest', color: COLORS.col1 },
-	{ image: h2, title: 'Paseo a caballo', color: COLORS.col2 },
-	{ image: h3, title: 'Acuático', color: COLORS.col3 },
-	{ image: h4, title: 'Deportes', color: COLORS.col1 },
-	{ image: h5, title: 'Spa', color: COLORS.col2 },
-	{ image: h6, title: 'Rally barro', color: COLORS.col3 },
-	{ image: h7, title: 'VAR ritmo', color: COLORS.col1 },
-	{ image: h8, title: 'Planetario', color: COLORS.col2 },
-	{ image: motosFullView1, title: 'Rústicos', color: COLORS.col3 },
+const activitiesCards: ActivityItem[] = [
+	{ image: activity1, title: 'Pádel Fest', color: COLORS.col1 },
+	{ image: activity2, title: 'Paseo a caballo', color: COLORS.col2 },
+	{ image: activity3, title: 'Acuático', color: COLORS.col3 },
+	{ image: activity4, title: 'Deportes', color: COLORS.col1 },
+	{ image: activity5, title: 'Spa', color: COLORS.col2 },
+	{ image: activity6, title: 'Rally barro', color: COLORS.col3 },
+	{ image: activity7, title: 'VAR ritmo', color: COLORS.col1 },
+	{ image: activity8, title: 'Planetario', color: COLORS.col2 },
+	{ image: activity9, title: 'Rústicos', color: COLORS.col3 },
 ];
 
-const horarioPills = [
+const horarioPills: Pill[] = [
 	{ text: '7:30 am - 5:00 pm', fat: false },
 	{ text: '+58 414-123-4567', fat: true },
 	{ text: 'Edad: 5 a 15 años', fat: false },
 ];
 
-const includedItems = [
+const includedItems: IncludedItem[] = [
 	{
 		label: 'Almuerzo',
 		color: 'primary',
@@ -198,13 +188,6 @@ const includedItems = [
 	},
 ];
 
-const itemColorClasses: Record<string, string> = {
-	primary: 'bg-primary text-primary-foreground',
-	secondary: 'bg-secondary text-secondary-foreground',
-	tertiary: 'bg-tertiary text-neutral-900',
-	wood: 'bg-wood-solid text-neutral-900',
-};
-
 const { slug } = Astro.params;
 const plan = plans[slug as string];
 
@@ -218,287 +201,96 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 
 <Layout title={title} description={description}>
 
-	<!-- Hero / Breadcrumb -->
-	<section class="relative z-10 isolate overflow-hidden">
-		<img src={heroBg} alt="" aria-hidden="true" loading="eager" fetchpriority="high"
-			class="absolute inset-0 -z-10 h-full w-full object-cover" />
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-		<div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
-			<div class="flex flex-col items-center text-center">
-				<nav data-motion="fade-up" aria-label="Breadcrumb" class="mb-6">
-					<ol class="flex items-center gap-2 text-sm text-white/70">
-						<li><a href="/planes-vacacionales" class="transition-colors hover:text-white">Planes vacacionales</a></li>
-						<li aria-hidden="true">/</li>
-						<li class="text-white">{plan.name}</li>
-					</ol>
-				</nav>
-				<h1 data-motion="fade-up" class="max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-					{plan.name}
-				</h1>
-				<p data-motion="fade-up" class="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-white md:text-xl">
-					{plan.summary}
-				</p>
-				<a data-motion="fade-up" href="/coming-soon"
-					class="mt-8 inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
-					Inscribir ahora a mi hijo
-				</a>
-			</div>
-		</div>
-	</section>
+	<SectionHero
+		bgImage={heroBg}
+		crumbs={[{ label: 'Planes vacacionales', href: '/planes-vacacionales' }, { label: plan.name }]}
+		title={plan.name}
+		subtitle={plan.summary}
+		buttons={[{ label: 'Inscribir ahora a mi hijo', href: '/coming-soon', variant: 'primary' }]}
+		titleMargin={false}
+	/>
 
 	<SectionPattern bottom="orange-pattern-fade" />
 
-	<!-- ¿Qué incluye? (misma sección Jugadas extremas del homepage) -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary md:text-base">
-				Actividades
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				<UnderlineStroke>¿Qué incluye?</UnderlineStroke>
-			</h2>
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
-				Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se
-				divierten, los campistas también desarrollan liderazgo, trabajo en equipo, confianza y respeto a
-				su propio ritmo y sin darse cuenta.
-			</p>
+	<ActivitiesSection
+		eyebrow="Actividades"
+		underline="¿Qué incluye?"
+		intro="Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se divierten, los campistas también desarrollan liderazgo, trabajo en equipo, confianza y respeto a su propio ritmo y sin darse cuenta."
+		items={activitiesCards}
+		padding="large"
+	/>
 
-			<div data-motion="fade-up" class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{
-					activitiesCards.map((item) => (
-						<article class="overflow-hidden shadow-sm">
-							<img
-								src={item.image}
-								alt={item.title}
-								loading="lazy"
-								decoding="async"
-								class="h-40 w-full object-cover"
-							/>
-							<p
-								class=" h-[40px] items-center justify-center px-3 text-center text-lg font-semibold uppercase tracking-wide text-white"
-								style={`background-color:${item.color}`}
-							>
-								{item.title}
-							</p>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
+	<WoodBandSection
+		pills={horarioPills}
+		location="Finca la Esperanza - Guanare"
+		items={includedItems}
+		cta={{ label: 'Inscribir ahora a mi hijo', href: '/coming-soon' }}
+	/>
+	
 
-	<!-- Fondo madera: horario, ubicación, incluye y CTA -->
-	<section class="relative isolate bg-wood ">
-		<SideCircle color="secondary" side="right" position="center" size='medium' />
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-			<div data-motion="fade-up" class="flex justify-center">
-				<div class="flex w-fit flex-col gap-6 md:gap-0 items-center md:flex-row sm:rounded-full">
-					{
-						horarioPills.map((p, i) => (
-							<div
-								class:list={[
-									'flex items-center justify-center rounded-full md:rounded-xl bg-amber-950 border-4 border-white/80 px-6 py-3 text-center text-base font-semibold text-white',
-									p.fat ? 'sm:px-10 sm:py-4 sm:text-lg' : '',
-									i === 1? 'text-lg h-18 ': 'h-12 ' + (i === 0 ? 'md:rounded-l-full md:border-r-0':'md:rounded-r-full md:border-l-0')
-								]}
-							>
-								{p.text}
-							</div>
-						))
-					}
-				</div>
-			</div>
+	<PriceSection
+		price={plan.price}
+		period={plan.period}
+		description="Paga completo o en cuotas. Aceptamos Zelle, Binance, transferencia bancaria o efectivo."
+		cta={{ label: 'Inscribir ahora', href: '/coming-soon' }}
+	/>
 
-			<h3 data-motion="fade-up" class="mt-10 text-center text-2xl font-semibold text-neutral-900 md:text-3xl">
-				Finca la Esperanza - Guanare
-			</h3>
+	<SessionsSection
+		tone="light"
+		eyebrow="Calendario"
+		title="Fechas "
+		underline="y calendario"
+		sessions={sessions}
+		inscribirHref="/coming-soon"
+	/>
 
-			<div data-motion="fade-up" class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-				{
-					includedItems.map((it) => (
-						<div class:list={['flex flex-col items-center gap-4 rounded-2xl border-[3px] border-white/50 p-6 text-center', itemColorClasses[it.color]]}>
-						<div class="flex size-16 items-center justify-center rounded-full bg-white/25">
-							<svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={it.icon} />
-						</div>
-							<p class="text-base font-semibold">{it.label}</p>
-						</div>
-					))
-				}
-			</div>
+	<GallerySection
+		eyebrow="Galería"
+		title="Así se viven las vacaciones en "
+		underline="Cappi Xtremo"
+		rows={[
+			{ images: galleryRow1, direction: 'left' },
+			{ images: galleryRow2, direction: 'right' },
+		]}
+	/>
 
-			<div data-motion="fade-up" class="mt-12 flex justify-center">
-				<a href="/coming-soon"
-					class="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
-					Inscribir ahora a mi hijo
-				</a>
-			</div>
-		</div>
-		<SectionPattern bottom="blue-pattern" flipTop />
-	</section>
+	<TestimonialsSection
+		eyebrow="Testimonios"
+		title="Lo que dicen "
+		underline="las familias"
+		items={testimonials}
+		padding="large"
+	/>
 
-	<!-- Precio y forma de pago -->
-	<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
-		<SideCircle color="primary" side="right" position="top" size="large" />
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<div class="mx-auto max-w-3xl text-center">
-				<p data-motion="fade-up" class="text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
-					Inversión
-				</p>
-				<h2 data-motion="fade-up" class="mt-3 text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
-					<UnderlineStroke color="text-primary" nowrap={false}>Precio del plan</UnderlineStroke>
-				</h2>
-				<div data-motion="fade-up" class="mt-8">
-					{plan.price === 'Próximamente' ? (
-						<p class="text-2xl font-semibold text-secondary-foreground">Próximamente</p>
-					) : (
-						<>
-							<span class="text-6xl font-bold text-secondary-foreground sm:text-7xl">{plan.price}</span>
-							<span class="ml-2 text-lg text-secondary-foreground/75">{plan.period}</span>
-						</>
-					)}
-				</div>
-				<p data-motion="fade-up" class="mx-auto mt-6 max-w-lg text-base leading-relaxed text-secondary-foreground/80">
-					Paga completo o en cuotas. Aceptamos Zelle, Binance, transferencia bancaria o efectivo.
-				</p>
-				<a data-motion="fade-up" href="/coming-soon"
-					class="mt-8 inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
-					Inscribir ahora
-				</a>
-			</div>
-		</div>
-	</section>
-
-	<!-- Fechas y calendario -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">
-				Calendario
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				<UnderlineStroke>Fechas y calendario</UnderlineStroke>
-			</h2>
-
-			<div class="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
-				{sessions.map((s) => (
-					<div data-motion="fade-up" class="flex items-center justify-between rounded-2xl border border-neutral-200 bg-white px-6 py-5 shadow-sm">
-						<div>
-							<p class="font-semibold text-neutral-900 md:text-lg">{s.name}</p>
-							<p class="text-sm text-neutral-500">{s.dates}</p>
-						</div>
-						<div class="flex flex-col items-end gap-2">
-							<span class:list={[
-								"rounded-full px-3 py-1 text-xs font-semibold",
-								s.status === "Disponible" ? "bg-primary text-primary-foreground" : "bg-neutral-100 text-neutral-500",
-							]}>
-								{s.status}
-							</span>
-							<a href="/coming-soon" class="text-xs font-medium uppercase text-primary transition-opacity hover:opacity-70">
-								Inscribir
-							</a>
-						</div>
-					</div>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<!-- Galería -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Galería</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Así se viven las vacaciones en <UnderlineStroke>Cappi Xtremo</UnderlineStroke>
-			</h2>
-			<div class="mt-14 space-y-4 sm:space-y-6">
-				<GalleryCarousel client:visible images={galleryRow1} direction="left" />
-				<GalleryCarousel client:visible images={galleryRow2} direction="right" />
-			</div>
-		</div>
-	</section>
-
-	<!-- Testimonios -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Testimonios</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				<UnderlineStroke>Lo que dicen las familias</UnderlineStroke>
-			</h2>
-			<div class="mt-14">
-				<Testimonials client:visible items={testimonials} />
-			</div>
-		</div>
-	</section>
-
-	<!-- Cómo inscribirte -->
 	<SectionPattern top="blue-pattern" flipTop />
-	<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
-		<SideCircle color="primary" side="right" position="center" size="large" />
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
-				¿Cómo inscribirte?
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
-				<UnderlineStroke color="text-primary" nowrap={false}>4 pasos sencillos</UnderlineStroke>
-			</h2>
+	<StepsSection
+		eyebrow="¿Cómo inscribirte?"
+		title="4 "
+		underline="pasos sencillos"
+		steps={steps}
+		columns={4}
+		circles={[{ side: 'right', position: 'center', size: 'large' }]}
+	/>
 
-			<div class="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-				{steps.map((step) => (
-					<div data-motion="fade-up" class="flex flex-col items-center text-center">
-						<span class="flex size-14 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
-							{step.number}
-						</span>
-						<h3 class="mt-4 text-lg font-semibold text-secondary-foreground">{step.title}</h3>
-						<p class="mt-2 text-sm leading-relaxed text-secondary-foreground/80">{step.description}</p>
-					</div>
-				))}
-			</div>
-		</div>
-	</section>
+	<FaqSection
+		tone="light"
+		eyebrow="Respondemos tus dudas"
+		title="Preguntas "
+		underline="frecuentes"
+		items={faqs}
+		padding="large"
+	/>
 
-	<!-- FAQ -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">
-				Respondemos tus dudas
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				<UnderlineStroke>Preguntas frecuentes</UnderlineStroke>
-			</h2>
-			<div class="mx-auto mt-14 max-w-3xl divide-y divide-neutral-200 border-y border-neutral-200">
-				{faqs.map((faq) => (
-					<details data-motion="fade-up" class="group">
-						<summary
-							class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-lg font-semibold text-neutral-900 transition-opacity hover:opacity-80 [&::-webkit-details-marker]:hidden">
-							{faq.question}
-							<Fragment set:html={chevronDownSvg.replace('<svg', '<svg class="size-5 shrink-0 transition-transform duration-200 group-open:rotate-180"')} />
-						</summary>
-						<p class="pb-6 pr-8 leading-relaxed text-neutral-600">{faq.answer}</p>
-					</details>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<!-- CTA final -->
-	<section class="relative z-10 isolate overflow-hidden">
-		<img src={heroBg} alt="" aria-hidden="true" loading="lazy"
-			class="absolute inset-0 -z-10 h-full w-full object-cover" />
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-		<div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
-			<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center text-3xl font-semibold text-white md:text-[40px] md:leading-tight">
-				¿Listo para que tu hijo viva <UnderlineStroke>esta experiencia</UnderlineStroke>?
-			</h2>
-			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
-				<a href="/coming-soon"
-					class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
-					Inscribir ahora
-				</a>
-				<a href="/contacto"
-					class="text-base font-medium uppercase text-white transition-opacity hover:opacity-70">
-					Tengo preguntas
-				</a>
-			</div>
-		</div>
-	</section>
+	<CtaSection
+		variant="image"
+		bgImage={heroBg}
+		title="¿Listo para que tu hijo viva "
+		underline="esta experiencia"
+		titleAfter="?"
+		buttons={[
+			{ label: 'Inscribir ahora', href: '/coming-soon', variant: 'white' },
+			{ label: 'Tengo preguntas', href: '/contacto', variant: 'link' },
+		]}
+	/>
 
 </Layout>

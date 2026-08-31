@@ -1,0 +1,29 @@
+---
+import Button from '../buttons/Button.astro';
+import type { ButtonVariant } from '../buttons/Button.astro';
+
+export interface Cta {
+	label: string;
+	href: string;
+	variant?: ButtonVariant;
+	/** Color del texto para variant "link" */
+	linkColor?: string;
+}
+
+export interface Props {
+	/** Lista de botones de llamada a la acción */
+	ctas: Cta[];
+	/** Clase del contenedor flex */
+	class?: string;
+	/** Tamaño de los botones */
+	size?: 'default' | 'sm';
+}
+
+const { ctas, class: containerClass = '', size = 'default' } = Astro.props;
+---
+
+<div class:list={['flex flex-col items-center gap-4', containerClass]}>
+	{ctas.map((cta) => (
+		<Button label={cta.label} href={cta.href} variant={cta.variant ?? 'white'} size={size} linkColor={cta.linkColor} />
+	))}
+</div>

@@ -1,0 +1,38 @@
+---
+export interface Props {
+	/** Precio a mostrar o "Próximamente" */
+	price: string;
+	/** Texto junto al precio (ej. "por semana") */
+	period?: string;
+	/** Estilo "large" (banda de precio) vs "inline" (tarjeta de plan) */
+	style?: 'large' | 'inline';
+	/** Clase de color del texto del precio (según fondo) */
+	colorClass?: string;
+	/** Clase de color del texto del periodo */
+	periodClass?: string;
+}
+
+const { price, period, style = 'large', colorClass = 'text-secondary-foreground', periodClass } = Astro.props;
+
+const isTbd = price === 'Próximamente';
+
+const tbdClass = style === 'large'
+	? 'text-lg font-semibold text-secondary-foreground'
+	: 'text-lg font-semibold text-neutral-500';
+---
+
+{
+	isTbd ? (
+		<span class={tbdClass}>Próximamente</span>
+	) : style === 'large' ? (
+		<>
+			<span class={`text-6xl font-bold ${colorClass} sm:text-7xl`}>{price}</span>
+			{period && <span class={`ml-2 text-lg ${periodClass ?? colorClass}`}>{period}</span>}
+		</>
+	) : (
+		<>
+			<span class="text-4xl font-bold text-neutral-900">{price}</span>
+			{period && <span class="ml-1 text-sm text-neutral-500">{period}</span>}
+		</>
+	)
+}

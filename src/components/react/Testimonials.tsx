@@ -60,10 +60,10 @@ export default function Testimonials({ items }: TestimonialsProps) {
                   &ldquo;{testimonial.quote}&rdquo;
                 </blockquote>
                 <figcaption className="mt-auto pt-6">
-                  <p className="text-sm font-semibold text-neutral-900">
+                  <p className="font-semibold text-neutral-900">
                     {testimonial.name}
                   </p>
-                  <p className="mt-0.5 text-xs font-light text-neutral-500">
+                  <p className="mt-0.5 font-light text-neutral-500">
                     {testimonial.context}
                   </p>
                 </figcaption>

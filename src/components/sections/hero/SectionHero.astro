@@ -1,0 +1,147 @@
+---
+import Button from '../../buttons/Button.astro';
+import type { ButtonVariant } from '../../buttons/Button.astro';
+
+export interface Crumb {
+	label: string;
+	href?: string;
+}
+
+export interface Props {
+	/** Imagen de fondo (cubren toda la sección) */
+	bgImage: string;
+	/** Video de fondo opcional (supera la imagen) */
+	bgVideo?: string;
+	/** Poster para el video */
+	bgVideoPoster?: string;
+	/** Texto corto sobre el título */
+	eyebrow?: string;
+	/** Fragmento del eyebrow resaltado en primary */
+	eyebrowHighlight?: string;
+	/** Título h1 */
+	title: string;
+	/** Fragmento del título resaltado en primary */
+	highlight?: string;
+	/** Texto posterior al fragmento resaltado */
+	titleAfter?: string;
+	/** Subtítulo */
+	subtitle?: string;
+	/** Píldora informativa bajo el subtítulo (ej. "100% personalizable") */
+	badge?: string;
+	/** Botones CTA */
+	buttons?: Array<{ label: string; href: string; variant?: Exclude<ButtonVariant, 'link'> }>;
+	/** Migas de pan opcionales (ej. detalle de plan) */
+	crumbs?: Crumb[];
+	/** Hero de pantalla completa (home) en vez de banda con padding */
+	dock?: boolean;
+	/** Margen superior del h1 (false cuando hay breadcrumb) */
+	titleMargin?: boolean;
+}
+
+const {
+	bgImage,
+	bgVideo,
+	bgVideoPoster,
+	eyebrow,
+	eyebrowHighlight,
+	title,
+	highlight,
+	titleAfter = '',
+	subtitle,
+	badge,
+	buttons = [],
+	crumbs = [],
+	dock = false,
+	titleMargin = true,
+} = Astro.props;
+
+const innerClass = dock
+	? 'flex flex-col justify-center items-center text-center min-h-130 py-10 md:min-h-170'
+	: 'flex flex-col items-center text-center';
+
+const contentClass = dock ? '' : 'px-4 py-24 sm:px-6 md:py-32 lg:px-8';
+
+const titleClass = [
+	'font-bold tracking-tight text-white',
+	titleMargin && 'mt-4',
+	dock ? 'max-w-4xl' : 'max-w-3xl',
+].filter(Boolean).join(' ');
+
+const ctasClass = dock
+	? 'mt-8 flex flex-col items-center gap-4 sm:flex-row'
+	: 'mt-10 flex flex-col items-center gap-4 sm:flex-row';
+---
+
+<section class="relative z-10 isolate overflow-hidden">
+	{
+		bgVideo ? (
+			<video poster={bgVideoPoster} preload="none" autoplay muted loop class="absolute inset-0 -z-10 h-full w-full object-cover">
+				<source src={bgVideo} type="video/mp4" />
+			</video>
+		) : (
+			<img src={bgImage} alt="" aria-hidden="true" loading="eager" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+		)
+	}
+	<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
+
+	<div class={['mx-auto max-w-7xl', contentClass].filter(Boolean).join(' ')}>
+		<div class={innerClass}>
+			{crumbs.length > 0 && (
+				<nav data-motion="fade-up" aria-label="Breadcrumb" class="mb-6">
+					<ol class="flex items-center gap-2 text-sm text-white/70">
+						{
+							crumbs.map((crumb, i) => (
+								<Fragment>
+									{i > 0 && <li aria-hidden="true">/</li>}
+									<li>
+										{crumb.href ? (
+											<a href={crumb.href} class="transition-colors hover:text-white">{crumb.label}</a>
+										) : (
+											<span class="text-white">{crumb.label}</span>
+										)}
+									</li>
+								</Fragment>
+							))
+						}
+					</ol>
+				</nav>
+			)}
+
+			{(eyebrow || eyebrowHighlight) && (
+				<p data-motion="fade-up" class="font-semibold uppercase tracking-wide text-white">
+					{eyebrow}
+					{eyebrowHighlight && <span class="text-primary">{eyebrowHighlight}</span>}
+				</p>
+			)}
+
+			<h1 data-motion="fade-up" class={titleClass}>
+				{title}
+				{highlight && <span class="text-primary">{highlight}</span>}
+				{titleAfter}
+			</h1>
+
+			{subtitle && (
+				<p data-motion="fade-up" class="mt-6 max-w-2xl font-normal leading-relaxed text-white">
+					{subtitle}
+				</p>
+			)}
+
+			{badge && (
+				<div data-motion="fade-up" class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase text-primary-foreground">
+					<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 3l1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z" />
+					</svg>
+					{badge}
+				</div>
+			)}
+
+			{buttons.length > 0 && (
+				<div data-motion="fade-up" class={ctasClass}>
+					{buttons.map((button) => (
+						<Button label={button.label} href={button.href} variant={button.variant ?? 'primary'} />
+					))}
+				</div>
+			)}
+		</div>
+	</div>
+</section>

@@ -1,0 +1,46 @@
+---
+import SideCircle from '../../astro/SideCircle.astro';
+import Countdown from '../../date-components/Countdown.astro';
+import CtaList from '../../cta/CtaList.astro';
+import type { Cta } from '../../cta/CtaList.astro';
+
+export interface Circle {
+	side: 'left' | 'right';
+	position?: 'top' | 'center' | 'bottom';
+	size?: 'xs' | 'small' | 'medium' | 'large' | 'xl';
+}
+
+export interface Props {
+	/** Título (h2) de la banda */
+	title: string;
+	/** Fecha objetivo del countdown */
+	target: string;
+	/** id del countdown (default pv-countdown) */
+	countdownId?: string;
+	/** Botones CTA bajo el countdown */
+	ctas?: Cta[];
+	/** Círculos decorativos (color secondary sobre banda primary) */
+	circles?: Circle[];
+}
+
+const { title, target, countdownId = 'pv-countdown', ctas = [], circles = [] } = Astro.props;
+---
+
+<section class="relative z-10 isolate overflow-hidden bg-primary">
+	{circles.map((c) => (
+		<SideCircle color="secondary" side={c.side} position={c.position} size={c.size} />
+	))}
+	<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8">
+		<h2
+			id={`${countdownId}-title`}
+			data-motion="fade-up"
+			class="text-center font-semibold uppercase tracking-tight text-neutral-900 md:leading-tight"
+		>
+			{title}
+		</h2>
+
+		<Countdown id={countdownId} target={target} size="standard" />
+
+		{ctas.length > 0 && <CtaList ctas={ctas} size="sm" class="mt-10" />}
+	</div>
+</section>

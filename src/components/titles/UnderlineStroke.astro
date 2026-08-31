@@ -24,7 +24,7 @@ const {
 } = Astro.props;
 ---
 
-<span class:list={["relative inline-block", nowrap && "whitespace-nowrap", spanClass]}>
+<span class:list={["relative inline-block", /* nowrap && "whitespace-nowrap", */ spanClass]}>
 	<slot />
 	<svg
 		class:list={["absolute inset-x-0 w-full", bottom, height, color]}

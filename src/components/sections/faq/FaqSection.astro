@@ -1,0 +1,79 @@
+---
+import SideCircle from '../../astro/SideCircle.astro';
+import SectionHeading from '../../titles/SectionHeading.astro';
+
+import chevronDownSvg from '../../../assets/ui/chevron-down.svg?raw';
+
+export interface FaqItem {
+	question: string;
+	answer: string;
+}
+
+export interface Circle {
+	side: 'left' | 'right';
+	position?: 'top' | 'center' | 'bottom';
+	size?: 'xs' | 'small' | 'medium' | 'large' | 'xl';
+}
+
+export interface Props {
+	/** Fondo: banda secondary (oscuro) o blanco */
+	tone?: 'dark' | 'light';
+	eyebrow?: string;
+	title?: string;
+	underline?: string;
+	items: FaqItem[];
+	/** Círculos decorativos (en tono dark) */
+	circles?: Circle[];
+	padding?: 'default' | 'large';
+}
+
+const {
+	tone = 'dark',
+	eyebrow = 'Respondemos tus dudas',
+	title = 'Preguntas frecuentes',
+	underline = 'Preguntas frecuentes',
+	items,
+	circles = [],
+	padding = 'default',
+} = Astro.props;
+
+const dark = tone === 'dark';
+
+const paddingClass = padding === 'large' ? 'py-16 md:py-24' : 'py-12 md:py-20';
+const sectionClass = dark
+	? 'relative z-10 isolate bg-secondary'
+	: 'relative z-10 isolate';
+const borderClass = dark ? 'divide-white/25 border-white/25' : 'divide-neutral-200 border-neutral-200';
+const summaryBase = 'flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-lg font-semibold transition-opacity hover:opacity-80 [&::-webkit-details-marker]:hidden';
+const summaryColor = dark ? 'text-secondary-foreground' : 'text-neutral-900';
+const answerColor = dark ? 'text-secondary-foreground/85' : 'text-neutral-600';
+---
+
+<section class={sectionClass + ' ' + paddingClass}>
+	{circles.map((c) => (
+		<SideCircle color="primary" side={c.side} position={c.position} size={c.size} />
+	))}
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SectionHeading
+			eyebrow={eyebrow}
+			title={title}
+			underline={underline}
+			underlineColor={dark ? 'text-primary' : 'text-tertiary'}
+			tone={dark ? 'dark' : 'light'}
+		/>
+
+		<div class={`mx-auto mt-14 max-w-3xl divide-y border-y ${borderClass}`}>
+			{items.map((faq) => (
+				<details data-motion="fade-up" class="group">
+					<summary class={`${summaryBase} ${summaryColor}`}>
+						{faq.question}
+						<Fragment
+							set:html={chevronDownSvg.replace('<svg', '<svg class="size-5 shrink-0 transition-transform duration-200 group-open:rotate-180"')}
+						/>
+					</summary>
+					<p class={`pb-6 pr-8 leading-relaxed ${answerColor}`}>{faq.answer}</p>
+				</details>
+			))}
+		</div>
+	</div>
+</section>

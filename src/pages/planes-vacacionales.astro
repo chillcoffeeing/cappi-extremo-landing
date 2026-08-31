@@ -1,11 +1,16 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import CountdownSection from '../components/sections/schedule/CountdownSection.astro';
+import PlansSection from '../components/sections/pricing/PlansSection.astro';
+import SessionsSection from '../components/sections/schedule/SessionsSection.astro';
+import GallerySection from '../components/sections/gallery/GallerySection.astro';
+import TestimonialsSection from '../components/sections/testimonials/TestimonialsSection.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+import type { Plan } from '../components/sections/pricing/PlansSection.astro';
+import type { Session } from '../components/sections/schedule/SessionsSection.astro';
+import type { GalleryImage } from '../components/sections/gallery/GallerySection.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
-import SideCircle from '../components/astro/SideCircle.astro';
-import GalleryCarousel from '../components/react/GalleryCarousel.tsx';
-import Testimonials from '../components/react/Testimonials.tsx';
 import { testimonials } from '../data/testimonials';
 
 import heroBg from '../assets/gallery/motos-full-view-1.jpg?url';
@@ -15,14 +20,7 @@ import motosFullView1 from '../assets/gallery/motos-full-view-1.jpg?url';
 
 const NEXT_CAMP_START = '2027-06-15T09:00:00-04:00';
 
-const countdownUnits = [
-	{ key: 'days', label: 'Días' },
-	{ key: 'hours', label: 'Horas' },
-	{ key: 'minutes', label: 'Minutos' },
-	{ key: 'seconds', label: 'Segundos' },
-];
-
-const plans = [
+const plans: Plan[] = [
 	{
 		name: 'Plan Vacacional Decembrino',
 		price: '$150',
@@ -47,7 +45,7 @@ const plans = [
 	},
 ];
 
-const sessions = [
+const sessions: Session[] = [
 	{ name: 'Semana 1', dates: '15 - 19 de junio', status: 'Disponible' },
 	{ name: 'Semana 2', dates: '22 - 26 de junio', status: 'Disponible' },
 	{ name: 'Semana 3', dates: '29 de junio - 3 de julio', status: 'Disponible' },
@@ -59,259 +57,91 @@ const galleryModules = import.meta.glob(
 	{ eager: true, query: '?url', import: 'default' },
 ) as Record<string, string>;
 
-const allGalleryImages = Object.entries(galleryModules).map(([, src]) => ({
+const allGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(([, src]) => ({
 	src,
 	alt: 'Experiencia Cappi Xtremo',
 }));
 
-const galleryRow1 = allGalleryImages.slice(0, Math.ceil(allGalleryImages.length / 2));
-const galleryRow2 = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
+const galleryRow1: GalleryImage[] = allGalleryImages.slice(0, Math.ceil(allGalleryImages.length / 2));
+const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
 ---
 
 <Layout title="Planes vacacionales — Cappi Extremo" description="Conoce nuestros planes vacacionales y daycamp. Inscripciones abiertas para el próximo verano.">
 
-	<!-- Hero -->
-	<section class="relative z-10 isolate overflow-hidden">
-		<img src={heroBg} alt="" aria-hidden="true" loading="eager" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover" />
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-		<div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
-			<div class="flex flex-col items-center text-center">
-				<p data-motion="fade-up" class="text-xl font-semibold uppercase tracking-wide text-white">Cappi <span class="text-primary">Xtremo</span></p>
-				<h1 data-motion="fade-up" class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-					Elige el plan perfecto para las <span class="text-primary">vacaciones</span> de tu hijo
-				</h1>
-				<p data-motion="fade-up" class="mt-6 max-w-2xl text-lg font-normal leading-relaxed text-white md:text-xl">
-					Daycamp y plan vacacional. Todas nuestras opciones incluyen seguridad, diversión y memorias inolvidables.
-				</p>
-			</div>
-		</div>
-	</section>
-	<!-- Countdown -->
-	<section class="relative z-10 isolate overflow-hidden bg-primary">
-		<SideCircle color="secondary" side="right" position="center" />
-		<SideCircle color="secondary" side="left" position="top" size="large" />
-		<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8">
-			<h2 id="pv-countdown-title" data-motion="fade-up"
-				class="text-center text-3xl font-semibold uppercase tracking-tight text-neutral-900 md:text-[40px] md:leading-tight">
-				Días hasta que empieza el próximo plan vacacional
-			</h2>
-			<div id="pv-countdown" data-target={NEXT_CAMP_START} role="timer"
-				aria-labelledby="pv-countdown-title" data-motion="fade-up"
-				class="mt-8 flex items-start justify-center gap-6 sm:gap-20">
-				{countdownUnits.map((unit) => (
-					<div class="flex flex-col items-center">
-						<span data-unit={unit.key}
-							class="text-6xl font-bold tabular-nums tracking-tight text-neutral-900 sm:text-7xl">
-							00
-						</span>
-						<span class="mt-2 text-xs font-medium uppercase tracking-widest text-neutral-800 sm:text-sm">
-							{unit.label}
-						</span>
-					</div>
-				))}
-			</div>
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="Cappi "
+		eyebrowHighlight="Xtremo"
+		title="Elige el plan perfecto para las "
+		highlight="vacaciones"
+		titleAfter=" de tu hijo"
+		subtitle="Daycamp y plan vacacional. Todas nuestras opciones incluyen seguridad, diversión y memorias inolvidables."
+	/>
 
-			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
-				<a
-					href="/coming-soon"
-					class="rounded-full bg-white px-6 py-3 text-base font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-100"
-				>
-					Apartar cupo para mi hijo
-				</a>
-				<a
-					href="/planes-vacacionales/vacacional"
-					class="text-base font-medium uppercase text-neutral-900 transition-opacity hover:opacity-70"
-				>
-					Ver detalles del plan vacacional
-				</a>
-			</div>
-		</div>
-	</section>
+	<CountdownSection
+		title="Días hasta que empieza el próximo plan vacacional"
+		target={NEXT_CAMP_START}
+		circles={[
+			{ side: 'right', position: 'center' },
+			{ side: 'left', position: 'top', size: 'large' },
+		]}
+		ctas={[
+			{ label: 'Apartar cupo para mi hijo', href: '/coming-soon', variant: 'white' },
+			{ label: 'Ver detalles del plan vacacional', href: '/planes-vacacionales/vacacional', variant: 'link' },
+		]}
+	/>
 	<SectionPattern bottom="orange-pattern" />
 
-	<!-- Planes -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">
-				Nuestros planes
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Planes <UnderlineStroke>vacacionales</UnderlineStroke>
-			</h2>
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-lg leading-relaxed text-neutral-600">
-				Cada plan está diseñado para que tu hijo viva una experiencia completa de diversión, aventura y aprendizaje.
-			</p>
+	<PlansSection
+		eyebrow="Nuestros planes"
+		title="Planes "
+		underline="vacacionales"
+		intro="Cada plan está diseñado para que tu hijo viva una experiencia completa de diversión, aventura y aprendizaje."
+		plans={plans}
+		inscribirHref="/coming-soon"
+	/>
 
-			<div class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
-				{plans.map((plan) => (
-					<article data-motion="fade-up" class:list={[
-						"relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-shadow hover:shadow-md",
-						plan.highlight ? "border-primary bg-primary/5" : "border-neutral-200 bg-white",
-					]}>
-						{plan.highlight && (
-							<span class="absolute left-4 top-4 z-10 rounded-full bg-primary px-4 py-1 text-xs font-semibold uppercase text-primary-foreground">
-								Más popular
-							</span>
-						)}
-						<div class="relative h-[250px] w-full overflow-hidden">
-							<Image src={plan.image} alt={plan.name} width={800} height={500} loading="lazy" class="h-full w-full object-cover" />
-						</div>
-						<div class="flex flex-1 flex-col p-6 md:p-8">
-							<h3 class="text-xl font-semibold text-neutral-900 md:text-2xl">{plan.name}</h3>
-							{plan.startDate && (
-								<p class="mt-1 text-sm font-medium uppercase tracking-wide text-neutral-500">Fecha de inicio: {plan.startDate}</p>
-							)}
-							<div class="mt-3">
-								<span class:list={[
-									plan.price === 'Próximamente'
-										? "text-lg font-semibold text-neutral-500"
-										: "text-4xl font-bold text-neutral-900",
-								]}>
-									{plan.price}
-								</span>
-								{plan.period && <span class="ml-1 text-sm text-neutral-500">{plan.period}</span>}
-							</div>
-							<ul class="mt-6 flex-1 space-y-3">
-								{plan.features.map((f) => (
-									<li class="flex items-start gap-2 text-base text-neutral-600">
-										<svg class="mt-0.5 size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-											<path d="M20 6 9 17l-5-5" />
-										</svg>
-										{f}
-									</li>
-								))}
-							</ul>
-							<div class="mt-8 flex flex-col items-start gap-3">
-								{plan.disabled ? (
-									<button disabled type="button"
-										class="inline-flex cursor-not-allowed items-center justify-center rounded-full bg-neutral-300 px-6 py-3 text-base font-semibold text-neutral-500 opacity-70">
-										{plan.cta}
-									</button>
-								) : (
-									<a href="/coming-soon" class:list={[
-										"inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-semibold transition-colors",
-										plan.highlight
-											? "bg-primary text-primary-foreground hover:bg-primary/90"
-											: "border border-neutral-300 text-neutral-800 hover:border-primary hover:text-primary",
-									]}>
-										{plan.cta}
-									</a>
-								)}
-								<a href={`/planes-vacacionales/${plan.slug}`}
-									class="text-sm font-medium uppercase text-neutral-500 transition-colors hover:text-primary">
-									Ver detalles del plan vacacional
-								</a>
-							</div>
-						</div>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<!-- Sesiones -->
 	<SectionPattern top="blue-pattern" flipTop />
-	<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
-		<SideCircle color="primary" side="right" position="bottom" size="large" />
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
-				Fechas disponibles
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight">
-				<UnderlineStroke color="text-primary" nowrap={false}>Sesiones 2027</UnderlineStroke>
-			</h2>
+	<SessionsSection
+		tone="dark"
+		eyebrow="Fechas disponibles"
+		title="Sesiones "
+		underline="2027"
+		sessions={sessions}
+		ctas={[
+			{ label: 'Inscribir a mi hijo', href: '/coming-soon', variant: 'white' },
+			{ label: 'Tengo preguntas', href: '/contacto', variant: 'link' },
+		]}
+		circles={[{ side: 'right', position: 'bottom', size: 'large' }]}
+	/>
 
-			<div class="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
-				{sessions.map((s) => (
-					<div data-motion="fade-up" class="flex items-center justify-between rounded-2xl bg-white/10 px-6 py-5">
-						<div>
-							<p class="font-semibold text-secondary-foreground md:text-lg">{s.name}</p>
-							<p class="text-sm text-secondary-foreground/75">{s.dates}</p>
-						</div>
-						<span class:list={[
-							"rounded-full px-3 py-1 text-xs font-semibold",
-							s.status === "Disponible" ? "bg-primary text-primary-foreground" : "bg-white/20 text-secondary-foreground",
-						]}>
-							{s.status}
-						</span>
-					</div>
-				))}
-			</div>
+	<GallerySection
+		eyebrow="Galería"
+		title="Así se viven los "
+		underline="planes vacacionales"
+		intro="Momentos reales de diversión, aventura y aprendizaje vividos por los niños en Cappi Xtremo."
+		rows={[
+			{ images: galleryRow1, direction: 'left' },
+			{ images: galleryRow2, direction: 'right' },
+		]}
+	/>
 
-			<div class="mt-12 flex flex-col items-center gap-4">
-				<a href="/coming-soon" class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
-					Inscribir a mi hijo
-				</a>
-				<a href="/contacto" class="text-base font-medium uppercase text-secondary-foreground transition-opacity hover:opacity-70">
-					Tengo preguntas
-				</a>
-			</div>
-		</div>
-	</section>
-	
-	<!-- Galería -->
-	<section class="py-16 md:py-24">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Galería</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Así se viven los <UnderlineStroke>planes vacacionales</UnderlineStroke>
-			</h2>
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
-				Momentos reales de diversión, aventura y aprendizaje vividos por los niños en Cappi Xtremo.
-			</p>
-			<div class="mt-14 space-y-4 sm:space-y-6">
-				<GalleryCarousel client:visible images={galleryRow1} direction="left" />
-				<GalleryCarousel client:visible images={galleryRow2} direction="right" />
-			</div>
-		</div>
-	</section>
+	<TestimonialsSection
+		eyebrow="Comentarios"
+		title="Lo que dicen las "
+		underline="familias"
+		items={testimonials}
+		compactHeading
+	/>
 
-	<!-- Comentarios -->
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Comentarios</p>
-			<h2 data-motion="fade-up" class="mt-3 mb-6 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Lo que dicen las <UnderlineStroke>familias</UnderlineStroke>
-			</h2>
-			<Testimonials client:visible items={testimonials} />
-		</div>
-	</section>
-
-	<!-- CTA final -->
-	<section class="relative z-10 isolate overflow-hidden">
-		<img src={motosFullView1} alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 -z-10 h-full w-full object-cover" />
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-		<div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
-			<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center text-3xl font-semibold text-white md:text-[40px] md:leading-tight">
-				¿Listo para que tu hijo viva la <UnderlineStroke>mejor experiencia</UnderlineStroke>?
-			</h2>
-			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
-				<a href="/contacto" class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100">
-					Contáctanos
-				</a>
-			</div>
-		</div>
-	</section>
+	<CtaSection
+		variant="image"
+		bgImage={motosFullView1}
+		title="¿Listo para que tu hijo viva la "
+		underline="mejor experiencia"
+		titleAfter="?"
+		buttons={[{ label: 'Contáctanos', href: '/contacto', variant: 'white' }]}
+		padding="large"
+	/>
 
 </Layout>
-
-<script>
-	const root = document.getElementById('pv-countdown');
-	if (root) {
-		const target = Date.parse(root.dataset.target ?? '');
-		const setUnit = (key: string, value: string) => {
-			const el = root.querySelector<HTMLElement>(`[data-unit="${key}"]`);
-			if (el) el.textContent = value;
-		};
-		const tick = () => {
-			const diff = Number.isFinite(target) ? Math.max(0, target - Date.now()) : 0;
-			const total = Math.floor(diff / 1000);
-			setUnit('days', String(Math.floor(total / 86400)).padStart(2, '0'));
-			setUnit('hours', String(Math.floor((total % 86400) / 3600)).padStart(2, '0'));
-			setUnit('minutes', String(Math.floor((total % 3600) / 60)).padStart(2, '0'));
-			setUnit('seconds', String(total % 60).padStart(2, '0'));
-		};
-		tick();
-		setInterval(tick, 1000);
-	}
-</script>

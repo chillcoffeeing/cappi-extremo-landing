@@ -1,0 +1,127 @@
+---
+import SideCircle from '../../astro/SideCircle.astro';
+import UnderlineStroke from '../../titles/UnderlineStroke.astro';
+import CtaList from '../../cta/CtaList.astro';
+import type { Cta } from '../../cta/CtaList.astro';
+
+export interface Button {
+	label: string;
+	href: string;
+	variant?: 'primary' | 'white' | 'outline' | 'link';
+}
+
+export interface Circle {
+	side: 'left' | 'right';
+	position?: 'top' | 'center' | 'bottom';
+	size?: 'xs' | 'small' | 'medium' | 'large' | 'xl';
+}
+
+export interface Props {
+	/** Estilo de la sección: fondo imagen, blanco o banda secondary */
+	variant?: 'image' | 'light' | 'dark';
+	/** Imagen de fondo (solo variant="image") */
+	bgImage?: string;
+	/** Título (parte anterior al subrayado) */
+	title: string;
+	/** Palabras subrayadas (en medio del título) */
+	underline?: string;
+	/** Color del trazo */
+	underlineColor?: string;
+	/** Texto posterior al subrayado */
+	titleAfter?: string;
+	/** Párrafo introductorio (variant light/dark) */
+	intro?: string;
+	/** Botones CTA */
+	buttons: Cta[];
+	/** Círculos decorativos (variant dark) */
+	circles?: Circle[];
+	/** Padding alto para variant image (py-24 md:py-32 vs py-20 md:py-24) */
+	padding?: 'default' | 'large';
+}
+
+const {
+	variant = 'image',
+	bgImage,
+	title,
+	underline,
+	underlineColor = 'text-tertiary',
+	titleAfter = '',
+	intro,
+	buttons,
+	circles = [],
+	padding = 'default',
+} = Astro.props;
+
+const linkColor = variant === 'image' ? 'text-white' : 'text-neutral-900';
+
+const imagePadding = padding === 'large' ? 'py-24 sm:px-6 md:py-32 lg:px-8' : 'py-20 sm:px-6 md:py-24 lg:px-8';
+
+const ctas = buttons.map((b) => ({
+	...b,
+	linkColor: b.variant === 'link' ? linkColor : undefined,
+}));
+---
+
+{
+	variant === 'image' && (
+		<section class="relative z-10 isolate overflow-hidden">
+			{bgImage && (
+				<img src={bgImage} alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+			)}
+			<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
+			<div class={['mx-auto max-w-7xl px-4 lg:px-8', imagePadding].filter(Boolean).join(' ')}>
+				<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center font-semibold text-white md:leading-tight">
+					{title}
+					{underline && <UnderlineStroke color={underlineColor}>{underline}</UnderlineStroke>}
+					{titleAfter}
+				</h2>
+				<CtaList ctas={ctas} class="mt-10" />
+			</div>
+		</section>
+	)
+}
+
+{
+	variant === 'light' && (
+		<section class="py-16 md:py-24">
+			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+				<div class="mx-auto max-w-3xl text-center">
+					<h2 data-motion="fade-up" class="font-semibold text-neutral-900 md:leading-tight">
+						{title}
+						{underline && <UnderlineStroke color={underlineColor}>{underline}</UnderlineStroke>}
+						{titleAfter}
+					</h2>
+					{intro && (
+						<p data-motion="fade-up" class="mt-4 leading-relaxed text-neutral-600">{intro}</p>
+					)}
+					<CtaList ctas={ctas} class="mt-8 sm:flex-row sm:justify-center" />
+				</div>
+			</div>
+		</section>
+	)
+}
+
+{
+	variant === 'dark' && (
+		<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
+			{circles.map((c) => (
+				<SideCircle color="primary" side={c.side} position={c.position} size={c.size} />
+			))}
+			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+				<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center font-semibold text-secondary-foreground md:leading-tight">
+					{title}
+					{underline && (
+						<UnderlineStroke color={underlineColor} nowrap={false}>{underline}</UnderlineStroke>
+					)}
+					{titleAfter}
+				</h2>
+				{intro && (
+					<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center leading-relaxed text-secondary-foreground/85">
+						{intro}
+					</p>
+				)}
+				<CtaList ctas={ctas} class="mt-10" />
+			</div>
+		</section>
+	)
+}

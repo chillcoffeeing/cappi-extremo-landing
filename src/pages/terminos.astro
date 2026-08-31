@@ -1,67 +1,42 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LegalSection from '../components/sections/legal/LegalSection.astro';
+import type { LegalSection as LegalSectionModel } from '../components/sections/legal/LegalSection.astro';
+
+const sections: LegalSectionModel[] = [
+	{
+		heading: '1. Aceptación de los términos',
+		body: 'Al inscribir a tu hijo en cualquiera de nuestros programas, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguno de estos términos, por favor no utilices nuestros servicios.',
+	},
+	{
+		heading: '2. Inscripciones y pagos',
+		body: 'La inscripción se completa una vez recibido el pago correspondiente. Los precios están sujetos a cambio sin previo aviso. Se ofrecen opciones de pago en cuotas para el plan vacacional.',
+	},
+	{
+		heading: '3. Cancelaciones y reembolsos',
+		body: 'Las cancelaciones realizadas con al menos 15 días de anticipación antes del inicio del plan vacacional reciben un reembolso del 80%. Cancelaciones con menos de 15 días no son reembolsables. En caso de condiciones climáticas extremas, se ofrecen fechas alternativas.',
+	},
+	{
+		heading: '4. Responsabilidad y seguridad',
+		body: 'Cappi Xtremo cuenta con personal capacitado en primeros auxilios y protocolos de seguridad. Sin embargo, los padres o tutores son responsables de informar alergias, condiciones médicas especiales y proporcionar la información de contacto de emergencia.',
+	},
+	{
+		heading: '5. Uso de imágenes',
+		body: 'Durante los planes vacacionales y eventos se toman fotografías y videos con fines promocionales. Al inscribir a tu hijo, aceptas el uso de estas imágenes en nuestros canales oficiales. Si deseas optar por favor comunicarlo por escrito antes del inicio del evento.',
+	},
+	{
+		heading: '6. Modificaciones',
+		body: 'Cappi Xtremo se reserva el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones serán efectivas desde su publicación en el sitio web.',
+	},
+	{
+		heading: '7. Contacto',
+		body: 'Para preguntas sobre estos términos, contáctanos a <a href="mailto:contacto@cappiextremo.com" class="text-secondary underline transition-colors hover:text-secondary/80">contacto@cappiextremo.com</a>.',
+	},
+];
 ---
 
 <Layout title="Términos y condiciones — Cappi Extremo" description="Términos y condiciones de uso de nuestros servicios de planes vacacionales, fiestas y eventos.">
 
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-			<h1 data-motion="fade-up" class="text-3xl font-semibold text-neutral-900 md:text-4xl">
-				Términos y condiciones
-			</h1>
-			<p data-motion="fade-up" class="mt-2 text-sm text-neutral-500">Última actualización: enero 2027</p>
-
-			<div data-motion="fade-up" class="prose prose-neutral mt-8 max-w-none space-y-6 text-base leading-relaxed text-neutral-600">
-				<section>
-					<h2 class="text-xl font-semibold text-neutral-900">1. Aceptación de los términos</h2>
-					<p>
-						Al inscribir a tu hijo en cualquiera de nuestros programas, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguno de estos términos, por favor no utilices nuestros servicios.
-					</p>
-				</section>
-
-				<section>
-					<h2 class="text-xl font-semibold text-neutral-900">2. Inscripciones y pagos</h2>
-					<p>
-						La inscripción se completa una vez recibido el pago correspondiente. Los precios están sujetos a cambio sin previo aviso. Se ofrecen opciones de pago en cuotas para el plan vacacional.
-					</p>
-				</section>
-
-				<section>
-					<h2 class="text-xl font-semibold text-neutral-900">3. Cancelaciones y reembolsos</h2>
-					<p>
-						Las cancelaciones realizadas con al menos 15 días de anticipación antes del inicio del plan vacacional reciben un reembolso del 80%. Cancelaciones con menos de 15 días no son reembolsables. En caso de condiciones climáticas extremas, se ofrecen fechas alternativas.
-					</p>
-				</section>
-
-				<section>
-					<h2 class="text-xl font-semibold text-neutral-900">4. Responsabilidad y seguridad</h2>
-					<p>
-						Cappi Xtremo cuenta con personal capacitado en primeros auxilios y protocolos de seguridad. Sin embargo, los padres o tutores son responsables de informar alergias, condiciones médicas especiales y proporcionar la información de contacto de emergencia.
-					</p>
-				</section>
-
-				<section>
-					<h2 class="text-xl font-semibold text-neutral-900">5. Uso de imágenes</h2>
-					<p>
-						Durante los planes vacacionales y eventos se toman fotografías y videos con fines promocionales. Al inscribir a tu hijo, aceptas el uso de estas imágenes en nuestros canales oficiales. Si deseas optar por favor comunicarlo por escrito antes del inicio del evento.
-					</p>
-				</section>
-
-				<section>
-					<h2 class="text-xl font-semibold text-neutral-900">6. Modificaciones</h2>
-					<p>
-						Cappi Xtremo se reserva el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones serán efectivas desde su publicación en el sitio web.
-					</p>
-				</section>
-
-				<section>
-					<h2 class="text-xl font-semibold text-neutral-900">7. Contacto</h2>
-					<p>
-						Para preguntas sobre estos términos, contáctanos a <a href="mailto:contacto@cappiextremo.com" class="text-secondary underline transition-colors hover:text-secondary/80">contacto@cappiextremo.com</a>.
-					</p>
-				</section>
-			</div>
-		</div>
-	</section>
+	<LegalSection title="Términos y condiciones" updated="Última actualización: enero 2027" sections={sections} />
 
 </Layout>

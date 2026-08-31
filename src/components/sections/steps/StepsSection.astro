@@ -1,0 +1,91 @@
+---
+import SideCircle from '../../astro/SideCircle.astro';
+import SectionHeading from '../../titles/SectionHeading.astro';
+import Button from '../../buttons/Button.astro';
+
+export interface Step {
+	number: string;
+	title: string;
+	description: string;
+}
+
+export interface Cta {
+	label: string;
+	href: string;
+	variant?: 'white' | 'link';
+}
+
+export interface Circle {
+	side: 'left' | 'right';
+	position?: 'top' | 'center' | 'bottom';
+	size?: 'xs' | 'small' | 'medium' | 'large' | 'xl';
+}
+
+export interface Props {
+	eyebrow: string;
+	title?: string;
+	underline?: string;
+	underlineColor?: string;
+	steps: Step[];
+	/** Columnas en desktop (3 o 4) */
+	columns?: 3 | 4;
+	/** CTA bajo los pasos */
+	cta?: Cta;
+	/** Círculos decorativos sobre banda secondary */
+	circles?: Circle[];
+}
+
+const {
+	eyebrow,
+	title = '',
+	underline,
+	underlineColor = 'text-primary',
+	steps,
+	columns = 4,
+	cta,
+	circles = [],
+} = Astro.props;
+
+const gridClass =
+	columns === 4
+		? 'mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4'
+		: 'mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-3';
+---
+
+<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
+	{circles.map((c) => (
+		<SideCircle color="primary" side={c.side} position={c.position} size={c.size} />
+	))}
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SectionHeading
+			eyebrow={eyebrow}
+			title={title}
+			underline={underline}
+			underlineColor={underlineColor}
+			tone="dark"
+		/>
+
+		<div class={gridClass}>
+			{steps.map((step) => (
+				<div data-motion="fade-up" class="flex flex-col items-center text-center">
+					<div class="flex size-14 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
+						{step.number}
+					</div>
+					<h3 class="mt-4 font-semibold text-secondary-foreground">{step.title}</h3>
+					<p class="mt-2 text-secondary-foreground/85">{step.description}</p>
+				</div>
+			))}
+		</div>
+
+		{cta && (
+			<div data-motion="fade-up" class="mt-12 flex flex-col items-center gap-4">
+				<Button
+					label={cta.label}
+					href={cta.href}
+					variant={cta.variant ?? 'white'}
+					linkColor={cta.variant === 'link' ? 'text-secondary-foreground' : undefined}
+				/>
+			</div>
+		)}
+	</div>
+</section>

@@ -1,19 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Testimonials from '../components/react/Testimonials.tsx';
-import GalleryCarousel from '../components/react/GalleryCarousel.tsx';
-import { testimonials } from '../data/testimonials';
-import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import PhilosophySection from '../components/sections/cards/PhilosophySection.astro';
+import ServicesBand from '../components/sections/cta/ServicesBand.astro';
+import ActivitiesSection from '../components/sections/cards/ActivitiesSection.astro';
+import TestimonialsSection from '../components/sections/testimonials/TestimonialsSection.astro';
+import GallerySection from '../components/sections/gallery/GallerySection.astro';
+import StaffSection from '../components/sections/cards/StaffSection.astro';
+import FaqSection from '../components/sections/faq/FaqSection.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+import type { ServiceCard } from '../components/sections/cta/ServicesBand.astro';
+import type { PhilosophyItem } from '../components/sections/cards/PhilosophySection.astro';
+import type { ActivityItem } from '../components/sections/cards/ActivitiesSection.astro';
+import type { GalleryImage } from '../components/sections/gallery/GallerySection.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
-import ImageAccent from '../components/astro/ImageAccent.astro';
-import SideCircle from '../components/astro/SideCircle.astro';
+import { testimonials } from '../data/testimonials';
 import { faqs } from '../data/faqs';
 
 import flagIcon from '../assets/ui/flag.svg?url';
 import peopleIcon from '../assets/ui/people.svg?url';
 import laughIcon from '../assets/ui/laugh.svg?url';
 import shieldIcon from '../assets/ui/shield.svg?url';
-import chevronDownSvg from '../assets/ui/chevron-down.svg?raw';
 
 import heroPosterBg from '../assets/gallery/motos-full-view-2.jpg?url';
 import heroVideoMp4Bg from '../assets/videos/hero-video-bg.mp4?url';
@@ -22,7 +29,7 @@ import fiesta1 from '../assets/gallery/fiesta-1.jpg?url';
 import juegos1 from '../assets/gallery/juegos-1.jpg?url';
 import teamFullView from '../assets/gallery/team-full-view.jpg?url';
 
-import h1 from '../assets/gallery/all/horizontal-images/IMG_4596.jpg?url';
+import h1 from '../assets/gallery/all/horizontal-images/IMG_3594.jpg?url';
 import h2 from '../assets/gallery/all/horizontal-images/IMG_4595.jpg?url';
 import h3 from '../assets/gallery/all/horizontal-images/IMG_4593.jpg?url';
 import h4 from '../assets/gallery/all/horizontal-images/IMG_4578.jpg?url';
@@ -39,51 +46,48 @@ import v6 from '../assets/gallery/all/vertical-images/IMG_5568.jpg?url';
 import v7 from '../assets/gallery/all/vertical-images/IMG_5554.jpg?url';
 import v8 from '../assets/gallery/all/vertical-images/IMG_5549.jpg?url';
 
+import activity1 from '../assets/gallery/padel-fest.jpg?url';
+import activity2 from '../assets/gallery/paseo-a-caballo.jpg?url';
+import activity3 from '../assets/gallery/acuatico.jpg?url';
+import activity4 from '../assets/gallery/deportes.jpg?url';
+import activity5 from '../assets/gallery/spa.jpg?url';
+import activity6 from '../assets/gallery/rally-barro.jpg?url';
+import activity7 from '../assets/gallery/var-ritmo.jpg?url';
+import activity8 from '../assets/gallery/planetario.jpg?url';
+import activity9 from '../assets/gallery/rusticos.jpg?url';
+
+
+
 const NEXT_CAMP_START = '2027-06-15T09:00:00-04:00';
-
-const serviceCards = [
-	{
-		image: motosFullView1,
-		title: 'Planes vacacionales',
-		cta: 'Ver nuestros planes vacacionales',
-		href: '/planes-vacacionales',
-	},
-	{
-		image: fiesta1,
-		title: 'Fiestas y eventos',
-		cta: 'Ver servicio',
-		href: '/otros-servicios',
-	},
-	{
-		image: juegos1,
-		title: 'Animación y recreación',
-		cta: 'Ver servicio',
-		href: '/otros-servicios',
-	},
-];
-
-const countdownUnits = [
-	{ key: 'days', label: 'Días' },
-	{ key: 'hours', label: 'Horas' },
-	{ key: 'minutes', label: 'Minutos' },
-	{ key: 'seconds', label: 'Segundos' },
-];
 
 const COLORS = { col1: '#805611', col2: '#59802E', col3: '#026A80' };
 
-const activitiesCards = [
-	{ image: h1, title: 'Pádel Fest', color: COLORS.col1 },
-	{ image: h2, title: 'Paseo a caballo', color: COLORS.col2 },
-	{ image: h3, title: 'Acuático', color: COLORS.col3 },
-	{ image: h4, title: 'Deportes', color: COLORS.col1 },
-	{ image: h5, title: 'Spa', color: COLORS.col2 },
-	{ image: h6, title: 'Rally barro', color: COLORS.col3 },
-	{ image: h7, title: 'VAR ritmo', color: COLORS.col1 },
-	{ image: h8, title: 'Planetario', color: COLORS.col2 },
-	{ image: motosFullView1, title: 'Rústicos', color: COLORS.col3 },
+const serviceCards: ServiceCard[] = [
+	{ image: motosFullView1, title: 'Planes vacacionales', cta: 'Ver nuestros planes vacacionales', href: '/planes-vacacionales' },
+	{ image: fiesta1, title: 'Fiestas y eventos', cta: 'Ver servicio', href: '/otros-servicios' },
+	{ image: juegos1, title: 'Animación y recreación', cta: 'Ver servicio', href: '/otros-servicios' },
 ];
 
-const galleryRow1 = [
+const philosophyItems: PhilosophyItem[] = [
+	{ icon: flagIcon, title: 'Aventura sin límites', description: 'Actividades al aire libre que sacan lo mejor de cada niño.' },
+	{ icon: peopleIcon, title: 'Amistades para toda la vida', description: 'Un ambiente donde se hacen amigos de verdad.' },
+	{ icon: laughIcon, title: 'Aprender jugando', description: 'Cada actividad enseña algo, sin que se sienta como clase.' },
+	{ icon: shieldIcon, title: 'Seguridad ante todo', description: 'Personal capacitado y protocolos claros en cada momento.' },
+];
+
+const activitiesCards: ActivityItem[] = [
+	{ image: activity1, title: 'Pádel Fest', color: COLORS.col1 },
+	{ image: activity2, title: 'Paseo a caballo', color: COLORS.col2 },
+	{ image: activity3, title: 'Acuático', color: COLORS.col3 },
+	{ image: activity4, title: 'Deportes', color: COLORS.col1 },
+	{ image: activity5, title: 'Spa', color: COLORS.col2 },
+	{ image: activity6, title: 'Rally barro', color: COLORS.col3 },
+	{ image: activity7, title: 'VAR ritmo', color: COLORS.col1 },
+	{ image: activity8, title: 'Planetario', color: COLORS.col2 },
+	{ image: activity9, title: 'Rústicos', color: COLORS.col3 },
+];
+
+const galleryRow1: GalleryImage[] = [
 	{ src: h1, alt: 'Actividades al aire libre en Cappi Xtremo' },
 	{ src: h2, alt: 'Grupo de niños disfrutando aventuras' },
 	{ src: h3, alt: 'Deportes y juegos extremos' },
@@ -94,7 +98,7 @@ const galleryRow1 = [
 	{ src: h8, alt: 'Momentos de diversión en Cappi' },
 ];
 
-const galleryRow2 = [
+const galleryRow2: GalleryImage[] = [
 	{ src: v1, alt: 'Niño conduciendo cuatriciclo' },
 	{ src: v2, alt: 'Actividades deportivas en equipo' },
 	{ src: v3, alt: 'Juegos de agua y aventura' },
@@ -104,368 +108,107 @@ const galleryRow2 = [
 	{ src: v7, alt: 'Circuitos de obstáculos' },
 	{ src: v8, alt: 'Energía y diversión sin parar' },
 ];
-
-
-
-const philosophyItems = [
-	{
-		icon: flagIcon,
-		title: 'Aventura sin límites',
-		description: 'Actividades al aire libre que sacan lo mejor de cada niño.',
-	},
-	{
-		icon: peopleIcon,
-		title: 'Amistades para toda la vida',
-		description: 'Un ambiente donde se hacen amigos de verdad.',
-	},
-	{
-		icon: laughIcon,
-		title: 'Aprender jugando',
-		description: 'Cada actividad enseña algo, sin que se sienta como clase.',
-	},
-	{
-		icon: shieldIcon,
-		title: 'Seguridad ante todo',
-		description: 'Personal capacitado y protocolos claros en cada momento.',
-	},
-];
 ---
 
 <Layout>
-	<section class="relative z-10 isolate overflow-hidden">
-		<video poster={heroPosterBg}  preload="none" autoplay muted loop class="absolute inset-0 -z-10 h-full w-full object-cover">
-			<source src={heroVideoMp4Bg} type="video/mp4">
-		</video>
-		
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<div class="flex flex-col justify-center items-center text-center min-h-130 py-10 md:min-h-170">
-				<p class="text-lg md:text-xl font-semibold uppercase tracking-wide">
-					<span class="text-primary">Cappi Xtremo</span>
-				</p>
-
-				<h1 class="mt-4 max-w-4xl text-3xl md:text-5xl xl:text-6xl font-bold tracking-tight text-white">
-					¡Las vacaciones más <span class="text-primary">divertidas</span> están por comenzar!
-				</h1>
-
-				<h2 class="mt-6 max-w-2xl text-sm md:text-base font-normal leading-relaxed text-white">
-					Deporte, amigos, aventura y risas sin parar. Dale a tu hijo un verano que va a recordar
-					para siempre.
-				</h2>
-
-				<div class="mt-8 flex flex-col items-center gap-4 sm:flex-row">
-					<a
-						href="/planes-vacacionales"
-						class="rounded-full bg-primary px-6 py-3 text-base font-medium md:font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-					>
-						Ver fechas y plan vacacional
-					</a>
-					<a
-						href="#"
-						class="rounded-full bg-white px-6 py-3 text-base font-medium md:font-semibold text-neutral-900 transition-colors hover:bg-neutral-100"
-					>
-						Únete ahora
-					</a>
-				</div>
-			</div>
-		</div>
-	</section>
+	<SectionHero
+		bgImage={heroPosterBg}
+		bgVideo={heroVideoMp4Bg}
+		bgVideoPoster={heroPosterBg}
+		eyebrow="Cappi "
+		eyebrowHighlight="Xtremo"
+		title="¡Las vacaciones más "
+		highlight="divertidas"
+		titleAfter=" están por comenzar!"
+		subtitle="Deporte, amigos, aventura y risas sin parar. Dale a tu hijo un verano que va a recordar para siempre."
+		buttons={[
+			{ label: 'Ver fechas y plan vacacional', href: '/planes-vacacionales', variant: 'primary' },
+			{ label: 'Únete ahora', href: '#', variant: 'white' },
+		]}
+		dock
+	/>
 	<SectionPattern bottom="orange-pattern-fade" />
 
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<h2 data-motion="fade-up" class="text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Nuestra <UnderlineStroke>filosofía</UnderlineStroke>
-			</h2>
-
-			<p class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
-				En Cappi Xtremo creemos que el verano es para vivirlo a fondo: correr, jugar, ensuciarse y hacer
-				amigos para toda la vida. Por eso cada día está diseñado para que tu hijo se divierta, se atreva y
-				crezca.
-			</p>
-
-			<div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-				{
-					philosophyItems.map((item) => (
-						<div data-motion="fade-up" class="flex flex-col items-center text-center">
-							<div class="flex size-[110px] items-center justify-center rounded-full bg-secondary/50 p-[30px]">
-								<img src={item.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" class="h-full w-full object-contain" />
-							</div>
-							<h3 class="mt-6 text-lg font-medium text-neutral-900">{item.title}</h3>
-							<p class="mt-2 text-base leading-relaxed text-neutral-600">{item.description}</p>
-						</div>
-					))
-				}
-			</div>
-
-			<div data-motion="fade-up" class="mt-14 flex justify-center">
-				<a
-					href="/planes-vacacionales"
-					class="rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-				>
-					Conoce nuestros planes vacacionales
-				</a>
-			</div>
-		</div>
-	</section>
+	<PhilosophySection
+		title="Nuestra "
+		underline="filosofía"
+		intro="En Cappi Xtremo creemos que el verano es para vivirlo a fondo: correr, jugar, ensuciarse y hacer amigos para toda la vida. Por eso cada día está diseñado para que tu hijo se divierta, se atreva y crezca."
+		items={philosophyItems}
+		cta={{ label: 'Conoce nuestros planes vacacionales', href: '/planes-vacacionales' }}
+	/>
 
 	<SectionPattern top="orange-pattern" flipTop />
-	<section class="relative z-10 isolate overflow-hidden bg-primary">
-		<SideCircle color="secondary" side="right" position="center" />
-		<SideCircle color="secondary" side="left" position="top" size="large" />
-		<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8">
-			<h2 data-motion="fade-up" class="text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Bienvenidos a <UnderlineStroke>Cappi Xtremo</UnderlineStroke>
-			</h2>
-
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-800">
-				Conoce nuestros servicios y todo lo que podemos hacer por ti. Planes vacacionales, eventos,
-				fiestas y animaciones para celebrar por todo lo alto.
-			</p>
-
-			<div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
-				{
-					serviceCards.map((card) => (
-						<a href={card.href} data-motion="fade-up" class="group relative isolate flex h-[460px] flex-col items-center justify-end overflow-hidden text-center shadow-sm transition-shadow hover:shadow-md">
-							<img
-								src={card.image}
-								alt=""
-								aria-hidden="true"
-								loading="lazy"
-								decoding="async"
-								class="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-							/>
-							<div class="absolute inset-0 -z-10 bg-neutral-950/60" aria-hidden="true"></div>
-
-							<div class="flex flex-col items-center gap-5 px-6 pb-10">
-								<h4 class="text-xl font-semibold uppercase tracking-wide text-white">{card.title}</h4>
-								<span class="rounded-full bg-white px-5 py-2.5 text-sm font-semibold uppercase text-neutral-900 transition-colors group-hover:bg-neutral-100">
-									{card.cta}
-								</span>
-							</div>
-						</a>
-					))
-				}
-			</div>
-
-			<h3
-				id="camp-countdown-title"
-				data-motion="fade-up"
-				class="mt-16 text-center text-3xl font-semibold uppercase tracking-tight text-neutral-900 md:mt-24"
-			>
-				Días hasta que empieza el próximo plan vacacional
-			</h3>
-
-			<div id="camp-countdown" data-target={NEXT_CAMP_START} role="timer" aria-labelledby="camp-countdown-title" data-motion="fade-up" class="mt-8 flex items-start justify-center gap-6 sm:gap-20">
-				{
-					countdownUnits.map((unit) => (
-						<div class="flex flex-col items-center">
-							<span
-								data-unit={unit.key}
-								class="text-6xl font-bold tabular-nums tracking-tight text-neutral-900 sm:text-7xl"
-							>
-								00
-							</span>
-							<span class="mt-2 text-xs font-medium uppercase tracking-widest text-neutral-800 sm:text-sm">
-								{unit.label}
-							</span>
-						</div>
-					))
-				}
-			</div>
-
-			<div data-motion="fade-up" class="mt-10 flex flex-col items-center gap-4">
-				<a
-					href="/planes-vacacionales"
-					class="rounded-full bg-white px-6 py-3 text-base font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-100"
-				>
-					Apartar cupo para mi hijo
-				</a>
-				<a
-					href="/planes-vacacionales"
-					class="text-base font-medium uppercase text-neutral-900 transition-opacity hover:opacity-70"
-				>
-					Ver detalles del plan vacacional
-				</a>
-			</div>
-		</div>
-	</section>
+	<ServicesBand
+		headingTitle="Bienvenidos a "
+		underline="Cappi Xtremo"
+		intro="Conoce nuestros servicios y todo lo que podemos hacer por ti. Planes vacacionales, eventos, fiestas y animaciones para celebrar por todo lo alto."
+		cards={serviceCards}
+		countdownId="camp-countdown"
+		countdownTarget={NEXT_CAMP_START}
+		countdownSize="hero"
+		ctas={[
+			{ label: 'Apartar cupo para mi hijo', href: '/planes-vacacionales', variant: 'white' },
+			{ label: 'Ver detalles del plan vacacional', href: '/planes-vacacionales', variant: 'link' },
+		]}
+	/>
 	<SectionPattern bottom="orange-pattern" />
 
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary md:text-base">
-				Actividades
-			</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				<UnderlineStroke>Jugadas extremas</UnderlineStroke>
-			</h2>
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
-				Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se
-				divierten, los campistas también desarrollan liderazgo, trabajo en equipo, confianza y respeto a
-				su propio ritmo y sin darse cuenta.
-			</p>
+	<ActivitiesSection
+		eyebrow="Actividades"
+		underline="Jugadas extremas"
+		intro="Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se divierten, los campistas también desarrollan liderazgo, trabajo en equipo, confianza y respeto a su propio ritmo y sin darse cuenta."
+		items={activitiesCards}
+	/>
 
-			<div data-motion="fade-up" class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{
-					activitiesCards.map((item) => (
-						<article class="overflow-hidden shadow-sm">
-							<img
-								src={item.image}
-								alt={item.title}
-								loading="lazy"
-								decoding="async"
-								class="h-40 w-full object-cover"
-							/>
-							<div
-								class="flex h-[40px] items-center justify-center px-3 text-center text-lg font-semibold uppercase tracking-wide text-white"
-								style={`background-color:${item.color}`}
-							>
-								{item.title}
-							</div>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
+	<TestimonialsSection
+		eyebrow="Testimonios"
+		title="Lo que dicen "
+		underline="las familias"
+		items={testimonials}
+	/>
 
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Testimonios</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				<UnderlineStroke>Lo que dicen las familias</UnderlineStroke>
-			</h2>
+	<GallerySection
+		eyebrow="Galería"
+		title="Así se vive "
+		underline="Cappi Xtremo"
+		intro="Cada foto cuenta una aventura distinta, la próxima puede ser la de tu hijo."
+		introClass="max-w-175"
+		rows={[
+			{ images: galleryRow1, direction: 'left' },
+			{ images: galleryRow2, direction: 'right' },
+		]}
+	/>
 
-			<div class="mt-14">
-				<Testimonials client:visible items={testimonials} />
-			</div>
-		</div>
-	</section>
-
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Galería</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				Así se vive <UnderlineStroke>Cappi Xtremo</UnderlineStroke>
-			</h2>
-			<p data-motion="fade-up" class="mx-auto mt-4 max-w-175 text-center text-base leading-relaxed text-neutral-600">
-				Cada foto cuenta una aventura distinta, la próxima puede ser la de tu hijo.
-			</p>
-
-			<div class="mt-14 space-y-4 sm:space-y-6">
-				<GalleryCarousel client:visible images={galleryRow1} direction="left" />
-				<GalleryCarousel client:visible images={galleryRow2} direction="right" />
-			</div>
-		</div>
-	</section>
-
-	<section class="py-12 md:py-20">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-primary">Nuestro staff</p>
-			<h2 data-motion="fade-up" class="mt-3 text-center text-3xl font-semibold text-neutral-900 md:text-[40px] md:leading-tight">
-				El equipo <UnderlineStroke>Cappi</UnderlineStroke>
-			</h2>
-			<p class="mx-auto mt-4 max-w-[700px] text-center text-base leading-relaxed text-neutral-600">
-				Todo nuestro equipo pasa por un proceso de selección, verificación y entrenamiento en primeros
-				auxilios antes de estar frente a los campistas. Conoce al equipo que acompaña a tu hijo cada día.
-			</p>
-
-			<ImageAccent color="tertiary" position="bottom" align="right">
-				<img
-					src={teamFullView}
-					alt="El equipo de monitores y coordinadores de Cappi Xtremo"
-					loading="lazy"
-					decoding="async"
-					class="mt-14 w-full "
-				/>
-			</ImageAccent>
-		</div>
-	</section>
+	<StaffSection
+		eyebrow="Nuestro staff"
+		title="El equipo "
+		underline="Cappi"
+		intro="Todo nuestro equipo pasa por un proceso de selección, verificación y entrenamiento en primeros auxilios antes de estar frente a los campistas. Conoce al equipo que acompaña a tu hijo cada día."
+		image={teamFullView}
+		imageAlt="El equipo de monitores y coordinadores de Cappi Xtremo"
+	/>
 
 	<SectionPattern top="blue-pattern" flipTop />
-	<section class="relative z-10 isolate overflow-hidden bg-secondary py-12 md:py-20">
-		<SideCircle color="primary" side="left" position="center" />
-		<SideCircle color="primary" side="right" position="bottom" size="large" />
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<p data-motion="fade-up" class="text-center text-sm font-semibold uppercase tracking-widest text-secondary-foreground">
-				Respondemos tus dudas
-			</p>
-			<h2
-				data-motion="fade-up"
-				class="mt-3 text-center text-3xl font-semibold uppercase text-secondary-foreground md:text-[40px] md:leading-tight"
-			>
-				<UnderlineStroke color="text-primary" nowrap={false}>Preguntas frecuentes</UnderlineStroke>
-			</h2>
+	<FaqSection
+		tone="dark"
+		eyebrow="Respondemos tus dudas"
+		title="Preguntas "
+		underline="frecuentes"
+		items={faqs}
+		circles={[
+			{ side: 'left', position: 'center' },
+			{ side: 'right', position: 'bottom', size: 'large' },
+		]}
+	/>
 
-			<div class="mx-auto mt-14 max-w-3xl divide-y divide-white/25 border-y border-white/25">
-				{
-					faqs.map((faq) => (
-						<details data-motion="fade-up" class="group">
-							<summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-lg font-semibold text-secondary-foreground transition-opacity hover:opacity-80 [&::-webkit-details-marker]:hidden">
-								{faq.question}
-								<Fragment set:html={chevronDownSvg.replace('<svg', '<svg class="size-5 shrink-0 transition-transform duration-200 group-open:rotate-180"')} />
-							</summary>
-							<p class="pb-6 pr-8 leading-relaxed text-secondary-foreground/85">{faq.answer}</p>
-						</details>
-					))
-				}
-			</div>
-		</div>
-	</section>
-
-	<section class="relative isolate overflow-hidden">
-		<img
-			src={motosFullView1}
-			alt=""
-			aria-hidden="true"
-			loading="lazy"
-			decoding="async"
-			class="absolute inset-0 -z-10 h-full w-full object-cover"
-		/>
-		<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
-
-		<div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
-			<h2 data-motion="fade-up" class="mx-auto max-w-3xl text-center text-3xl font-semibold text-white md:text-[40px] md:leading-tight">
-				¿Tienes preguntas sobre nuestros <UnderlineStroke>planes vacacionales</UnderlineStroke>? Escríbenos.
-			</h2>
-
-			<div data-motion="fade-up" class="mt-8 flex justify-center">
-				<a
-					href="/contacto"
-					class="rounded-full bg-white px-6 py-3 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-100"
-				>
-					Contáctanos
-				</a>
-			</div>
-		</div>
-	</section>
+	<CtaSection
+		variant="image"
+		bgImage={motosFullView1}
+		title="¿Tienes preguntas sobre nuestros "
+		underline="planes vacacionales"
+		titleAfter="? Escríbenos."
+		buttons={[{ label: 'Contáctanos', href: '/contacto', variant: 'white' }]}
+		padding="large"
+	/>
 
 </Layout>
-
-<script>
-	const root = document.getElementById('camp-countdown');
-
-	if (root) {
-		const target = Date.parse(root.dataset.target ?? '');
-
-		const setUnit = (key: string, value: string) => {
-			const el = root.querySelector<HTMLElement>(`[data-unit="${key}"]`);
-			if (el) el.textContent = value;
-		};
-
-		const tick = () => {
-			const diff = Number.isFinite(target) ? Math.max(0, target - Date.now()) : 0;
-			const total = Math.floor(diff / 1000);
-			setUnit('days', String(Math.floor(total / 86400)).padStart(2, '0'));
-			setUnit('hours', String(Math.floor((total % 86400) / 3600)).padStart(2, '0'));
-			setUnit('minutes', String(Math.floor((total % 3600) / 60)).padStart(2, '0'));
-			setUnit('seconds', String(total % 60).padStart(2, '0'));
-		};
-
-		tick();
-		setInterval(tick, 1000);
-	}
-</script>
-

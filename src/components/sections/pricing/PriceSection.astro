@@ -1,0 +1,49 @@
+---
+import SideCircle from '../../astro/SideCircle.astro';
+import SectionHeading from '../../titles/SectionHeading.astro';
+import PriceDisplay from '../../price-components/PriceDisplay.astro';
+import Button from '../../buttons/Button.astro';
+
+export interface Props {
+	eyebrow?: string;
+	title?: string;
+	underline?: string;
+	/** Precio a mostrar ("Próximamente" o valor) */
+	price: string;
+	/** Texto junto al precio (ej. "por semana") */
+	period?: string;
+	description?: string;
+	cta: { label: string; href: string };
+}
+
+const {
+	eyebrow = 'Inversión',
+	title = 'Precio ',
+	underline = 'del plan',
+	price,
+	period,
+	description,
+	cta,
+} = Astro.props;
+---
+
+<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
+	<SideCircle color="primary" side="right" position="top" size="large" />
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl text-center">
+			<SectionHeading eyebrow={eyebrow} title={title} underline={underline} underlineColor="text-primary" tone="dark" />
+
+			<div data-motion="fade-up" class="mt-8">
+				<PriceDisplay price={price} period={period} style="large" colorClass="text-secondary-foreground" periodClass="text-secondary-foreground/75" />
+			</div>
+			{description && (
+				<p data-motion="fade-up" class="mx-auto mt-6 max-w-lg leading-relaxed text-secondary-foreground/80">
+					{description}
+				</p>
+			)}
+			<div data-motion="fade-up" class="mt-8 flex justify-center">
+				<Button label={cta.label} href={cta.href} variant="white" />
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,48 @@
+---
+import SectionHeading from '../../titles/SectionHeading.astro';
+
+export interface PhilosophyItem {
+	icon: string;
+	title: string;
+	description: string;
+}
+
+export interface Props {
+	title: string;
+	underline?: string;
+	intro?: string;
+	items: PhilosophyItem[];
+	cta?: { label: string; href: string };
+}
+
+const { title, underline, intro, items, cta } = Astro.props;
+---
+
+<section class="py-12 md:py-20">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SectionHeading title={title} underline={underline} intro={intro} />
+
+		<div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+			{items.map((item) => (
+				<div data-motion="fade-up" class="flex flex-col items-center text-center">
+					<div class="flex size-[110px] items-center justify-center rounded-full bg-secondary/50 p-[30px]">
+						<img src={item.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" class="h-full w-full object-contain" />
+					</div>
+					<h3 class="mt-6 font-medium text-neutral-900">{item.title}</h3>
+					<p class="mt-2 leading-relaxed text-neutral-600">{item.description}</p>
+				</div>
+			))}
+		</div>
+
+		{cta && (
+			<div data-motion="fade-up" class="mt-14 flex justify-center">
+				<a
+					href={cta.href}
+					class="rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+				>
+					{cta.label}
+				</a>
+			</div>
+		)}
+	</div>
+</section>

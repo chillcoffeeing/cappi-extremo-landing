@@ -1,0 +1,58 @@
+---
+export type ButtonVariant = 'primary' | 'white' | 'outline' | 'link';
+
+export interface Props {
+	label: string;
+	href?: string;
+	type?: 'button' | 'submit' | 'reset';
+	variant?: 'primary' | 'white' | 'outline' | 'link';
+	size?: 'default' | 'sm';
+	linkColor?: string;
+	class?: string;
+	disabled?: boolean;
+	target?: string;
+	rel?: string;
+	ariaLabel?: string;
+}
+
+const {
+	label,
+	href,
+	type = 'button',
+	variant = 'primary',
+	size = 'default',
+	linkColor = 'text-neutral-900',
+	class: extraClass = '',
+	disabled = false,
+	target,
+	rel,
+	ariaLabel,
+} = Astro.props;
+
+const sizes = {
+	default: 'px-8 py-3.5 text-base',
+	sm: 'px-6 py-3 text-base',
+};
+
+const base = 'inline-flex items-center justify-center rounded-full font-semibold transition-colors';
+
+const variants = {
+	primary: `${base} bg-primary text-primary-foreground hover:bg-primary/90 ${sizes[size]}`,
+	white: `${base} bg-white text-neutral-900 hover:bg-neutral-100 ${sizes[size]}`,
+	outline: `${base} border border-neutral-300 text-neutral-800 hover:border-primary hover:text-primary ${sizes[size]}`,
+	link: `text-base font-medium uppercase transition-opacity hover:opacity-70 ${linkColor}`,
+};
+
+const disabledClass = disabled
+	? `${base} cursor-not-allowed bg-neutral-300 text-neutral-500 opacity-70 hover:bg-neutral-300 ${sizes[size]}`
+	: '';
+
+const cls = `${disabled ? disabledClass : variants[variant as keyof typeof variants]} ${extraClass}`.trim();
+---
+
+{
+	href && <a href={href} target={target} rel={rel} aria-label={ariaLabel} class={cls}>{label}</a>
+}
+{
+	!href && <button type={type} disabled={disabled} aria-label={ariaLabel} class={cls}>{label}</button>
+}

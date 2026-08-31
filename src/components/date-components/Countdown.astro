@@ -1,0 +1,73 @@
+---
+export interface Unit {
+	key: string;
+	label: string;
+}
+
+export interface Props {
+	/** id del contenedor (se usa en aria-labelledby) */
+	id: string;
+	/** fecha objetivo ISO (se lee en cliente via data-target) */
+	target: string;
+	/** Variante de tamaño de los números */
+	size?: 'hero' | 'standard';
+	/** Unidades a mostrar (default: días, horas, minutos, segundos) */
+	units?: Unit[];
+}
+
+const DEFAULT_UNITS: Unit[] = [
+	{ key: 'days', label: 'Días' },
+	{ key: 'hours', label: 'Horas' },
+	{ key: 'minutes', label: 'Minutos' },
+	{ key: 'seconds', label: 'Segundos' },
+];
+
+const { id, target, size = 'hero', units = DEFAULT_UNITS } = Astro.props;
+
+const unitClass =
+	size === 'hero'
+		? 'text-4xl font-bold tabular-nums tracking-tight text-neutral-900 sm:text-6xl'
+		: 'text-4xl lg:text-7xl font-bold tabular-nums tracking-tight text-neutral-900 sm:text-6xl';
+---
+
+<div
+	id={id}
+	data-countdown
+	data-target={target}
+	role="timer"
+	aria-labelledby={`${id}-title`}
+	data-motion="fade-up"
+	class="mt-8 flex items-start justify-center gap-6 sm:gap-20"
+>
+	{units.map((unit) => (
+		<div class="flex flex-col items-center">
+			<span data-unit={unit.key} class={unitClass}>00</span>
+			<span class="mt-2 text-xs font-medium uppercase tracking-widest text-neutral-800 sm:text-sm">{unit.label}</span>
+		</div>
+	))}
+</div>
+
+<script>
+	const root = document.querySelector<HTMLElement>('[data-countdown]');
+
+	if (root) {
+		const target = Date.parse(root.dataset.target ?? '');
+
+		const setUnit = (key: string, value: string) => {
+			const el = root.querySelector<HTMLElement>(`[data-unit="${key}"]`);
+			if (el) el.textContent = value;
+		};
+
+		const tick = () => {
+			const diff = Number.isFinite(target) ? Math.max(0, target - Date.now()) : 0;
+			const total = Math.floor(diff / 1000);
+			setUnit('days', String(Math.floor(total / 86400)).padStart(2, '0'));
+			setUnit('hours', String(Math.floor((total % 86400) / 3600)).padStart(2, '0'));
+			setUnit('minutes', String(Math.floor((total % 3600) / 60)).padStart(2, '0'));
+			setUnit('seconds', String(total % 60).padStart(2, '0'));
+		};
+
+		tick();
+		setInterval(tick, 1000);
+	}
+</script>
