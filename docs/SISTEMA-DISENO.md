@@ -10,13 +10,13 @@ Stack: Astro 7 (SSG) + Tailwind CSS v4. Los tokens de diseño se declaran como v
 
 ## 1. Colores
 
-| Token                  | Valor     | Variable CSS                    | Uso                                                                      |
-| ---------------------- | --------- | ------------------------------- | ------------------------------------------------------------------------ |
-| Primario               | `#F7A721` | `--color-primary`               | CTAs principales, acento de marca, elementos destacados                   |
-| Primario (foreground)  | `#000000` | `--color-primary-foreground`    | Texto/iconos sobre fondos primarios                                       |
-| Secundario             | `#04BEE4` | `--color-secondary`             | Enlaces, bloques informativos, iconografía de apoyo                        |
-| Secundario (foreground)| `#FFFFFF` | `--color-secondary-foreground`  | Texto/iconos sobre fondos secundarios                                      |
-| Terciario              | `#97D84E` | `--color-tertiary`              | Solo decoración: subrayados de texto, `::after`, detalles visuales         |
+| Token                   | Valor     | Variable CSS                   | Uso                                                                |
+| ----------------------- | --------- | ------------------------------ | ------------------------------------------------------------------ |
+| Primario                | `#F7A721` | `--color-primary`              | CTAs principales, acento de marca, elementos destacados            |
+| Primario (foreground)   | `#000000` | `--color-primary-foreground`   | Texto/iconos sobre fondos primarios                                |
+| Secundario              | `#04BEE4` | `--color-secondary`            | Enlaces, bloques informativos, iconografía de apoyo                |
+| Secundario (foreground) | `#FFFFFF` | `--color-secondary-foreground` | Texto/iconos sobre fondos secundarios                              |
+| Terciario               | `#97D84E` | `--color-tertiary`             | Solo decoración: subrayados de texto, `::after`, detalles visuales |
 
 Uso en clases:
 
@@ -24,7 +24,9 @@ Uso en clases:
 <button class="bg-primary text-primary-foreground">CTA principal</button>
 <a class="text-secondary hover:text-secondary/80">Enlace</a>
 <a class="bg-secondary text-secondary-foreground">Botón informativo</a>
-<h2 class="underline decoration-tertiary decoration-4 underline-offset-4">Título subrayado</h2>
+<h2 class="underline decoration-tertiary decoration-4 underline-offset-4">
+  Título subrayado
+</h2>
 ```
 
 Reglas:
@@ -41,13 +43,13 @@ Reglas:
 
 Fuente única: **Poppins**, del peso light (300) al bold (700), cargada en `src/layouts/Layout.astro` vía Google Fonts con `preconnect` + `display=swap` (precarga temprana de la conexión antes del render).
 
-| Peso | Nombre   | Clase Tailwind   |
-| ---- | -------- | ---------------- |
-| 300  | Light    | `font-light`     |
-| 400  | Regular  | `font-normal`    |
-| 500  | Medium   | `font-medium`    |
-| 600  | SemiBold | `font-semibold`  |
-| 700  | Bold     | `font-bold`      |
+| Peso | Nombre   | Clase Tailwind  |
+| ---- | -------- | --------------- |
+| 300  | Light    | `font-light`    |
+| 400  | Regular  | `font-normal`   |
+| 500  | Medium   | `font-medium`   |
+| 600  | SemiBold | `font-semibold` |
+| 700  | Bold     | `font-bold`     |
 
 `--font-sans` se redefine con Poppins en `@theme`, por lo que es la fuente por defecto de todo el sitio (el preflight de Tailwind la aplica a `<html>`). No hace falta poner `font-sans` manualmente.
 
@@ -60,20 +62,20 @@ tipografía de títulos, salvo en contadores numéricos.
 
 El hero (`src/pages/index.astro`) es la implementación de referencia de este patrón.
 
-| Nivel | Móvil (base) | Desktop (`md:`) | Peso / extra |
-| ----- | ------------ | --------------- | ------------ |
-| H1 (solo hero) | `text-3xl` (30px) | `md:text-5xl` (48px) | `font-bold tracking-tight` · `text-white` sobre foto |
-| H2 (título de sección) | `text-3xl` (30px) | `md:text-[40px]` (40px) | `font-semibold` · `md:leading-tight` |
-| H3 (ítem filosofía) | `text-lg` (18px) | `md:text-xl` (20px) | `font-medium` |
-| H3 (título countdown) | `text-3xl` (30px) | (igual) | `font-semibold uppercase tracking-tight` |
-| H4 (tarjeta de servicio) | `text-xl` (20px) | `md:text-2xl` (24px) | `font-semibold uppercase tracking-wide` |
-| Eyebrow (hero) | `text-lg` (18px) | `md:text-xl` (20px) | `font-semibold uppercase tracking-wide` |
-| Eyebrow (sección) | `text-sm` (14px) | `md:text-base` (16px) | `font-semibold uppercase tracking-widest` |
-| Subtítulo / p secundario | `text-sm` (14px) | `md:text-base` (16px) | `font-normal leading-relaxed` |
-| Body / p intro | `text-base` (16px) | (igual) | `font-normal leading-relaxed` |
-| Caption / meta | `text-xs` (12px) | `md:text-sm` (14px) | `font-light` / `font-medium` |
-| Botón grande | `text-base` (16px) | (igual, `font-medium md:font-semibold`) | pill `rounded-full` |
-| Botón base / compacto | `text-sm` (14px) | (igual) | `font-semibold` |
+| Nivel                    | Móvil (base)       | Desktop (`md:`)                         | Peso / extra                                         |
+| ------------------------ | ------------------ | --------------------------------------- | ---------------------------------------------------- |
+| H1 (solo hero)           | `text-3xl` (30px)  | `md:text-5xl` (48px)                    | `font-bold tracking-tight` · `text-white` sobre foto |
+| H2 (título de sección)   | `text-3xl` (30px)  | `md:text-[40px]` (40px)                 | `font-semibold` · `md:leading-tight`                 |
+| H3 (ítem filosofía)      | `text-lg` (18px)   | `md:text-xl` (20px)                     | `font-medium`                                        |
+| H3 (título countdown)    | `text-3xl` (30px)  | (igual)                                 | `font-semibold uppercase tracking-tight`             |
+| H4 (tarjeta de servicio) | `text-xl` (20px)   | `md:text-2xl` (24px)                    | `font-semibold uppercase tracking-wide`              |
+| Eyebrow (hero)           | `text-lg` (18px)   | `md:text-xl` (20px)                     | `font-semibold uppercase tracking-wide`              |
+| Eyebrow (sección)        | `text-sm` (14px)   | `md:text-base` (16px)                   | `font-semibold uppercase tracking-widest`            |
+| Subtítulo / p secundario | `text-sm` (14px)   | `md:text-base` (16px)                   | `font-normal leading-relaxed`                        |
+| Body / p intro           | `text-base` (16px) | (igual)                                 | `font-normal leading-relaxed`                        |
+| Caption / meta           | `text-xs` (12px)   | `md:text-sm` (14px)                     | `font-light` / `font-medium`                         |
+| Botón grande             | `text-base` (16px) | (igual, `font-medium md:font-semibold`) | pill `rounded-full`                                  |
+| Botón base / compacto    | `text-sm` (14px)   | (igual)                                 | `font-semibold`                                      |
 
 > Nota de migración: el hero ya implementa todas las clases responsivas de la tabla. El
 > resto de secciones debe seguir el mismo patrón (`md:` en cada nivel); donde el markup
@@ -88,7 +90,7 @@ Todo el contenido vive dentro de un contenedor centrado de **máximo `max-w-7xl`
 Patrón estándar de sección (obligatorio en todo el sitio):
 
 ```astro
-<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="container">
 	<!-- contenido -->
 </section>
 ```
@@ -105,13 +107,13 @@ Reglas:
 
 Solo escala estándar de Tailwind (base 4px). Nunca valores arbitrarios (`p-[13px]` ❌): siempre existe el paso de escala correcto.
 
-| Caso                          | Utilidades             |
-| ----------------------------- | ---------------------- |
-| Ritmo vertical entre secciones | `py-12 md:py-20`       |
-| Gap compacto                  | `gap-4`                |
-| Gap en grids/listas           | `gap-6`                |
-| Gap entre bloques grandes     | `gap-8`                |
-| Título → contenido            | `mt-4` / `mt-6`        |
+| Caso                           | Utilidades       |
+| ------------------------------ | ---------------- |
+| Ritmo vertical entre secciones | `py-12 md:py-20` |
+| Gap compacto                   | `gap-4`          |
+| Gap en grids/listas            | `gap-6`          |
+| Gap entre bloques grandes      | `gap-8`          |
+| Título → contenido             | `mt-4` / `mt-6`  |
 
 ---
 
@@ -121,10 +123,10 @@ Solo escala estándar de Tailwind (base 4px). Nunca valores arbitrarios (`p-[13p
 
 Todo botón o link **con fondo** (sólido u outline, sea `<button>` o `<a>`) lleva **bordes completamente redondeados**: siempre `rounded-full`, nunca `rounded-lg`.
 
-| Variante            | Clases                                                                                                                                                  |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Primario (sólido)   | `inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90`   |
-| Secundario (sólido) | `inline-flex items-center justify-center rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90` |
+| Variante            | Clases                                                                                                                                                                                        |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Primario (sólido)   | `inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90`                             |
+| Secundario (sólido) | `inline-flex items-center justify-center rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90`                       |
 | Outline             | `inline-flex items-center justify-center rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-semibold text-neutral-800 transition-colors hover:border-primary hover:text-primary` |
 
 - Tamaños: default `px-5 py-2.5 text-sm`; compacto `px-3 py-1.5 text-xs`; grande (hero) `px-6 py-3 text-base`.
@@ -133,12 +135,12 @@ Todo botón o link **con fondo** (sólido u outline, sea `<button>` o `<a>`) lle
 
 ### Radios y sombras
 
-| Elemento            | Utilidades              |
-| ------------------- | ----------------------- |
-| Inputs              | `rounded-lg`            |
+| Elemento                                                | Utilidades                                 |
+| ------------------------------------------------------- | ------------------------------------------ |
+| Inputs                                                  | `rounded-lg`                               |
 | Tarjetas de contenido (galería, servicios, testimonios) | `shadow-sm` — **sin radio**, bordes rectos |
-| Badges / chips      | `rounded-full`          |
-| Modales / dropdowns | `rounded-2xl shadow-xl` |
+| Badges / chips                                          | `rounded-full`                             |
+| Modales / dropdowns                                     | `rounded-2xl shadow-xl`                    |
 
 Elevar solo hasta `shadow-md` en tarjetas interactivas (hover); nada más fuerte salvo overlays.
 
@@ -166,14 +168,14 @@ import UnderlineStroke from '../components/astro/UnderlineStroke.astro';
 <h2>Nuestra <UnderlineStroke>filosofía</UnderlineStroke></h2>
 ```
 
-| Prop          | Default         | Descripción                                                     |
-| ------------- | --------------- | --------------------------------------------------------------- |
-| `color`       | `text-tertiary` | Clase de color del trazo (usa `currentColor`; ej. `text-primary`) |
-| `height`      | `h-2.5`         | Altura del trazo                                                |
-| `bottom`      | `-bottom-2`     | Posición vertical del trazo respecto al texto                   |
-| `strokeWidth` | `5`             | Grosor en px — queda fijo gracias a `vector-effect="non-scaling-stroke"`, sin importar cuánto se estire el SVG (`preserveAspectRatio="none"`) |
+| Prop          | Default         | Descripción                                                                                                                                                  |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `color`       | `text-tertiary` | Clase de color del trazo (usa `currentColor`; ej. `text-primary`)                                                                                            |
+| `height`      | `h-2.5`         | Altura del trazo                                                                                                                                             |
+| `bottom`      | `-bottom-2`     | Posición vertical del trazo respecto al texto                                                                                                                |
+| `strokeWidth` | `5`             | Grosor en px — queda fijo gracias a `vector-effect="non-scaling-stroke"`, sin importar cuánto se estire el SVG (`preserveAspectRatio="none"`)                |
 | `nowrap`      | `true`          | `whitespace-nowrap` en el span; desactivar (`nowrap={false}`) en títulos largos que puedan necesitar 2 líneas en móvil (el trazo queda bajo la última línea) |
-| `class`       | —               | Clases extra para el span contenedor                            |
+| `class`       | —               | Clases extra para el span contenedor                                                                                                                         |
 
 Reglas:
 
@@ -191,33 +193,30 @@ Divisores ondulados full-width (`/assets/ui/*-pattern.svg`) para transiciones su
 import SectionPattern from '../components/astro/SectionPattern.astro';
 ---
 
-<SectionPattern top="blue-pattern">
-	<section class="bg-secondary">…</section>
+<SectionPattern top>
+	<section class="bg-sections">…</section>
 </SectionPattern>
 ```
 
-| Prop      | Valores                                              | Posición del SVG                    |
-| --------- | ----------------------------------------------------- | ------------------------------------ |
-| `top`     | `orange-pattern` · `orange-pattern-gradient` · `orange-pattern-fade` · `blue-pattern` | antes del `<section>`   |
-| `bottom`  | ídem                                                  | después del `<section>`              |
-| `flipTop` / `flipBottom` | boolean — espejo vertical del patrón    | invierte sólido/onda del SVG         |
+| Prop     | Valores                                      | Posición del SVG        |
+| -------- | -------------------------------------------- | ----------------------- |
+| `top`    | `true` (default: "flip"), `"fade"`           | antes del `<section>`   |
+| `bottom` | `true` (default: "base"), `"flip"`, `"fade"` | después del `<section>` |
 
-Qué patrón usar según el fondo contiguo:
+Variantes de orientación del patrón `primary-translucent.svg`:
 
-| Transición                                    | Uso                                        |
-| ---------------------------------------------- | ------------------------------------------- |
-| foto oscura → blanco (salida del hero)          | `bottom="orange-pattern-fade"` — misma onda de `orange-pattern` con degradado horizontal: izquierda transparente → derecha primario |
-| blanco → banda primario (entrada)               | `top="orange-pattern" flipTop`               |
-| banda primario → blanco (salida)                | `bottom="orange-pattern"`                    |
-| banda secundario → entrada desde blanco         | `top="blue-pattern"`                         |
+| Variante | Forma                                     | Uso                |
+| -------- | ----------------------------------------- | ------------------ |
+| `base`   | onda arriba, relleno abajo                | cierra una sección |
+| `flip`   | onda abajo, relleno arriba                | abre una sección   |
+| `fade`   | degradado horizontal transparente → color | salida del hero    |
 
 Detalles:
 
 - Los SVG escalan proporcionalmente (`block h-auto w-full`); son decorativos (`alt=""` + `aria-hidden`) y con `loading="lazy"`.
-- `-mb-px` / `-mt-px` eliminan la costura de subpíxel entre el patrón y el section.
+- `-mb-1` / `-mt-1` eliminan la costura de subpíxel entre el patrón y el section.
 - Combinables: un section puede llevar `top` y `bottom` a la vez.
-- El componente también puede usarse **standalone** (sin envolver), como llamada vacía justo antes/después del `<section>`: `<SectionPattern top="blue-pattern" />`.
-- Nuevos patrones se agregan al array `PATTERNS` del componente (validación de nombres en build).
+- El componente también puede usarse **standalone** (sin envolver), como llamada vacía justo antes/después del `<section>`: `<SectionPattern top />`.
 
 ---
 
@@ -235,11 +234,11 @@ import ImageAccent from '../components/astro/ImageAccent.astro';
 </ImageAccent>
 ```
 
-| Prop       | Valores                                  | Default     |
-| ---------- | ----------------------------------------- | ----------- |
-| `color`    | `primary` · `secondary` · `tertiary`      | `primary`   |
-| `position` | `top` (antes de la imagen) · `bottom` (después) | `bottom` |
-| `align`    | `left` · `right`                          | `left`      |
+| Prop       | Valores                                         | Default   |
+| ---------- | ----------------------------------------------- | --------- |
+| `color`    | `primary` · `secondary` · `tertiary`            | `primary` |
+| `position` | `top` (antes de la imagen) · `bottom` (después) | `bottom`  |
+| `align`    | `left` · `right`                                | `left`    |
 
 Notas:
 
@@ -254,12 +253,12 @@ Notas:
 
 Reveals on-scroll con **Motion** en versión vanilla (`motion` — `animate` + `inView`, sin React). Lógica centralizada en `src/scripts/reveal.ts`, cargada desde `Layout.astro`; los elementos se marcan con `data-motion`.
 
-| Valor `data-motion` | Elemento                        | Animación                                                     |
-| ------------------- | -------------------------------- | -------------------------------------------------------------- |
-| `fade-up`           | títulos, párrafos e items de grids | opacity 0→1 + translateY 28px→0, stagger automático entre hermanos (+80ms, máx 400ms) |
-| `pattern-top`       | SectionPattern en `top`           | emerge desde detrás del section hacia arriba (translateY 70%→0) |
-| `pattern-bottom`    | SectionPattern en `bottom`        | emerge desde detrás del section hacia abajo (translateY -70%→0) |
-| `accent-left` / `accent-right` | franja ImageAccent     | wipe scaleX 0→1 desde su lado de alineación                    |
+| Valor `data-motion`            | Elemento                           | Animación                                                                             |
+| ------------------------------ | ---------------------------------- | ------------------------------------------------------------------------------------- |
+| `fade-up`                      | títulos, párrafos e items de grids | opacity 0→1 + translateY 28px→0, stagger automático entre hermanos (+80ms, máx 400ms) |
+| `pattern-top`                  | SectionPattern en `top`            | emerge desde detrás del section hacia arriba (translateY 70%→0)                       |
+| `pattern-bottom`               | SectionPattern en `bottom`         | emerge desde detrás del section hacia abajo (translateY -70%→0)                       |
+| `accent-left` / `accent-right` | franja ImageAccent                 | wipe scaleX 0→1 desde su lado de alineación                                           |
 
 Subrayados (`UnderlineStroke`): el SVG lleva `data-motion-underline` y se **dibuja como trazo** (stroke-dasharray/dashoffset con `getTotalLength()`), de izquierda a derecha.
 
@@ -293,60 +292,8 @@ Reglas:
 
 ---
 
-## 11. Medio círculo lateral (decoración de fondo)
+## 11. Secciones con fondo de color
 
-Círculo (por defecto 150px de diámetro, configurable) que emerge a medio oculto por el borde
-lateral de una sección con fondo de color. Es puramente decorativo (parte del fondo) y va
-**por detrás del contenido**.
-
-Implementado en `src/components/astro/SideCircle.astro`. Regla de color: el círculo usa el color
-**opuesto** al fondo de la sección (sobre `bg-primary` → círculo `secondary`; sobre `bg-secondary`
-→ círculo `primary`).
-
-```astro
----
-import SideCircle from '../components/astro/SideCircle.astro';
----
-
-<section class="relative z-10 isolate overflow-hidden bg-primary">
-  <SideCircle color="secondary" side="right" position="center" size="medium" />
-  <!-- contenido -->
-</section>
-```
-
-| Prop      | Valores                                   | Default     | Descripción |
-| --------- | ----------------------------------------- | ----------- | ----------- |
-| `color`   | `primary` · `secondary`                  | `secondary` | Color del círculo (normalmente el opuesto al bg de la sección) |
-| `side`    | `left` · `right`                         | `right`     | Borde lateral por donde emerge el medio círculo |
-| `position`| `top` · `center` · `bottom`               | `center`    | Alineación vertical del círculo dentro de la sección |
-| `size`    | `xs` · `small` · `medium` · `large` · `xl` | `medium`  | Diámetro del círculo (ver tabla de tamaños) |
-| `class`   | `string`                                 | —           | Clases extra que se añaden al círculo |
-
-Tamaños (`size`):
-
-| `size`  | Diámetro   |
-| ------- | ---------- |
-| `xs`    | `70px`     |
-| `small` | `100px`    |
-| `medium`| `150px`    |
-| `large` | `200px`    |
-| `xl`    | `300px`    |
-
-Posicionamiento (clases generadas):
-
-- **`side`**: `left` → `left-0 -translate-x-1/2` (mitad fuera del borde izquierdo); `right` →
-  `right-0 translate-x-1/2` (mitad fuera del borde derecho).
-- **`position`**: `top` → `top-10` (2.5rem desde el borde superior); `bottom` → `bottom-10`
-  (2.5rem desde el borde inferior); `center` → `top-1/2 -translate-y-1/2` (centrado verticalmente).
-
-Reglas:
-
-- **Requiere `overflow-hidden`** en la sección contenedora: el medio círculo se descuadra `-50%`
-  fuera del borde lateral y el `overflow-hidden` recorta la mitad que queda afuera, dejando solo
-  la semicircunferencia visible.
-- Siempre `absolute -z-10` (detrás del contenido); la sección debe ser `relative isolate`.
-- `pointer-events-none` + `aria-hidden="true"`: no interactivo ni accesible.
-- El diámetro es configurable vía la prop `size` (no está fijo).
-- Solo se usa sobre secciones con fondo de color (`bg-primary`, `bg-secondary`, `bg-wood`, etc.);
-  **no** se coloca en secciones de fondo blanco.
-- No usar sobre fondos fotográficos ni blancos (solo bandas de color primario/secundario).
+Las secciones que requieren un fondo de color utilzan la clase `bg-sections` que aplica el color
+`#E8FCFC`. Los trazos decorativos (subrayados, patrones SVG) usan los colores primario (`#008080`)
+o secundario (`#ff7f50`). Los enlaces de texto clicable van en color primario.

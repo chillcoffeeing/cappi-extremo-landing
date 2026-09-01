@@ -1,0 +1,37 @@
+---
+/**
+ * Sección con el borde inferior curvo (onda del patrón primary-translucent.svg).
+ * Envuelve el contenido y aplica un clip-path responsivo:
+ * - mobile (<768px): deformación máx. 40px
+ * - tablet (≥768px): deformación máx. 80px
+ * - desktop (≥1024px): deformación máx. 120px
+ *
+ * Uso: <CurvedSection tag="section" class="...">…contenido…</CurvedSection>
+ */
+interface Props {
+	/** Etiqueta del elemento raíz (section, div, article…). Default: section */
+	tag?: keyof HTMLElementTagNameMap;
+	/** Clases extras para el elemento raíz */
+	class?: string;
+}
+
+const { tag = 'section', class: extraClass = '' } = Astro.props;
+
+const Tag = tag as 'section';
+const rootClass = ['relative z-10 isolate overflow-hidden curvable-section', extraClass].filter(Boolean).join(' ');
+---
+
+<Tag class:list={[rootClass]}>
+	<svg width="0" height="0" class="absolute" aria-hidden="true">
+		<clipPath id="curve-mobile" clipPathUnits="objectBoundingBox">
+			<path d="M 0 0 L 1 0 L 1 0.952 L 0.958 0.945 C 0.917 0.938 0.833 0.923 0.75 0.938 C 0.667 0.952 0.583 0.995 0.5 0.997 C 0.417 1 0.333 0.961 0.25 0.949 C 0.167 0.938 0.0833 0.952 0.0417 0.959 L 0 0.966 Z" />
+		</clipPath>
+		<clipPath id="curve-tablet" clipPathUnits="objectBoundingBox">
+			<path d="M 0 0 L 1 0 L 1 0.926 L 0.958 0.916 C 0.917 0.904 0.833 0.882 0.75 0.904 C 0.667 0.926 0.583 0.993 0.5 0.996 C 0.417 1 0.333 0.941 0.25 0.923 C 0.167 0.904 0.0833 0.926 0.0417 0.937 L 0 0.949 Z" />
+		</clipPath>
+		<clipPath id="curve-desktop" clipPathUnits="objectBoundingBox">
+			<path d="M 0 0 L 1 0 L 1 0.890 L 0.958 0.874 C 0.917 0.857 0.833 0.824 0.75 0.857 C 0.667 0.890 0.583 0.989 0.5 0.994 C 0.417 1 0.333 0.912 0.25 0.884 C 0.167 0.857 0.0833 0.890 0.0417 0.906 L 0 0.923 Z" />
+		</clipPath>
+	</svg>
+	<slot />
+</Tag>

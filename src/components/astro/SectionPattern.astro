@@ -10,19 +10,14 @@
  * - `orange-pattern-fade`: misma forma que `orange-pattern` con degradado horizontal izquierda (transparente) → derecha (primario) → salida del hero.
  * - `blue-pattern`: sólido abajo, borde superior ondulado → abre banda bg-secondary.
  */
-import orangePattern from '../../assets/ui/orange-pattern.svg?url';
-import orangePatternGradient from '../../assets/ui/orange-pattern-gradient.svg?url';
-import orangePatternFade from '../../assets/ui/orange-pattern-fade.svg?url';
-import bluePattern from '../../assets/ui/blue-pattern.svg?url';
+import basePattern from '../../assets/ui/primary-translucent.svg?url';
 
 const PATTERN_MAP: Record<string, string> = {
-	'orange-pattern': orangePattern,
-	'orange-pattern-gradient': orangePatternGradient,
-	'orange-pattern-fade': orangePatternFade,
-	'blue-pattern': bluePattern,
+	'base-pattern': basePattern,
+	'base-pattern-gradient': basePattern,
 };
 
-const PATTERNS = ["orange-pattern", "orange-pattern-gradient", "orange-pattern-fade", "blue-pattern"] as const;
+const PATTERNS = ["base-pattern", "base-pattern-gradient"] as const;
 
 interface Props {
 	/** Nombre del patrón, inyectado ANTES del section */
@@ -33,11 +28,15 @@ interface Props {
 	flipTop?: boolean;
 	/** Espeja verticalmente el patrón inferior */
 	flipBottom?: boolean;
+
+	difumined?: boolean;
 }
 
-const { top, bottom, flipTop = false, flipBottom = false } = Astro.props;
+const { top, bottom, flipTop = false, flipBottom = false, difumined = false } = Astro.props;
+
+
 ---
 
-	{top && <img src={PATTERN_MAP[top]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-top" class:list={["-mb-px block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-1":"-mt-1"]} />}
-	<slot />
-	{bottom && <img src={PATTERN_MAP[bottom]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-bottom" class:list={["-mt-px block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-1":"-mt-1"]} />}
+{top && <img src={PATTERN_MAP[top]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-top" class:list={["-mb-px sm:-mb-16 lg:-mb-24 block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-px sm:-mb-16 lg:-mb-24":"-mt-px sm:-mt-16 lg:-mt-24"]} />}
+<slot />
+{bottom && <img src={PATTERN_MAP[bottom]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-bottom" class:list={["-mt-px sm:-mt-16 lg:-mt-24 block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-px sm:-mb-16 lg:-mb-24":"-mt-px sm:-mt-16 lg:-mt-24"]} />}

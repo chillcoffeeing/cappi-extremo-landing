@@ -1,5 +1,4 @@
 ---
-import SideCircle from '../../astro/SideCircle.astro';
 import SectionHeading from '../../titles/SectionHeading.astro';
 import Countdown from '../../date-components/Countdown.astro';
 import CtaList from '../../cta/CtaList.astro';
@@ -36,11 +35,9 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative z-10 isolate overflow-hidden bg-primary">
-	<SideCircle color="secondary" side="right" position="center" />
-	<SideCircle color="secondary" side="left" position="top" size="large" />
+<section class="relative z-10 isolate overflow-hidden bg-sections">
 	<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8">
-		<SectionHeading title={headingTitle} underline={underline} intro={intro} tone="primary" />
+		<SectionHeading title={headingTitle} underline={underline} intro={intro} tone="dark" />
 
 		<div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
 			{cards.map((card) => (

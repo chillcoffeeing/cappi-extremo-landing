@@ -24,10 +24,10 @@ Estructura compartida por todas las páginas del landing: **Header** (franja soc
 
 Franja superior de altura fija `h-8` (32px), fondo primario con foreground negro. Dos grupos anclados a los extremos (`justify-between`):
 
-| Grupo | Contenido                            | Clases                    |
-| ----- | ------------------------------------ | ------------------------- |
-| Izq   | **WhatsApp** y **Mail** con nombre   | `flex items-center gap-4` |
-| Der   | **Instagram** y **Facebook**, icono  | `flex items-center gap-4` |
+| Grupo | Contenido                           | Clases                    |
+| ----- | ----------------------------------- | ------------------------- |
+| Izq   | **WhatsApp** y **Mail** con nombre  | `flex items-center gap-4` |
+| Der   | **Instagram** y **Facebook**, icono | `flex items-center gap-4` |
 
 Contenedor: contenedor estándar + `flex h-full items-center justify-between`.
 
@@ -188,7 +188,7 @@ const year = new Date().getFullYear();
 ## Reglas del layout
 
 1. **Responsive es requisito, no opcional**: toda spec e implementación debe verse correcta en móvil (360px), tablet (`md`) y desktop (`lg`). Breakpoints estándar de Tailwind.
-2. Todo el contenido vive en el contenedor estándar: `mx-auto max-w-7xl px-4 sm:px-6 lg:px-8`.
+2. Todo el contenido vive en el contenedor estándar: `container`.
 3. Foregrounds siempre tokenizados sobre fondos de marca: `text-primary-foreground` (negro), `text-secondary-foreground` (blanco). Nunca `text-black` / `text-white` crudos.
 4. El terciario queda reservado para decoración futura (`after:bg-tertiary`, `decoration-tertiary`); nunca fondo ni texto de contenido.
 5. Header y Footer son componentes `.astro` estáticos (cero hidratación). **Excepción única y obligatoria: menús móviles y dropdowns → islas React + `client:load`.**
@@ -204,9 +204,9 @@ const year = new Date().getFullYear();
 | ------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `src/layouts/Layout.astro`            | Shell global: Poppins, `<Header />`, `<main>`, `<Footer />`, sticky footer con `flex min-h-dvh flex-col` |
 | `src/components/astro/Header.astro`   | Franja social + menú (estático, cero JS)                                                                 |
-| `src/components/react/MobileMenu.tsx` | Isla del menú móvil — `client:load` · iconos SVG inline        |
+| `src/components/react/MobileMenu.tsx` | Isla del menú móvil — `client:load` · iconos SVG inline                                                  |
 | `src/components/astro/Footer.astro`   | Fila horizontal (WhatsApp · Mail · logo · CTA · login) + barra legal                                     |
-| `src/lib/social.ts`                   | URLs de redes/contacto (sin SVGs — los iconos están en `src/assets/ui/`)                                     |
+| `src/lib/social.ts`                   | URLs de redes/contacto (sin SVGs — los iconos están en `src/assets/ui/`)                                 |
 
 Variables de entorno: `PUBLIC_PORTAL_URL` (login del footer; placeholder `#` si no está definida).
 Placeholders pendientes de reemplazar en `src/lib/social.ts`: número WhatsApp, correo, handles de Instagram/Facebook.

@@ -1,5 +1,4 @@
 ---
-import SideCircle from '../../astro/SideCircle.astro';
 import SectionHeading from '../../titles/SectionHeading.astro';
 import PriceDisplay from '../../price-components/PriceDisplay.astro';
 import Button from '../../buttons/Button.astro';
@@ -27,17 +26,16 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative z-10 isolate bg-secondary py-16 md:py-24">
-	<SideCircle color="primary" side="right" position="top" size="large" />
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="relative z-10 isolate bg-sections py-16 md:py-24">
+	<div class="container">
 		<div class="mx-auto max-w-3xl text-center">
 			<SectionHeading eyebrow={eyebrow} title={title} underline={underline} underlineColor="text-primary" tone="dark" />
 
 			<div data-motion="fade-up" class="mt-8">
-				<PriceDisplay price={price} period={period} style="large" colorClass="text-secondary-foreground" periodClass="text-secondary-foreground/75" />
+				<PriceDisplay price={price} period={period} style="large" colorClass="text-neutral-900" periodClass="text-neutral-500" />
 			</div>
 			{description && (
-				<p data-motion="fade-up" class="mx-auto mt-6 max-w-lg leading-relaxed text-secondary-foreground/80">
+				<p data-motion="fade-up" class="mx-auto mt-6 max-w-lg leading-relaxed text-neutral-600">
 					{description}
 				</p>
 			)}

@@ -48,7 +48,7 @@ function init() {
             el,
             {
               opacity: [0, 1],
-              transform: ["translateY(-70%)", "translateY(0%)"],
+              transform: ["translateY(-30%)", "translateY(0%)"],
             },
             { duration: 0.8, ease: EASE },
           ),
@@ -60,7 +60,7 @@ function init() {
             el,
             {
               opacity: [0, 1],
-              transform: ["translateY(-70%)", "translateY(0%)"],
+              transform: ["translateY(-30%)", "translateY(0%)"],
             },
             { duration: 0.8, ease: EASE },
           ),

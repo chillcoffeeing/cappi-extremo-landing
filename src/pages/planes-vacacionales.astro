@@ -70,27 +70,25 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 
 	<SectionHero
 		bgImage={heroBg}
+		bgColor="bg-sections"
 		eyebrow="Cappi "
 		eyebrowHighlight="Xtremo"
 		title="Elige el plan perfecto para las "
 		highlight="vacaciones"
 		titleAfter=" de tu hijo"
+		disfuminar="bottom"
 		subtitle="Daycamp y plan vacacional. Todas nuestras opciones incluyen seguridad, diversión y memorias inolvidables."
 	/>
 
 	<CountdownSection
 		title="Días hasta que empieza el próximo plan vacacional"
 		target={NEXT_CAMP_START}
-		circles={[
-			{ side: 'right', position: 'center' },
-			{ side: 'left', position: 'top', size: 'large' },
-		]}
 		ctas={[
 			{ label: 'Apartar cupo para mi hijo', href: '/coming-soon', variant: 'white' },
 			{ label: 'Ver detalles del plan vacacional', href: '/planes-vacacionales/vacacional', variant: 'link' },
 		]}
 	/>
-	<SectionPattern bottom="orange-pattern" />
+	<SectionPattern bottom="base-pattern" flipBottom />
 
 	<PlansSection
 		eyebrow="Nuestros planes"
@@ -101,7 +99,7 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 		inscribirHref="/coming-soon"
 	/>
 
-	<SectionPattern top="blue-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<SessionsSection
 		tone="dark"
 		eyebrow="Fechas disponibles"
@@ -112,7 +110,6 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 			{ label: 'Inscribir a mi hijo', href: '/coming-soon', variant: 'white' },
 			{ label: 'Tengo preguntas', href: '/contacto', variant: 'link' },
 		]}
-		circles={[{ side: 'right', position: 'bottom', size: 'large' }]}
 	/>
 
 	<GallerySection
@@ -136,6 +133,7 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 
 	<CtaSection
 		variant="image"
+		disfuminar='top'
 		bgImage={motosFullView1}
 		title="¿Listo para que tu hijo viva la "
 		underline="mejor experiencia"

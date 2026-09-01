@@ -14,6 +14,8 @@ export interface Props {
 	bgVideo?: string;
 	/** Poster para el video */
 	bgVideoPoster?: string;
+	/** Color de fondo */
+	bgColor?: string;
 	/** Texto corto sobre el título */
 	eyebrow?: string;
 	/** Fragmento del eyebrow resaltado en primary */
@@ -36,12 +38,15 @@ export interface Props {
 	dock?: boolean;
 	/** Margen superior del h1 (false cuando hay breadcrumb) */
 	titleMargin?: boolean;
+	/** Disfuminado lateral */
+	disfuminar?: 'top' | 'bottom';
 }
 
 const {
 	bgImage,
 	bgVideo,
 	bgVideoPoster,
+	bgColor,
 	eyebrow,
 	eyebrowHighlight,
 	title,
@@ -53,13 +58,19 @@ const {
 	crumbs = [],
 	dock = false,
 	titleMargin = true,
+	disfuminar,
 } = Astro.props;
 
-const innerClass = dock
-	? 'flex flex-col justify-center items-center text-center min-h-130 py-10 md:min-h-170'
-	: 'flex flex-col items-center text-center';
+const innerClass = [
+	'flex flex-col items-center justify-center text-center',
+	'-translate-y-[60px]',
+	dock ? 'py-10' : '',
+].filter(Boolean).join(' ');
 
-const contentClass = dock ? '' : 'px-4 py-24 sm:px-6 md:py-32 lg:px-8';
+const contentClass = [
+	'mx-auto flex h-[680px] w-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8',
+	dock ? '' : '',
+].filter(Boolean).join(' ');
 
 const titleClass = [
 	'font-bold tracking-tight text-white',
@@ -70,21 +81,22 @@ const titleClass = [
 const ctasClass = dock
 	? 'mt-8 flex flex-col items-center gap-4 sm:flex-row'
 	: 'mt-10 flex flex-col items-center gap-4 sm:flex-row';
+
+const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar === 'bottom' ? 'diffuminar-bottom' : '';
 ---
 
-<section class="relative z-10 isolate overflow-hidden">
+<div class="relative isolate z-1 h-[680px] overflow-hidden" class:list={[bgColor]}>
 	{
 		bgVideo ? (
-			<video poster={bgVideoPoster} preload="none" autoplay muted loop class="absolute inset-0 -z-10 h-full w-full object-cover">
+			<video poster={bgVideoPoster} preload="none" autoplay muted loop class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50" class:list={[disfuminarClass]}>
 				<source src={bgVideo} type="video/mp4" />
 			</video>
 		) : (
-			<img src={bgImage} alt="" aria-hidden="true" loading="eager" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+			<img src={bgImage} alt="" aria-hidden="true" loading="eager" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50" class:list={[disfuminarClass]} />
 		)
 	}
-	<div class="absolute inset-0 -z-10 bg-neutral-950/70" aria-hidden="true"></div>
 
-	<div class={['mx-auto max-w-7xl', contentClass].filter(Boolean).join(' ')}>
+	<div class={contentClass}>
 		<div class={innerClass}>
 			{crumbs.length > 0 && (
 				<nav data-motion="fade-up" aria-label="Breadcrumb" class="mb-6">
@@ -144,4 +156,4 @@ const ctasClass = dock
 			)}
 		</div>
 	</div>
-</section>
+</div>

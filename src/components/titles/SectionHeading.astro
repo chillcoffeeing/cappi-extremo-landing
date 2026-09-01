@@ -29,7 +29,7 @@ const {
 	eyebrowHighlight,
 	title,
 	underline,
-	underlineColor = 'text-tertiary',
+	underlineColor = 'text-primary',
 	underlineNowrap = true,
 	tone = 'light',
 	intro,
@@ -38,16 +38,16 @@ const {
 } = Astro.props;
 
 const eyebrowClass =
-	tone === 'dark' ? 'text-secondary-foreground' : tone === 'primary' ? 'text-neutral-800' : 'text-primary';
+	tone === 'dark' ? 'text-primary' : tone === 'primary' ? 'text-neutral-800' : 'text-primary';
 
 const titleBase =
 	tone === 'dark'
-		? 'mt-3 text-center font-semibold uppercase text-secondary-foreground md:leading-tight'
+		? 'mt-3 text-center font-semibold uppercase text-neutral-900 md:leading-tight'
 		: 'mt-3 text-center font-semibold text-neutral-900 md:leading-tight';
 
 const introBase =
 	tone === 'dark'
-		? 'text-secondary-foreground/85'
+		? 'text-neutral-600'
 		: tone === 'primary'
 			? 'text-neutral-800'
 			: 'text-neutral-600';

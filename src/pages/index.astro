@@ -120,6 +120,7 @@ const galleryRow2: GalleryImage[] = [
 		title="¡Las vacaciones más "
 		highlight="divertidas"
 		titleAfter=" están por comenzar!"
+		disfuminar='bottom'
 		subtitle="Deporte, amigos, aventura y risas sin parar. Dale a tu hijo un verano que va a recordar para siempre."
 		buttons={[
 			{ label: 'Ver fechas y plan vacacional', href: '/planes-vacacionales', variant: 'primary' },
@@ -127,7 +128,7 @@ const galleryRow2: GalleryImage[] = [
 		]}
 		dock
 	/>
-	<SectionPattern bottom="orange-pattern-fade" />
+
 
 	<PhilosophySection
 		title="Nuestra "
@@ -137,7 +138,7 @@ const galleryRow2: GalleryImage[] = [
 		cta={{ label: 'Conoce nuestros planes vacacionales', href: '/planes-vacacionales' }}
 	/>
 
-	<SectionPattern top="orange-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<ServicesBand
 		headingTitle="Bienvenidos a "
 		underline="Cappi Xtremo"
@@ -151,7 +152,7 @@ const galleryRow2: GalleryImage[] = [
 			{ label: 'Ver detalles del plan vacacional', href: '/planes-vacacionales', variant: 'link' },
 		]}
 	/>
-	<SectionPattern bottom="orange-pattern" />
+	<SectionPattern bottom="base-pattern" flipBottom />
 
 	<ActivitiesSection
 		eyebrow="Actividades"
@@ -188,21 +189,19 @@ const galleryRow2: GalleryImage[] = [
 		imageAlt="El equipo de monitores y coordinadores de Cappi Xtremo"
 	/>
 
-	<SectionPattern top="blue-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<FaqSection
 		tone="dark"
 		eyebrow="Respondemos tus dudas"
 		title="Preguntas "
 		underline="frecuentes"
 		items={faqs}
-		circles={[
-			{ side: 'left', position: 'center' },
-			{ side: 'right', position: 'bottom', size: 'large' },
-		]}
 	/>
 
 	<CtaSection
 		variant="image"
+		disfuminar='top'
+		bgColor='bg-sections'
 		bgImage={motosFullView1}
 		title="¿Tienes preguntas sobre nuestros "
 		underline="planes vacacionales"

@@ -32,7 +32,7 @@ const { eyebrow = 'Nuestros planes', title, underline, intro, plans, inscribirHr
 ---
 
 <section class="py-16 md:py-24">
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+	<div class="container">
 		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} intro={intro} />
 
 		<div class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -79,7 +79,7 @@ const { eyebrow = 'Nuestros planes', title, underline, intro, plans, inscribirHr
 								/>
 							)}
 							<a href={`/planes-vacacionales/${plan.slug}`}
-								class="text-sm font-medium uppercase text-neutral-500 transition-colors hover:text-primary">
+								class="text-sm font-medium uppercase text-primary transition-opacity hover:opacity-70">
 								Ver detalles del plan vacacional
 							</a>
 						</div>

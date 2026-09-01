@@ -74,11 +74,10 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 		title="Más formas de vivir la "
 		highlight="experiencia"
 		titleAfter=" Cappi"
+		disfuminar='bottom'
 		subtitle="Fiestas, eventos y animaciones a la medida de tu celebración."
 		badge="100% personalizable"
 	/>
-
-	<SectionPattern bottom="orange-pattern-fade" />
 
 	<ServicesSection
 		eyebrow="Nuestros servicios"
@@ -89,15 +88,14 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 		ctaHref="/contacto"
 	/>
 
-	<SectionPattern top="blue-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<StepsSection
 		eyebrow="¿Cómo funciona?"
 		underline="Cotización sencilla"
 		steps={steps}
 		columns={3}
-		circles={[{ side: 'right', position: 'bottom', size: 'large' }]}
 	/>
-	<SectionPattern top="blue-pattern" flipBottom />
+	<SectionPattern bottom="base-pattern" flipBottom />
 
 	<GallerySection
 		eyebrow="Galería"
@@ -117,19 +115,20 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 		items={testimonials}
 	/>
 
-	<SectionPattern top="blue-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<FaqSection
 		tone="dark"
 		eyebrow="Respondemos tus dudas"
 		title="Preguntas "
 		underline="frecuentes"
 		items={faqs}
-		circles={[{ side: 'left', position: 'top', size: 'large' }]}
 	/>
 
 	<CtaSection
 		variant="image"
 		bgImage={heroBg}
+		disfuminar='top'
+		bgColor="bg-sections"
 		title="¿Listo para crear una celebración inolvidable?"
 		buttons={[
 			{ label: 'Solicitar cotización', href: '/contacto', variant: 'white' },

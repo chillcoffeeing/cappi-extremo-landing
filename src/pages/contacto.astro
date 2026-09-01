@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import SectionHero from '../components/sections/hero/SectionHero.astro';
 import ContactSection from '../components/sections/contact/ContactSection.astro';
 import type { ScheduleEntry } from '../components/sections/contact/ContactSection.astro';
-import SectionPattern from '../components/astro/SectionPattern.astro';
 
 import heroBg from '../assets/gallery/juegos-1.jpg?url';
 
@@ -24,9 +23,8 @@ const schedule: ScheduleEntry[] = [
 		highlight="preguntas"
 		titleAfter="? Estamos para ayudarte"
 		subtitle="Escríbenos por WhatsApp, correo o llena el formulario y te respondemos lo antes posible."
+		disfuminar="bottom"
 	/>
-
-	<SectionPattern bottom="orange-pattern-fade" />
 
 	<ContactSection schedule={schedule} />
 

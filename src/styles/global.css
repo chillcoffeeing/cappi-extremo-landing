@@ -2,6 +2,7 @@
 
 /* Cursor pointer en todos los elementos clicables.
    Los elementos deshabilitados / no interactivos conservan el cursor correcto. */
+
 @layer base {
   a,
   button:not(:disabled),
@@ -24,12 +25,13 @@
 
 @theme {
   /* Colores de marca */
-  --color-primary: #f7a721;
-  --color-secondary: #04bee4;
-  --color-tertiary: #97d84e;
+  --color-primary: #008080;
+  --color-secondary: #ff7f50;
+  --color-tertiary: #bcf67b75;
+  --color-sections: #e8fcfc;
 
   /* Foregrounds sobre fondos de marca */
-  --color-primary-foreground: #000000;
+  --color-primary-foreground: #fff;
   --color-secondary-foreground: #ffffff;
 
   /* Madera clara (fondo de sección y acentos) */
@@ -39,6 +41,12 @@
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 }
 
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 1280px;
+}
+
 /* Escala tipográfica del sitio:
    Móvil: p 14px · h1 40px · h2 28px · h3 20px · h4 16px.
    Desktop (≥md): +20 % (16.8 / 48 / 33.6 / 24 / 19.2 px). */
@@ -46,6 +54,14 @@
   p {
     font-size: 0.875rem;
     line-height: 1.65;
+  }
+
+  section > p:first-child {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
   }
 
   h1 {
@@ -121,10 +137,35 @@
   background-color: var(--color-wood);
 }
 
-/* Disfuminado lateral para carruseles (galería y testimonios).
-   El color del borde se toma de --fade-edge-color (por defecto blanco);
+/* Curva inferior del patrón primary-translucent.svg (componente CurvedSection).
+   Altura máxima de la deformación: 40px (mobile), 80px (tablet), 120px (desktop). */
+.curvable-section {
+  clip-path: url(#curve-mobile);
+}
+
+@media (min-width: 768px) {
+  .curvable-section {
+    clip-path: url(#curve-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .curvable-section {
+    clip-path: url(#curve-desktop);
+  }
+}
+
+/* Disfuminado lateral para carruseles (galería y testimonios).   El color del borde se toma de --fade-edge-color (por defecto blanco);
    si el carrusel está sobre una sección de color, definir esa variable
    en el contenedor padre para que el difuminado coincida con el fondo. */
+
+@utility diffuminar-bottom {
+  @apply mask-[linear-gradient(to_bottom,black_40%,transparent_100%)];
+}
+@utility diffuminar-top {
+  @apply mask-[linear-gradient(to_top,black_40%,transparent_100%)];
+}
+
 .carousel-fade {
   position: relative;
 }

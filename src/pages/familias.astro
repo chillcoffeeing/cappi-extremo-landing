@@ -65,9 +65,8 @@ const steps: Step[] = [
 			{ label: 'Crear mi cuenta', href: '/coming-soon', variant: 'primary' },
 			{ label: 'Iniciar sesión', href: '/coming-soon', variant: 'white' },
 		]}
+		disfuminar="bottom"
 	/>
-
-	<SectionPattern bottom="orange-pattern-fade" />
 
 	<FeaturesSection
 		eyebrow="¿Qué puedes hacer?"
@@ -76,7 +75,7 @@ const steps: Step[] = [
 		items={features}
 	/>
 
-	<SectionPattern top="blue-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<StepsSection
 		eyebrow="¿Cómo funciona?"
 		title="4 "
@@ -84,12 +83,8 @@ const steps: Step[] = [
 		steps={steps}
 		columns={4}
 		cta={{ label: 'Comenzar ahora', href: '/coming-soon', variant: 'white' }}
-		circles={[
-			{ side: 'left', position: 'top' },
-			{ side: 'right', position: 'bottom' },
-		]}
-	/>
-	<SectionPattern bottom="blue-pattern" flipBottom />
+	/> 
+	<SectionPattern bottom="base-pattern" flipBottom />
 
 	<CtaSection
 		variant="light"

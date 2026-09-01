@@ -12,12 +12,12 @@ export interface Props {
 	periodClass?: string;
 }
 
-const { price, period, style = 'large', colorClass = 'text-secondary-foreground', periodClass } = Astro.props;
+const { price, period, style = 'large', colorClass = 'text-neutral-900', periodClass } = Astro.props;
 
 const isTbd = price === 'Próximamente';
 
 const tbdClass = style === 'large'
-	? 'text-lg font-semibold text-secondary-foreground'
+	? 'text-lg font-semibold text-neutral-600'
 	: 'text-lg font-semibold text-neutral-500';
 ---
 

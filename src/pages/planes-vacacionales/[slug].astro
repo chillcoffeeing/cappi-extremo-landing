@@ -208,9 +208,8 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 		subtitle={plan.summary}
 		buttons={[{ label: 'Inscribir ahora a mi hijo', href: '/coming-soon', variant: 'primary' }]}
 		titleMargin={false}
+		disfuminar="bottom"
 	/>
-
-	<SectionPattern bottom="orange-pattern-fade" />
 
 	<ActivitiesSection
 		eyebrow="Actividades"
@@ -262,14 +261,13 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 		padding="large"
 	/>
 
-	<SectionPattern top="blue-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<StepsSection
 		eyebrow="¿Cómo inscribirte?"
 		title="4 "
 		underline="pasos sencillos"
 		steps={steps}
 		columns={4}
-		circles={[{ side: 'right', position: 'center', size: 'large' }]}
 	/>
 
 	<FaqSection
@@ -283,6 +281,8 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 
 	<CtaSection
 		variant="image"
+		disfuminar='top'
+		bgColor='bg-sections'
 		bgImage={heroBg}
 		title="¿Listo para que tu hijo viva "
 		underline="esta experiencia"

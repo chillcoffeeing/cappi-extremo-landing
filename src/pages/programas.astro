@@ -51,13 +51,12 @@ const programs: Program[] = [
 		title="Programas diseñados para la "
 		highlight="diversión"
 		subtitle="Desde planes vacacionales de verano hasta fiestas temáticas, cada programa está pensado para crear recuerdos inolvidables."
+		disfuminar="bottom"
 	/>
-
-	<SectionPattern bottom="orange-pattern-fade" />
 
 	<ProgramsSection programs={programs} />
 
-	<SectionPattern top="blue-pattern" flipTop />
+	<SectionPattern top="base-pattern" flipTop />
 	<CtaSection
 		variant="dark"
 		title="¿No encontraste lo que "
@@ -65,8 +64,7 @@ const programs: Program[] = [
 		titleAfter="?"
 		intro="Cada evento es único. Cuéntanos tu idea y diseñamos una experiencia a tu medida."
 		buttons={[{ label: 'Contáctanos', href: '/contacto', variant: 'white' }]}
-		circles={[{ side: 'left', position: 'bottom', size: 'large' }]}
 	/>
-	<SectionPattern bottom="orange-pattern" />
+	<SectionPattern bottom="base-pattern" flipBottom />
 
 </Layout>
