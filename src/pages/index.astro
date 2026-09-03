@@ -69,10 +69,10 @@ const serviceCards: ServiceCard[] = [
 ];
 
 const philosophyItems: PhilosophyItem[] = [
-	{ icon: flagIcon, title: 'Aventura sin límites', description: 'Actividades al aire libre que sacan lo mejor de cada niño.' },
-	{ icon: peopleIcon, title: 'Amistades para toda la vida', description: 'Un ambiente donde se hacen amigos de verdad.' },
-	{ icon: laughIcon, title: 'Aprender jugando', description: 'Cada actividad enseña algo, sin que se sienta como clase.' },
-	{ icon: shieldIcon, title: 'Seguridad ante todo', description: 'Personal capacitado y protocolos claros en cada momento.' },
+	{ icon: flagIcon, title: 'Espíritu Aventurero', description: 'Fomentamos la curiosidad y la exploración libre de temores.' },
+	{ icon: peopleIcon, title: 'Compañerismo de Tribu', description: 'Promovemos el apoyo mutuo y el trabajo en equipo como clave del éxito.' },
+	{ icon: laughIcon, title: 'Energía y Resiliencia', description: 'Impulsamos una actitud positiva, valorando cada reto y logro.' },
+	{ icon: shieldIcon, title: 'Seguridad Consciente', description: 'Garantizamos la máxima protección física y emocional para disfrutar con tranquilidad.' },
 ];
 
 const activitiesCards: ActivityItem[] = [
@@ -133,12 +133,12 @@ const galleryRow2: GalleryImage[] = [
 	<PhilosophySection
 		title="Nuestra "
 		underline="filosofía"
-		intro="En Cappi Xtremo creemos que el verano es para vivirlo a fondo: correr, jugar, ensuciarse y hacer amigos para toda la vida. Por eso cada día está diseñado para que tu hijo se divierta, se atreva y crezca."
+		intro="combina la emoción de explorar con un entorno cuidado y positivo para todos. Basamos nuestra experiencia en cuatro pilares esenciales"
 		items={philosophyItems}
 		cta={{ label: 'Conoce nuestros planes vacacionales', href: '/planes-vacacionales' }}
 	/>
 
-	<SectionPattern top="base-pattern" flipTop />
+	<SectionPattern top="base-pattern" />
 	<ServicesBand
 		headingTitle="Bienvenidos a "
 		underline="Cappi Xtremo"
@@ -152,7 +152,7 @@ const galleryRow2: GalleryImage[] = [
 			{ label: 'Ver detalles del plan vacacional', href: '/planes-vacacionales', variant: 'link' },
 		]}
 	/>
-	<SectionPattern bottom="base-pattern" flipBottom />
+	<SectionPattern bottom="base-pattern"  />
 
 	<ActivitiesSection
 		eyebrow="Actividades"
@@ -189,7 +189,7 @@ const galleryRow2: GalleryImage[] = [
 		imageAlt="El equipo de monitores y coordinadores de Cappi Xtremo"
 	/>
 
-	<SectionPattern top="base-pattern" flipTop />
+	<SectionPattern top="base-pattern" />
 	<FaqSection
 		tone="dark"
 		eyebrow="Respondemos tus dudas"
@@ -200,14 +200,15 @@ const galleryRow2: GalleryImage[] = [
 
 	<CtaSection
 		variant="image"
-		disfuminar='top'
-		bgColor='bg-sections'
+		disfuminar='bottom'
 		bgImage={motosFullView1}
 		title="¿Tienes preguntas sobre nuestros "
 		underline="planes vacacionales"
 		titleAfter="? Escríbenos."
 		buttons={[{ label: 'Contáctanos', href: '/contacto', variant: 'white' }]}
 		padding="large"
-	/>
+	>
+		<SectionPattern bottom="slow-curve" />
+	</CtaSection>
 
 </Layout>

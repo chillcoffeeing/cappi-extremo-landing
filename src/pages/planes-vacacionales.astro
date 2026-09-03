@@ -14,9 +14,9 @@ import SectionPattern from '../components/astro/SectionPattern.astro';
 import { testimonials } from '../data/testimonials';
 
 import heroBg from '../assets/gallery/motos-full-view-1.jpg?url';
+import ctaBg from '../assets/gallery/fiesta-2.jpg?url';
 import motosFullView2 from '../assets/gallery/motos-full-view-2.jpg';
 import juegos1 from '../assets/gallery/juegos-1.jpg';
-import motosFullView1 from '../assets/gallery/motos-full-view-1.jpg?url';
 
 const NEXT_CAMP_START = '2027-06-15T09:00:00-04:00';
 
@@ -81,14 +81,14 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 	/>
 
 	<CountdownSection
-		title="Días hasta que empieza el próximo plan vacacional"
+		title="Cuenta regresiva del próximo plan vacacional"
 		target={NEXT_CAMP_START}
 		ctas={[
 			{ label: 'Apartar cupo para mi hijo', href: '/coming-soon', variant: 'white' },
 			{ label: 'Ver detalles del plan vacacional', href: '/planes-vacacionales/vacacional', variant: 'link' },
 		]}
 	/>
-	<SectionPattern bottom="base-pattern" flipBottom />
+	<SectionPattern bottom="base-pattern"  />
 
 	<PlansSection
 		eyebrow="Nuestros planes"
@@ -99,7 +99,7 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 		inscribirHref="/coming-soon"
 	/>
 
-	<SectionPattern top="base-pattern" flipTop />
+	<SectionPattern top="base-pattern"  />
 	<SessionsSection
 		tone="dark"
 		eyebrow="Fechas disponibles"
@@ -111,6 +111,8 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 			{ label: 'Tengo preguntas', href: '/contacto', variant: 'link' },
 		]}
 	/>
+	<SectionPattern bottom="base-pattern"  />
+
 
 	<GallerySection
 		eyebrow="Galería"
@@ -133,13 +135,15 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 
 	<CtaSection
 		variant="image"
-		disfuminar='top'
-		bgImage={motosFullView1}
+		disfuminar='bottom'
+		bgImage={ctaBg}
 		title="¿Listo para que tu hijo viva la "
 		underline="mejor experiencia"
 		titleAfter="?"
 		buttons={[{ label: 'Contáctanos', href: '/contacto', variant: 'white' }]}
 		padding="large"
-	/>
+	>
+	<SectionPattern bottom="slow-curve" additionalClasses={['text-white']}  />
+</CtaSection>
 
 </Layout>

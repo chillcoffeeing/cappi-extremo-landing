@@ -47,8 +47,8 @@ function init() {
           animate(
             el,
             {
-              opacity: [0, 1],
-              transform: ["translateY(-30%)", "translateY(0%)"],
+              opacity: [0.6, 1],
+              transform: ["translateY(-70%)", "translateY(0%)"],
             },
             { duration: 0.8, ease: EASE },
           ),
@@ -59,8 +59,8 @@ function init() {
           animate(
             el,
             {
-              opacity: [0, 1],
-              transform: ["translateY(-30%)", "translateY(0%)"],
+              opacity: [0.6, 1],
+              transform: ["translateY(-70%)", "translateY(0%)"],
             },
             { duration: 0.8, ease: EASE },
           ),

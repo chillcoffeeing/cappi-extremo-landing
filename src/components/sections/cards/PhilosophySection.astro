@@ -25,7 +25,7 @@ const { title, underline, intro, items, cta } = Astro.props;
 		<div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
 			{items.map((item) => (
 				<div data-motion="fade-up" class="flex flex-col items-center text-center">
-					<div class="flex size-[110px] items-center justify-center rounded-full bg-secondary/50 p-[30px]">
+					<div class="flex size-[110px] items-center justify-center rounded-full bg-sections p-[30px]">
 						<img src={item.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" class="h-full w-full object-contain" />
 					</div>
 					<h3 class="mt-6 font-medium text-neutral-900">{item.title}</h3>

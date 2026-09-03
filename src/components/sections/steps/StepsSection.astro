@@ -69,7 +69,7 @@ const gridClass =
 				<Button
 					label={cta.label}
 					href={cta.href}
-					variant={cta.variant ?? 'white'}
+					variant={cta.variant === 'link' ? 'link' : 'primary'}
 					linkColor={cta.variant === 'link' ? 'text-primary' : undefined}
 				/>
 			</div>

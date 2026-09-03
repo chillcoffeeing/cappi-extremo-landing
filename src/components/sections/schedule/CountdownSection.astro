@@ -29,6 +29,6 @@ const { title, target, countdownId = 'pv-countdown', ctas = [] } = Astro.props;
 
 		<Countdown id={countdownId} target={target} size="standard" />
 
-		{ctas.length > 0 && <CtaList ctas={ctas} size="sm" class="mt-10" />}
+		{ctas.length > 0 && <CtaList ctas={ctas.map((cta) => ({ ...cta, variant: cta.variant === 'link' ? 'link' : 'primary' }))} size="sm" class="mt-10" />}
 	</div>
 </section>

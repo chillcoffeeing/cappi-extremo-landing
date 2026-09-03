@@ -1,42 +1,33 @@
 ---
-/**
- * Adorna secciones con los patrones ondulados de `src/assets/ui/*-pattern.svg`.
- * Envuelve el <section> y opcionalmente inyecta un patrón antes (top)
- * o después (bottom) del mismo, pegado al borde para transición sin costuras.
- *
- * Patrón según fondo contiguo:
- * - `orange-pattern`: sólido arriba, borde inferior ondulado → cierra banda bg-primary.
- * - `orange-pattern-gradient`: igual, con degradado primario→blanco → cierre sobre fondo blanco.
- * - `orange-pattern-fade`: misma forma que `orange-pattern` con degradado horizontal izquierda (transparente) → derecha (primario) → salida del hero.
- * - `blue-pattern`: sólido abajo, borde superior ondulado → abre banda bg-secondary.
- */
-import basePattern from '../../assets/ui/primary-translucent.svg?url';
-
-const PATTERN_MAP: Record<string, string> = {
-	'base-pattern': basePattern,
-	'base-pattern-gradient': basePattern,
-};
-
-const PATTERNS = ["base-pattern", "base-pattern-gradient"] as const;
+const PATTERNS = ['base-pattern', 'slow-curve'] as const;
 
 interface Props {
-	/** Nombre del patrón, inyectado ANTES del section */
 	top?: (typeof PATTERNS)[number];
-	/** Nombre del patrón, inyectado DESPUÉS del section */
 	bottom?: (typeof PATTERNS)[number];
-	/** Espeja verticalmente el patrón superior (ej. orange-pattern para ENTRAR a una banda primario) */
-	flipTop?: boolean;
-	/** Espeja verticalmente el patrón inferior */
-	flipBottom?: boolean;
-
-	difumined?: boolean;
+	additionalClasses?: string[];
 }
 
-const { top, bottom, flipTop = false, flipBottom = false, difumined = false } = Astro.props;
+const { top, bottom, additionalClasses = ['text-sections'] } = Astro.props;
 
+const pattern = top || bottom;
 
+const patternClass = (position: 'top' | 'bottom') => [
+	!!top && '-scale-y-100',
+	position === 'top' ? '-mb-px' : '-mt-px',
+];
 ---
 
-{top && <img src={PATTERN_MAP[top]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-top" class:list={["-mb-px sm:-mb-16 lg:-mb-24 block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-px sm:-mb-16 lg:-mb-24":"-mt-px sm:-mt-16 lg:-mt-24"]} />}
-<slot />
-{bottom && <img src={PATTERN_MAP[bottom]} alt="" aria-hidden="true" loading="lazy" data-motion="pattern-bottom" class:list={["-mt-px sm:-mt-16 lg:-mt-24 block h-auto w-full", flipTop && "-scale-y-100", flipTop ? "-mb-px sm:-mb-16 lg:-mb-24":"-mt-px sm:-mt-16 lg:-mt-24"]} />}
+{/* Slow curve */}
+{pattern === 'slow-curve' && (
+	<svg width="1440" height="51" data-motion={!!top? 'pattern-top': 'pattern-bottom'} viewBox="0 0 1440 51" fill="none" xmlns="http://www.w3.org/2000/svg" class:list={[...patternClass(top ? 'top' : 'bottom'), " block h-auto w-full", additionalClasses]}>
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M1440 43.7105L1380 42.0909C1320 40.4712 1200 37.2319 1080 39.9313C960.001 42.6307 840.322 51.2688 720.322 50.7289C600.322 50.189 480 40.4711 360 37.2318C240 33.9925 120 37.2318 60 38.8515L0.000122969 40.4711L0.00171342 0.000225063L60.0016 0.000230309C120.002 0.000235554 240.001 0.000246045 360.001 0.000256536C480.001 0.000267026 600.001 0.000277517 720.001 0.000288008C840.001 0.000298499 960 0.000308989 1080 0.00031948C1200 0.000329971 1320 0.000340461 1380 0.000345707L1440 0.000350952L1440 43.7105Z" fill="currentColor"/>
+	</svg>
+)}
+
+{/* Base pattern  */}
+{pattern === 'base-pattern' && (
+	<svg width="1440" data-motion={!!top? 'pattern-top': 'pattern-bottom'} height="83" viewBox="0 0 1440 83" fill="none" xmlns="http://www.w3.org/2000/svg" class:list={[...patternClass(top ? 'top' : 'bottom'), "block h-auto w-full", additionalClasses]}>
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M1440 56.0901L1380 50.0164C1320 43.9427 1200 31.7953 1080 41.9181C960.002 52.0409 840.001 84.4339 720.001 82.4094C600.001 80.3848 480 43.9426 360 31.7952C240 19.6478 120 31.7952 60 37.8689L3.37081e-06 43.9426L-0.000114858 0.000118252L59.9999 0.000123497C120 0.000128742 240 0.000139233 360 0.000149724C480 0.000160215 600 0.000170705 720 0.000181196C840 0.000191687 960 0.000202178 1080 0.000212668C1200 0.000223159 1320 0.00023365 1380 0.000238895L1440 0.00024414L1440 56.0901Z" fill="currentColor"/>
+	</svg>	
+)}
+	

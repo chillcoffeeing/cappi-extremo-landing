@@ -15,6 +15,7 @@ import { faqs } from '../data/faqs';
 import { testimonials } from '../data/testimonials';
 
 import heroBg from '../assets/gallery/fiesta-1.jpg?url';
+import ctaBg from '../assets/gallery/juegos-1.jpg?url';
 import h14 from '../assets/gallery/all/horizontal-images/IMG_4187.jpg?url';
 import h15 from '../assets/gallery/all/horizontal-images/IMG_3601.jpg?url';
 
@@ -88,14 +89,14 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 		ctaHref="/contacto"
 	/>
 
-	<SectionPattern top="base-pattern" flipTop />
+	<SectionPattern top="base-pattern" 		 />
 	<StepsSection
 		eyebrow="¿Cómo funciona?"
 		underline="Cotización sencilla"
 		steps={steps}
 		columns={3}
 	/>
-	<SectionPattern bottom="base-pattern" flipBottom />
+	<SectionPattern bottom="base-pattern"  />
 
 	<GallerySection
 		eyebrow="Galería"
@@ -115,25 +116,27 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 		items={testimonials}
 	/>
 
-	<SectionPattern top="base-pattern" flipTop />
+	<SectionPattern top="base-pattern"  />
 	<FaqSection
-		tone="dark"
-		eyebrow="Respondemos tus dudas"
-		title="Preguntas "
+	tone="dark"
+	eyebrow="Respondemos tus dudas"
+	title="Preguntas "
 		underline="frecuentes"
 		items={faqs}
-	/>
+		/>
+		
+		
 
 	<CtaSection
 		variant="image"
-		bgImage={heroBg}
-		disfuminar='top'
-		bgColor="bg-sections"
+		bgImage={ctaBg}
 		title="¿Listo para crear una celebración inolvidable?"
 		buttons={[
 			{ label: 'Solicitar cotización', href: '/contacto', variant: 'white' },
 			{ label: 'Tengo preguntas', href: '/contacto', variant: 'link' },
 		]}
-	/>
+	>
+		<SectionPattern bottom="slow-curve"  />
+	</CtaSection>
 
 </Layout>

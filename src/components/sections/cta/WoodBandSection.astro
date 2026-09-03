@@ -33,6 +33,7 @@ const { pills, location, items, cta } = Astro.props;
 ---
 
 <section class="relative isolate bg-wood">
+	<SectionPattern bottom="slow-curve" additionalClasses={['text-white']}  />
 	<div class="container py-16 md:py-24">
 		<div data-motion="fade-up" class="flex justify-center">
 			<div class="flex w-fit flex-col gap-6 md:gap-0 items-center md:flex-row sm:rounded-full">
@@ -86,5 +87,6 @@ const { pills, location, items, cta } = Astro.props;
 			</a>
 		</div>
 	</div>
-	<SectionPattern bottom="base-pattern" flipBottom />
+	
+	<SectionPattern top="base-pattern"  />
 </section>

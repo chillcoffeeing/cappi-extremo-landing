@@ -1,11 +1,6 @@
 ---
 import MobileMenu from "../react/MobileMenu";
-import { WHATSAPP_URL, EMAIL_URL, INSTAGRAM_URL, FACEBOOK_URL } from "../../lib/social";
 
-import whatsappSvg from "../../assets/ui/whatsapp.svg?raw";
-import mailSvg from "../../assets/ui/mail.svg?raw";
-import instagramSvg from "../../assets/ui/instagram.svg?raw";
-import facebookSvg from "../../assets/ui/facebook.svg?raw";
 import logoSrc from "../../assets/cappi-extremo-logo.png?url";
 
 const navLinks = [
@@ -21,62 +16,12 @@ const { pathname } = Astro.url;
 
 const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
-function injectClass(svg: string, cls: string) {
-	return svg.replace("<svg", `<svg class="${cls}"`);
-}
 ---
 
 <header class="sticky top-0 z-40 bg-white shadow-sm">
-	<div class="h-8 bg-primary text-primary-foreground">
-		<div class="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-			<div class="flex items-center gap-4">
-				<a
-					href={WHATSAPP_URL}
-					aria-label="WhatsApp"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1.5 transition-opacity hover:opacity-70"
-				>
-					<Fragment set:html={injectClass(whatsappSvg, "size-6")} />
-					<span class="hidden text-xs font-medium md:inline">WhatsApp</span>
-				</a>
-				<a
-					href={EMAIL_URL}
-					aria-label="Mail"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1.5 transition-opacity hover:opacity-70"
-				>
-					<Fragment set:html={injectClass(mailSvg, "size-6")} />
-					<span class="hidden text-xs font-medium md:inline">Mail</span>
-				</a>
-			</div>
-
-			<div class="flex items-center gap-4">
-				<a
-					href={INSTAGRAM_URL}
-					aria-label="Instagram"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="transition-opacity hover:opacity-70"
-				>
-					<Fragment set:html={injectClass(instagramSvg, "size-6")} />
-				</a>
-				<a
-					href={FACEBOOK_URL}
-					aria-label="Facebook"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="transition-opacity hover:opacity-70"
-				>
-					<Fragment set:html={injectClass(facebookSvg, "size-6")} />
-				</a>
-			</div>
-		</div>
-	</div>
 
 	<nav
-		class="mx-auto grid h-18 max-w-7xl grid-cols-2 items-center px-4 sm:px-6 md:h-24 md:grid-cols-[1fr_auto_1fr] lg:px-8"
+		class="z-10 relative mx-auto grid h-18 max-w-7xl grid-cols-2 items-center px-4 sm:px-6 md:h-24 md:grid-cols-[1fr_auto_1fr] lg:px-8"
 	>
 		<a href="/" class="justify-self-start">
 			<img src={logoSrc} alt="Cappi Extremo" class="h-12 w-auto md:h-20" />
@@ -113,4 +58,5 @@ function injectClass(svg: string, cls: string) {
 			</a>
 		</div>
 	</nav>
+	
 </header>

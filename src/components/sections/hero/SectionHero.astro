@@ -18,11 +18,11 @@ export interface Props {
 	bgColor?: string;
 	/** Texto corto sobre el título */
 	eyebrow?: string;
-	/** Fragmento del eyebrow resaltado en primary */
+	/** Fragmento del eyebrow */
 	eyebrowHighlight?: string;
 	/** Título h1 */
 	title: string;
-	/** Fragmento del título resaltado en primary */
+	/** Fragmento del título */
 	highlight?: string;
 	/** Texto posterior al fragmento resaltado */
 	titleAfter?: string;
@@ -122,13 +122,13 @@ const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar ===
 			{(eyebrow || eyebrowHighlight) && (
 				<p data-motion="fade-up" class="font-semibold uppercase tracking-wide text-white">
 					{eyebrow}
-					{eyebrowHighlight && <span class="text-primary">{eyebrowHighlight}</span>}
+					{eyebrowHighlight && <span>{eyebrowHighlight}</span>}
 				</p>
 			)}
 
 			<h1 data-motion="fade-up" class={titleClass}>
 				{title}
-				{highlight && <span class="text-primary">{highlight}</span>}
+				{highlight && <span>{highlight}</span>}
 				{titleAfter}
 			</h1>
 

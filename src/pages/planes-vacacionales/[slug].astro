@@ -20,7 +20,7 @@ import { faqs } from '../../data/faqs';
 import { testimonials } from '../../data/testimonials';
 
 import heroBg from '../../assets/gallery/motos-full-view-1.jpg?url';
-import motosFullView1 from '../../assets/gallery/motos-full-view-1.jpg?url';
+import ctaBg from '../../assets/gallery/fiesta-3.jpg?url';
 
 import h1 from '../../assets/gallery/all/horizontal-images/IMG_3594.jpg?url';
 import h2 from '../../assets/gallery/all/horizontal-images/IMG_4595.jpg?url';
@@ -233,6 +233,7 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 		description="Paga completo o en cuotas. Aceptamos Zelle, Binance, transferencia bancaria o efectivo."
 		cta={{ label: 'Inscribir ahora', href: '/coming-soon' }}
 	/>
+	<SectionPattern bottom="base-pattern"  />
 
 	<SessionsSection
 		tone="light"
@@ -261,14 +262,15 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 		padding="large"
 	/>
 
-	<SectionPattern top="base-pattern" flipTop />
+	<SectionPattern top="base-pattern" />
 	<StepsSection
-		eyebrow="¿Cómo inscribirte?"
-		title="4 "
-		underline="pasos sencillos"
-		steps={steps}
-		columns={4}
+	eyebrow="¿Cómo inscribirte?"
+	title="4 "
+	underline="pasos sencillos"
+	steps={steps}
+	columns={4}
 	/>
+	<SectionPattern bottom="base-pattern" />
 
 	<FaqSection
 		tone="light"
@@ -281,9 +283,8 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 
 	<CtaSection
 		variant="image"
-		disfuminar='top'
-		bgColor='bg-sections'
-		bgImage={heroBg}
+		disfuminar='bottom'
+		bgImage={ctaBg}
 		title="¿Listo para que tu hijo viva "
 		underline="esta experiencia"
 		titleAfter="?"
@@ -291,6 +292,8 @@ const description = `${plan.summary}. Inscripciones abiertas para el próximo ve
 			{ label: 'Inscribir ahora', href: '/coming-soon', variant: 'white' },
 			{ label: 'Tengo preguntas', href: '/contacto', variant: 'link' },
 		]}
-	/>
+	>
+		<SectionPattern bottom="slow-curve" additionalClasses={['text-white']} />
+	</CtaSection>
 
 </Layout>

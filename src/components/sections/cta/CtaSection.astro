@@ -60,11 +60,14 @@ const ctas = buttons.map((b) => ({
 }));
 ---
 
+
+
 {
 	variant === 'image' && (
 		<section class="relative z-10 isolate overflow-hidden" class:list={[bgColor]}>
+			<slot></slot>
 			{bgImage && (
-				<div class:list={['absolute inset-0 -z-10',disfuminarClass]}><img src={bgImage} alt="" aria-hidden="true" loading="lazy" class:list={['block h-full w-full object-cover']} /></div>
+				<div class:list={['absolute inset-0 object-top -z-10 brightness-50',disfuminarClass]}><img src={bgImage} alt="" aria-hidden="true" loading="lazy" class:list={['block h-full w-full object-cover']} /></div>
 			)}
 			
 			<div class={['mx-auto max-w-7xl px-4 lg:px-8', imagePadding].filter(Boolean).join(' ')}>
@@ -115,7 +118,7 @@ const ctas = buttons.map((b) => ({
 						{intro}
 					</p>
 				)}
-				<CtaList ctas={ctas} class="mt-10" />
+				<CtaList ctas={ctas.map((cta) => ({ ...cta, variant: cta.variant === 'link' ? 'link' : 'primary' }))} class="mt-10" />
 			</div>
 		</section>
 	)

@@ -79,7 +79,7 @@ const statusClass = (disponible: boolean) =>
 
 		{ctas.length > 0 && (
 			<CtaList
-				ctas={ctas.map((c) => ({ ...c, linkColor: c.variant === 'link' ? 'text-primary' : undefined }))}
+				ctas={ctas.map((c) => ({ ...c, variant: dark && c.variant !== 'link' ? 'primary' : c.variant, linkColor: c.variant === 'link' ? 'text-primary' : undefined }))}
 				class="mt-12"
 			/>
 		)}

@@ -45,6 +45,7 @@
   width: 100%;
   margin-inline: auto;
   max-width: 1280px;
+  padding-inline: theme(spacing.2);
 }
 
 /* Escala tipográfica del sitio:
@@ -160,10 +161,10 @@
    en el contenedor padre para que el difuminado coincida con el fondo. */
 
 @utility diffuminar-bottom {
-  @apply mask-[linear-gradient(to_bottom,black_40%,transparent_100%)];
+  @apply mask-[linear-gradient(to_bottom,black_80%,#fff1_90%,transparent_100%)];
 }
 @utility diffuminar-top {
-  @apply mask-[linear-gradient(to_top,black_40%,transparent_100%)];
+  @apply mask-[linear-gradient(to_top,black_80%,transparent_100%)];
 }
 
 .carousel-fade {
