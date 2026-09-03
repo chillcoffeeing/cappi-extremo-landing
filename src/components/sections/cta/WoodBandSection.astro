@@ -33,7 +33,7 @@ const { pills, location, items, cta } = Astro.props;
 ---
 
 <section class="relative isolate bg-wood">
-	<SectionPattern bottom="slow-curve" additionalClasses={['text-white']}  />
+	
 	<div class="container py-16 md:py-24">
 		<div data-motion="fade-up" class="flex justify-center">
 			<div class="flex w-fit flex-col gap-6 md:gap-0 items-center md:flex-row sm:rounded-full">
@@ -59,7 +59,7 @@ const { pills, location, items, cta } = Astro.props;
 
 		<div data-motion="fade-up" class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
 			{items.map((item) => (
-				<div class:list={['flex flex-col items-center gap-4 rounded-2xl border-[3px] border-white/50 p-6 text-center', ITEM_COLORS[item.color]]}>
+				<div class:list={['flex flex-col items-center gap-4 rounded-2xl border-[3px] border-white/50 p-6 text-center bg-wood-solid', ]}>
 					<div class="flex size-16 items-center justify-center rounded-full bg-white/25">
 						<svg
 							class="size-8"

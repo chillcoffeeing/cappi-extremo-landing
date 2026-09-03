@@ -28,7 +28,7 @@ const { title, underline, intro, items, cta } = Astro.props;
 					<div class="flex size-[110px] items-center justify-center rounded-full bg-sections p-[30px]">
 						<img src={item.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" class="h-full w-full object-contain" />
 					</div>
-					<h3 class="mt-6 font-medium text-neutral-900">{item.title}</h3>
+					<h3 class="mt-4 font-medium flex items-center justify-center text-lg text-neutral-900 h-10">{item.title}</h3>
 					<p class="mt-2 leading-relaxed text-neutral-600">{item.description}</p>
 				</div>
 			))}
