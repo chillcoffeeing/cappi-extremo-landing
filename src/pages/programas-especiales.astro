@@ -17,34 +17,8 @@ import { testimonials } from '../data/testimonials';
 import heroBg from '../assets/gallery/fiesta-1.jpg?url';
 import ctaBg from '../assets/gallery/juegos-1.jpg?url';
 import h14 from '../assets/gallery/all/horizontal-images/IMG_4187.jpg?url';
-import h15 from '../assets/gallery/all/horizontal-images/IMG_3601.jpg?url';
 
-const services: Service[] = [
-	{
-		name: 'Fiestas y Eventos',
-		priceLabel: 'Cotizar evento',
-		image: h14,
-		features: [
-			'Animación y recreación personalizada',
-			'Temáticas a elección',
-			'Equipo profesional',
-			'Espacios cubiertos y al aire libre',
-		],
-		cta: 'Solicitar cotización',
-	},
-	{
-		name: 'Animación y Recreación',
-		priceLabel: 'Cotizar servicio',
-		image: h15,
-		features: [
-			'Juegos dirigidos y dinámicas grupales',
-			'Personal capacitado en recreación infantil',
-			'Adaptable a colegios, empresas o eventos privados',
-			'Equipos y materiales incluidos',
-		],
-		cta: 'Solicitar cotización',
-	},
-];
+
 
 const steps: Step[] = [
 	{ number: '1', title: 'Cuéntanos qué estás celebrando', description: 'Fecha, cantidad de niños, tipo de evento.' },
@@ -66,7 +40,7 @@ const galleryRow1: GalleryImage[] = allGalleryImages.slice(0, Math.ceil(allGalle
 const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
 ---
 
-<Layout title="Otros servicios — Cappi Extremo" description="Fiestas, eventos y animaciones a la medida de tu celebración. Cotiza tu evento con Cappi Xtremo.">
+<Layout title="Programas especiales - Cappi Extremo" description="Fiestas, eventos y animaciones a la medida de tu celebración. Cotiza tu evento con Cappi Xtremo.">
 
 	<SectionHero
 		bgImage={heroBg}
@@ -81,11 +55,26 @@ const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryI
 	/>
 
 	<ServicesSection
-		eyebrow="Nuestros servicios"
-		title="El servicio perfecto para tu "
-		underline="celebración"
-		intro="Cada evento es único. Diseñamos experiencias a la medida para que tu celebración sea inolvidable."
-		services={services}
+		title="Queremos ofrecer celebraciones a los padres al estilo "
+		underline="Cappi"
+		intro="Llevamos la adrenalina y la diversión de CappiXtremo a tu celebración. Diseñamos eventos y fiestas totalmente personalizados a la medida de tu espacio y temática preferida."
+		service={{
+			name: 'Celebra con Cappi',
+			priceLabel: 'Cotizaciones a medida',
+			image: h14,
+			features: [
+				"Recreación y dinámicas",
+				"Logística integral",
+				"Estaciones de pintura/arte, mesas creativas, glitter, tattoo, zonas de juegos temáticos y animación",
+				"Celebraciones escolares, promos y corporativos",
+				"Staff - quiénes son, historia de Cappi.",
+
+			],
+			staft: {
+				director: 'Maira Zambrano',
+			},
+			cta: 'Solicitar cotización',
+		}}
 		ctaHref="/contacto"
 	/>
 
