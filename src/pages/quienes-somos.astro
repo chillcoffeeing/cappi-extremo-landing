@@ -1,0 +1,193 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import SectionHeading from '../components/titles/SectionHeading.astro';
+import ImageAccent from '../components/astro/ImageAccent.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+
+import heroBg from '../assets/gallery/fiesta-1.jpg?url';
+import historiaImg from '../assets/gallery/all/horizontal-images/IMG_2781.jpg?url';
+import coordinadoraImg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
+import teamFullView from '../assets/gallery/team-full-view.jpg?url';
+import ctaBg from '../assets/gallery/motos-full-view-1.jpg?url';
+---
+
+<Layout
+	title="Quiénes somos - Cappi Extremo"
+	description="En Cappixtremo somos pasión, vocación y amor en acción. Un equipo multidisciplinario de profesionales que regala a los niños un espacio genuino, seguro e inolvidable para crecer."
+>
+
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="Cappi "
+		eyebrowHighlight="Xtremo"
+		title="Quiénes "
+		highlight="somos"
+		disfuminar="bottom"
+		subtitle="Pasión, vocación y amor en acción. Conoce la historia y el equipo detrás de cada aventura."
+	/>
+
+	<section class="py-12 md:py-20">
+		<div class="container">
+			<SectionHeading
+				eyebrow="Nosotros"
+				title="Quiénes "
+				underline="somos"
+				intro="En Cappixtremo, somos pasión, vocación y amor en acción."
+			/>
+
+			<div class="mx-auto mt-10 max-w-3xl space-y-5 text-center leading-relaxed text-neutral-600">
+				<p data-motion="fade-up">
+					Somos un equipo multidisciplinario de profesionales capacitados en el área pedagógica y
+					recreativa, comprometidos con regalarles a nuestros niños un espacio genuino, seguro y
+					verdaderamente inolvidable para crecer, socializar y construir amistades para toda la vida.
+				</p>
+				<p data-motion="fade-up">
+					Nacimos bajo el respaldo y la visión del Centro de Atención Psicopedagógica Integral (CAPI),
+					uniendo la experiencia del desarrollo infantil con la empatía y la calidez del amor materno.
+					Detrás de cada experiencia de Cappixtremo hay un talento humano apasionado por el bienestar
+					emocional, la recreación sana y el cuidado integral de los más pequeños.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<SectionPattern top="base-pattern" />
+	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
+		<div class="container">
+			<SectionHeading
+				eyebrow="Nuestra esencia"
+				title="Lo que nos "
+				underline="mueve"
+				tone="dark"
+			/>
+			<p data-motion="fade-up" class="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-neutral-600">
+				Creemos en la importancia de desconectar a los niños y adolescentes de las pantallas para
+				reconectarlos con el juego, la naturaleza, la vivencia activa y la convivencia real.
+			</p>
+		</div>
+	</section>
+	<SectionPattern bottom="base-pattern" />
+
+	<section class="py-12 md:py-20">
+		<div class="container">
+			<SectionHeading
+				eyebrow="Nuestra historia"
+				title="La historia de "
+				underline="Cappixtremo"
+				intro="Un sueño que nació del amor de mamá."
+			/>
+
+			<ImageAccent color="tertiary" position="bottom" align="right">
+				<img src={historiaImg} alt="El origen de Cappixtremo: un sueño nacido del amor de mamá" loading="lazy" decoding="async" class="mt-14 w-full" />
+			</ImageAccent>
+
+			<div class="mx-auto mt-12 max-w-3xl space-y-5 leading-relaxed text-neutral-600">
+				<p data-motion="fade-up" class="font-semibold text-neutral-900">
+					Esta historia no empezó en una oficina ni en un escritorio, sino en el corazón de una madre.
+				</p>
+				<blockquote data-motion="fade-up" class="border-l-4 border-primary pl-5 italic text-neutral-700">
+					"Al ver crecer a mis hijos, me di cuenta de una gran necesidad en nuestra ciudad: faltaban
+					espacios verdaderamente geniales, divertidos y seguros donde los niños pudieran conectar,
+					explorar, hacer amigos reales y construir recuerdos diferentes."
+				</blockquote>
+				<p data-motion="fade-up">
+					Con la llegada de la pandemia, esta desconexión se hizo aún más difícil, dejando a los más
+					pequeños aislados y con la urgente necesidad de volver a disfrutar su infancia en libertad.
+				</p>
+				<p data-motion="fade-up">
+					Desde mi trabajo y visión al frente del Centro de Atención Integral, conocía de cerca el
+					impacto positivo que el juego, el afecto y la socialización tienen en el desarrollo emocional
+					y cognitivo de los niños. Movida por ese amor materno y el deseo de transformar la experiencia
+					vacacional de nuestra ciudad, decidí dar un paso más. Para construir una marca con identidad
+					propia y con mucha alma, anexando una P que representa la suma de dos fuerzas fundamentales
+					que hacen posible la experiencia: P de Petrolandia, columna vertebral de la recreación en cada
+					edición. Juntos nos convertimos en CAPPIXTREMO.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<SectionPattern top="base-pattern" />
+
+	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
+		<div class="container">
+			<div class="grid items-center gap-10 lg:grid-cols-2">
+				<div data-motion="fade-up">
+					<SectionHeading
+						eyebrow="Coordinación"
+						title="La coordinadora de "
+						underline="animación"
+						tone="dark"
+					/>
+					<p class="mt-6 leading-relaxed text-neutral-600">
+						Al frente de la animación y la recreación, una coordinadora apasionada lidera cada actividad
+						para que cada niño descubra la magia del juego, la aventura y la amistad dentro de un entorno
+						seguro y alegre. Su vocación garantiza que cada jornada en Cappixtremo sea una experiencia
+						vivida con energía, empatía y cuidado integral.
+					</p>
+				</div>
+				<div data-motion="fade-up" class="overflow-hidden shadow-sm">
+					<ImageAccent color="secondary" position="top" align="left">
+						<img src={coordinadoraImg} alt="La coordinadora de animación de Cappi Xtremo" loading="lazy" decoding="async" class="w-full max-h-96 object-contain" />
+					</ImageAccent>
+				</div>
+			</div>
+		</div>
+	</section>
+	<SectionPattern bottom="base-pattern" />
+
+	<section class="py-12 md:py-20">
+		<div class="container">
+			<SectionHeading
+				eyebrow="Nace Cappixtremo"
+				title="2023: Nace "
+				underline="Cappixtremo"
+				intro="La visión cobró fuerza y juntos le dimos vida a algo mucho más que un plan vacacional."
+			/>
+
+			<ImageAccent color="primary" position="bottom" align="left">
+				<img src={teamFullView} alt="Todo el equipo de Cappi Xtremo" loading="lazy" decoding="async" class="mt-14 w-full" />
+			</ImageAccent>
+
+			<div class="mx-auto mt-12 max-w-3xl space-y-5 leading-relaxed text-neutral-600">
+				<p data-motion="fade-up">
+					Aunque la pasión por el entretenimiento y la recreación infantil ya venía acompañándome en la
+					dirección de otros planes vacacionales, fue en el año 2023 cuando esta visión cobró una fuerza
+					imparable. Dios puso en mi camino a un equipo maravilloso e idóneo, y juntos le dimos vida a
+					Cappixtremo: mucho más que un plan vacacional, un lugar de aventuras, risas, amistades
+					inolvidables y experiencias diseñadas para encender la imaginación y fortalecer el bienestar
+					emocional de cada niño.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<SectionPattern top="base-pattern" />
+	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
+		<div class="container">
+			<SectionHeading
+				title="Un espacio para "
+				underline="crecer y soñar"
+				tone="dark"
+				intro="Cappixtremo une la experiencia del desarrollo infantil con la calidez del amor materno, para que cada niño juegue, conecte y construya amistades para toda la vida."
+			/>
+		</div>
+	</section>
+
+	<CtaSection
+		variant="image"
+		disfuminar="bottom"
+		bgImage={ctaBg}
+		title="Vive la experiencia "
+		underline="Cappixtremo"
+		titleAfter=" con tu hijo"
+		buttons={[
+			{ label: 'Ver planes vacacionales', href: '/planes-vacacionales', variant: 'white' },
+			{ label: 'Contáctanos', href: '/contacto', variant: 'link' },
+		]}
+		padding="large"
+	/>
+
+</Layout>

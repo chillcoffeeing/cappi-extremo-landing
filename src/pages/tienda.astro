@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ComingSoonSection from '../components/sections/hero/ComingSoonSection.astro';
+---
+
+<Layout
+	title="Tienda - Cappi Extremo"
+	description="La tienda de Cappi Xtremo está por llegar. Pronto encontrarás recuerdos, accesorios y productos oficiales para llevar la aventura contigo."
+>
+
+	<ComingSoonSection
+		title="Tienda próximamente"
+		description="Esta es la tienda de Cappi Xtremo. Pronto tendremos a la venta recuerdos, accesorios y productos oficiales para que vivas la aventura también fuera del campamento. ¡Muy pronto!"
+		links={[
+			{ label: 'Volver al inicio', href: '/', variant: 'primary' },
+			{ label: 'Conoce nuestros planes vacacionales', href: '/planes-vacacionales', variant: 'link' },
+		]}
+	/>
+
+</Layout>

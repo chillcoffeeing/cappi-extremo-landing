@@ -76,6 +76,7 @@ const inputClass =
 						<select id="subject" name="subject" class={inputClass}>
 							<option>Inscripción plan vacacional</option>
 							<option>Cotización fiesta o evento</option>
+							<option value="Quiero ser staff">Quiero ser staff</option>
 							<option>Otra pregunta</option>
 						</select>
 					</div>
@@ -139,4 +140,24 @@ const inputClass =
 			</div>
 		</div>
 	</div>
+
+	<script>
+		const params = new URLSearchParams(window.location.search);
+		const asunto = params.get('asunto');
+		if (asunto) {
+			const select = document.getElementById('subject') as HTMLSelectElement | null;
+			if (select) {
+				const option = Array.from(select.options).find(
+					(opt) => opt.value === asunto || opt.text.toLowerCase().includes(asunto.toLowerCase()),
+				);
+				if (option) {
+					select.value = option.value;
+					select.dispatchEvent(new Event('change', { bubbles: true }));
+				}
+			}
+			if (window.history.replaceState) {
+				window.history.replaceState({}, '', window.location.pathname);
+			}
+		}
+	</script>
 </section>
