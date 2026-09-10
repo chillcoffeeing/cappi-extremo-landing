@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+import CountdownSection from '../components/sections/schedule/CountdownSection.astro';
+import InclusionsBandSection from '../components/sections/cta/InclusionsBandSection.astro';
+import ActivitiesSection from '../components/sections/cards/ActivitiesSection.astro';
+import type { Pill, IncludedItem } from '../components/sections/cta/InclusionsBandSection.astro';
+import type { ActivityItem } from '../components/sections/cards/ActivitiesSection.astro';
+import { christmasVacationPlan } from '../data/plan-vacacional';
+
+import heroBg from '../assets/gallery/motos-2.jpg?url';
+
+import activity1 from '../assets/gallery/padel-fest.jpg?url';
+import activity2 from '../assets/gallery/paseo-a-caballo.jpg?url';
+import activity3 from '../assets/gallery/acuatico.jpg?url';
+import activity4 from '../assets/gallery/deportes.jpg?url';
+import activity5 from '../assets/gallery/spa.jpg?url';
+import activity6 from '../assets/gallery/rally-barro.jpg?url';
+import activity7 from '../assets/gallery/var-ritmo.jpg?url';
+import activity8 from '../assets/gallery/planetario.jpg?url';
+import activity9 from '../assets/gallery/rusticos.jpg?url';
+
+const plan = christmasVacationPlan;
+
+const inclusionPills: Pill[] = [
+	{ text: plan.date, fat: false },
+	{ text: plan.hours, fat: true },
+	{ text: plan.ages, fat: false },
+];
+
+const inclusionsItems: IncludedItem[] = [
+	{ label: 'Franela', icon: 'lucide:wrench' },
+	{ label: 'Transporte', icon: 'lucide:bus' },
+	{ label: 'Almuerzo', icon: 'lucide:utensils' },
+	{ label: 'Merienda PM', icon: 'lucide:coffee' },
+	{ label: 'Hidratación', icon: 'lucide:heart' },
+	{ label: 'Materiales', icon: 'lucide:pencil' },
+	{ label: 'Juegos recreativos', icon: 'lucide:gamepad-2' },
+	{ label: 'Staff Calificado', icon: 'lucide:users' },
+	{ label: 'Seguridad', icon: 'lucide:shield-check' },
+	{ label: 'Servicio Médico', icon: 'lucide:file-plus' },
+	{ label: '9h diarias por 5 días', icon: 'lucide:clock' },
+];
+
+const activitiesCards: ActivityItem[] = [
+	{ image: activity1, title: 'Pádel Fest' },
+	{ image: activity2, title: 'Paseo a caballo' },
+	{ image: activity3, title: 'Acuático' },
+	{ image: activity4, title: 'Deportes' },
+	{ image: activity5, title: 'Spa' },
+	{ image: activity6, title: 'Rally barro' },
+	{ image: activity7, title: 'VAR ritmo' },
+	{ image: activity8, title: 'Planetario' },
+	{ image: activity9, title: 'Rústicos' },
+];
+---
+
+<Layout
+	title="Plan Vacacional - Edición Navidad - Cappi Extremo"
+	description="Conoce el Plan Vacacional - Edición Navidad de Cappi Xtremo: cinco días de actividades, diversión y acompañamiento para niños de 4 a 15 años."
+>
+	<SectionHero
+		bgImage={heroBg}
+		crumbs={[{ label: 'Aventuras', href: '/plan-vacacional' }, { label: plan.name }]}
+		eyebrow="PLAN VACACIONAL"
+		title="PLAN VACACIONAL - "
+		highlight="EDICIÓN NAVIDAD"
+		subtitle={`${plan.date} · ${plan.hours} · ${plan.ages}`}
+		buttons={[{ label: 'Inscripciones por la página web', href: plan.registrationUrl, variant: 'primary' }]}
+		titleMargin={false}
+	/>
+
+	<CountdownSection
+		title="Cuenta regresiva del plan vacacional"
+		target="2026-12-14T08:00:00-04:00"
+		countdownId="pv-countdown"
+	/>
+	
+	<SectionPattern top="base-pattern" />
+
+	<InclusionsBandSection
+		pills={inclusionPills}
+		location={plan.location}
+		items={inclusionsItems}
+		cta={{ label: 'Inscripciones por la página web', href: plan.registrationUrl }}
+	/>
+	
+	<SectionPattern bottom="base-pattern" />
+	
+
+	<ActivitiesSection
+		eyebrow="Actividades"
+		title="Una semana de "
+		underline="aventuras"
+		intro="Cada jornada combina movimiento, creatividad, juego y sorpresas para que cada participante encuentre su propia jugada extrema."
+		items={activitiesCards}
+		padding="large"
+	/>
+
+	<CtaSection
+		variant="light"
+		title="Inscripciones por la "
+		underline="página web"
+		titleAfter=""
+		intro={`Reserva la experiencia de Navidad en ${plan.registrationUrl.replace('https://', '')}. También puedes encontrarnos en Instagram: ${plan.instagramHandle}.`}
+		buttons={[
+			{ label: 'Cappixtremo.com', href: plan.registrationUrl, variant: 'primary' },
+			{ label: `Instagram ${plan.instagramHandle}`, href: plan.instagramUrl, variant: 'link' },
+		]}
+		padding="large"
+	/>
+</Layout>

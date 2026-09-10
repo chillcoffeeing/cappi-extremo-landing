@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { animate } from "motion";
+import { Icon } from "@iconify/react";
 
 export interface GalleryImage {
   src: string;
@@ -210,17 +211,7 @@ export default function GalleryCarousel({
             className="absolute right-4 top-4 z-10 flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90 sm:right-6 sm:top-6"
             aria-label="Cerrar"
           >
-            <svg
-              className="size-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
+            <Icon icon="lucide:x" className="size-5" />
           </button>
           <img
             ref={imgRef}

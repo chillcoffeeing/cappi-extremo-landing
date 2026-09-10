@@ -18,7 +18,7 @@ export interface Props {
 	eyebrow: string;
 	title?: string;
 	underline?: string;
-	underlineColor?: string;
+	color?: 'primary' | 'secondary' | 'neutral' | 'tertiary';
 	steps: Step[];
 	/** Columnas en desktop (3 o 4) */
 	columns?: 3 | 4;
@@ -30,7 +30,7 @@ const {
 	eyebrow,
 	title = '',
 	underline,
-	underlineColor = 'text-primary',
+	color = 'primary',
 	steps,
 	columns = 4,
 	cta,
@@ -44,12 +44,11 @@ const gridClass =
 
 <section class="relative z-10 isolate bg-sections py-16 md:py-24">
 	<div class="container">
-		<SectionHeading
+			<SectionHeading
 			eyebrow={eyebrow}
 			title={title}
 			underline={underline}
-			underlineColor={underlineColor}
-			tone="dark"
+			color={color}
 		/>
 
 		<div class={gridClass}>

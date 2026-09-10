@@ -6,11 +6,11 @@ import ImageAccent from '../components/astro/ImageAccent.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
 import CtaSection from '../components/sections/cta/CtaSection.astro';
 
-import heroBg from '../assets/gallery/fiesta-1.jpg?url';
+import heroBg from '../assets/gallery/fiesta-3.jpg?url';
 import historiaImg from '../assets/gallery/all/horizontal-images/IMG_2781.jpg?url';
 import coordinadoraImg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
 import teamFullView from '../assets/gallery/team-full-view.jpg?url';
-import ctaBg from '../assets/gallery/motos-full-view-1.jpg?url';
+import ctaBg from '../assets/gallery/fiesta-3.jpg?url';
 ---
 
 <Layout
@@ -60,7 +60,7 @@ import ctaBg from '../assets/gallery/motos-full-view-1.jpg?url';
 				eyebrow="Nuestra esencia"
 				title="Lo que nos "
 				underline="mueve"
-				tone="dark"
+				color="primary"
 			/>
 			<p data-motion="fade-up" class="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-neutral-600">
 				Creemos en la importancia de desconectar a los niños y adolescentes de las pantallas para
@@ -109,35 +109,6 @@ import ctaBg from '../assets/gallery/motos-full-view-1.jpg?url';
 		</div>
 	</section>
 
-	<SectionPattern top="base-pattern" />
-
-	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
-		<div class="container">
-			<div class="grid items-center gap-10 lg:grid-cols-2">
-				<div data-motion="fade-up">
-					<SectionHeading
-						eyebrow="Coordinación"
-						title="La coordinadora de "
-						underline="animación"
-						tone="dark"
-					/>
-					<p class="mt-6 leading-relaxed text-neutral-600">
-						Al frente de la animación y la recreación, una coordinadora apasionada lidera cada actividad
-						para que cada niño descubra la magia del juego, la aventura y la amistad dentro de un entorno
-						seguro y alegre. Su vocación garantiza que cada jornada en Cappixtremo sea una experiencia
-						vivida con energía, empatía y cuidado integral.
-					</p>
-				</div>
-				<div data-motion="fade-up" class="overflow-hidden shadow-sm">
-					<ImageAccent color="secondary" position="top" align="left">
-						<img src={coordinadoraImg} alt="La coordinadora de animación de Cappi Xtremo" loading="lazy" decoding="async" class="w-full max-h-96 object-contain" />
-					</ImageAccent>
-				</div>
-			</div>
-		</div>
-	</section>
-	<SectionPattern bottom="base-pattern" />
-
 	<section class="py-12 md:py-20">
 		<div class="container">
 			<SectionHeading
@@ -170,7 +141,7 @@ import ctaBg from '../assets/gallery/motos-full-view-1.jpg?url';
 			<SectionHeading
 				title="Un espacio para "
 				underline="crecer y soñar"
-				tone="dark"
+				color="primary"
 				intro="Cappixtremo une la experiencia del desarrollo infantil con la calidez del amor materno, para que cada niño juegue, conecte y construya amistades para toda la vida."
 			/>
 		</div>

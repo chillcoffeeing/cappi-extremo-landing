@@ -1,58 +1,180 @@
 ---
-export type ButtonVariant = 'primary' | 'white' | 'outline' | 'link';
+import UnderlineStroke from '../titles/UnderlineStroke.astro';
+
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'white' | 'foreground' | 'outline' | 'ghost' | 'link';
+export type ButtonTone = 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'white';
+export type ButtonWeight = 'normal' | 'medium' | 'semibold' | 'bold';
+export type ButtonRadius = 'full' | 'lg' | 'none';
+export type ButtonSize = 'sm' | 'default' | 'lg';
 
 export interface Props {
+	/** Texto del botón */
 	label: string;
+	/** Si existe renderiza un <a>, si no un <button> */
 	href?: string;
+	/** Solo para <a> */
+	target?: string;
+	rel?: string;
+	/** Solo para <button> */
 	type?: 'button' | 'submit' | 'reset';
-	variant?: 'primary' | 'white' | 'outline' | 'link';
-	size?: 'default' | 'sm';
+	/** Estilo base del botón */
+	variant?: ButtonVariant;
+	/** Tono de texto/borde para outline, ghost y link */
+	tone?: ButtonTone;
+	/** Peso tipográfico (default: semibold; medium en link) */
+	weight?: ButtonWeight;
+	size?: ButtonSize;
+	radius?: ButtonRadius;
+	/** Para variant="link": subraya el texto con UnderlineStroke */
+	underline?: boolean;
+	/** Clase de color del trazo del subrayado */
+	underlineColor?: string;
+	/** Clase de color del texto para link/ghost/outline (sobreescribe tone) */
 	linkColor?: string;
 	class?: string;
 	disabled?: boolean;
-	target?: string;
-	rel?: string;
 	ariaLabel?: string;
+	/** data-lead-dialog-trigger */
+	dataDialogTrigger?: string;
+	/** Atributos extra (data-*, aria-*, etc.) */
+	attrs?: Record<string, string | boolean | number | null | undefined>;
 }
+
+export type ButtonProps = Props;
 
 const {
 	label,
 	href,
-	type = 'button',
-	variant = 'primary',
-	size = 'default',
-	linkColor = 'text-primary',
-	class: extraClass = '',
-	disabled = false,
 	target,
 	rel,
+	type = 'button',
+	variant = 'primary',
+	tone = 'primary',
+	weight,
+	size = 'default',
+	radius = 'full',
+	underline = false,
+	underlineColor,
+	linkColor,
+	class: extraClass = '',
+	disabled = false,
 	ariaLabel,
+	dataDialogTrigger,
+	attrs,
 } = Astro.props;
 
-const sizes = {
+const filledVariants: Record<Exclude<ButtonVariant, 'outline' | 'ghost' | 'link'>, string> = {
+	primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+	secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
+	tertiary: 'bg-tertiary text-neutral-900 hover:bg-tertiary/90',
+	white: 'bg-white text-neutral-900 hover:bg-neutral-100',
+	foreground: 'bg-primary-foreground text-primary hover:bg-primary-foreground/90',
+};
+
+const textTones: Record<ButtonTone, string> = {
+	primary: 'text-primary',
+	secondary: 'text-secondary',
+	tertiary: 'text-neutral-800',
+	neutral: 'text-neutral-700',
+	white: 'text-white',
+};
+
+const borderTones: Record<ButtonTone, string> = {
+	primary: 'border-primary/40 hover:border-primary',
+	secondary: 'border-secondary/50 hover:border-secondary',
+	tertiary: 'border-neutral-300 hover:border-neutral-500',
+	neutral: 'border-neutral-300 hover:border-neutral-500',
+	white: 'border-white/70 hover:border-white',
+};
+
+const tintTones: Record<ButtonTone, string> = {
+	primary: 'hover:bg-primary/5',
+	secondary: 'hover:bg-secondary/5',
+	tertiary: 'hover:bg-neutral-100',
+	neutral: 'hover:bg-neutral-100',
+	white: 'hover:bg-white/10',
+};
+
+const sizes: Record<ButtonSize, string> = {
+	sm: 'px-5 py-2.5 text-sm',
 	default: 'px-8 py-3.5 text-base',
-	sm: 'px-6 py-3 text-base',
+	lg: 'px-10 py-4 text-lg',
 };
 
-const base = 'inline-flex items-center justify-center rounded-full font-semibold transition-colors';
-
-const variants = {
-	primary: `${base} bg-primary text-primary-foreground hover:bg-primary/90 ${sizes[size]}`,
-	white: `${base} bg-white text-neutral-900 hover:bg-neutral-100 ${sizes[size]}`,
-	outline: `${base} border border-neutral-300 text-neutral-800 hover:border-primary hover:text-primary ${sizes[size]}`,
-	link: `text-base font-medium uppercase transition-opacity hover:opacity-70 ${linkColor}`,
+const linkSizes: Record<ButtonSize, string> = {
+	sm: 'text-sm',
+	default: 'text-base',
+	lg: 'text-lg',
 };
 
-const disabledClass = disabled
-	? `${base} cursor-not-allowed bg-neutral-300 text-neutral-500 opacity-70 hover:bg-neutral-300 ${sizes[size]}`
-	: '';
+const radii: Record<ButtonRadius, string> = {
+	full: 'rounded-full',
+	lg: 'rounded-lg',
+	none: '',
+};
 
-const cls = `${disabled ? disabledClass : variants[variant as keyof typeof variants]} ${extraClass}`.trim();
+const weights: Record<ButtonWeight, string> = {
+	normal: 'font-normal',
+	medium: 'font-medium',
+	semibold: 'font-semibold',
+	bold: 'font-bold',
+};
+
+const textColor = linkColor ?? textTones[tone];
+const weightClass = weight ? weights[weight] : variant === 'link' ? weights.medium : weights.semibold;
+const hasTextSize = /text-(xs|sm|base|lg|xl|2xl)/.test(extraClass);
+const linkSizeClass = hasTextSize ? '' : linkSizes[size];
+
+const focusClass = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
+
+let cls: string;
+if (variant === 'link') {
+	cls = `${focusClass} inline-flex items-center justify-center uppercase transition-opacity hover:opacity-70 ${linkSizeClass} ${weightClass} ${textColor}`;
+} else {
+	let styleClass: string;
+	switch (variant) {
+		case 'outline':
+			styleClass = `border ${borderTones[tone]} ${tintTones[tone]} ${textColor}`;
+			break;
+		case 'ghost':
+			styleClass = `${textColor} hover:opacity-70`;
+			break;
+		default:
+			styleClass = filledVariants[variant as Exclude<ButtonVariant, 'outline' | 'ghost' | 'link'>] ?? filledVariants.primary;
+	}
+	cls = `${focusClass} inline-flex items-center justify-center ${sizes[size]} ${radii[radius]} ${weightClass} ${styleClass}`;
+}
+
+if (disabled) cls += ' cursor-not-allowed opacity-60';
+cls = `${cls} ${extraClass}`.trim();
+
+const common = {
+	...attrs,
+	class: cls,
+	'aria-label': ariaLabel,
+	'data-lead-dialog-trigger': dataDialogTrigger,
+};
 ---
 
 {
-	href && <a href={href} target={target} rel={rel} aria-label={ariaLabel} class={cls}>{label}</a>
+	href && (
+		<a href={href} target={target} rel={rel} {...common}>
+			{variant === 'link' && underline ? (
+				<UnderlineStroke color={underlineColor ?? textColor}>{label}</UnderlineStroke>
+			) : (
+				label
+			)}
+		</a>
+	)
 }
 {
-	!href && <button type={type} disabled={disabled} aria-label={ariaLabel} class={cls}>{label}</button>
+	!href && (
+		<button type={type} disabled={disabled} {...common}>
+			{variant === 'link' && underline ? (
+				<UnderlineStroke color={underlineColor ?? textColor}>{label}</UnderlineStroke>
+			) : (
+				label
+			)}
+		</button>
+	)
 }

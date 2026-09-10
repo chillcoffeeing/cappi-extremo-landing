@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import SectionHeading from '../components/titles/SectionHeading.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+import ImageAccent from '../components/astro/ImageAccent.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+import StaffProfileCard from '../components/sections/staff/StaffProfileCard.astro';
+import {
+	staffPreparationItems,
+	staffProfiles,
+	staffSelectionItems,
+	staffSharedValues,
+} from '../data/staff';
+
+import heroBg from '../assets/gallery/all/horizontal-images/IMG_4595.jpg?url';
+import teamFullView from '../assets/gallery/team-full-view.jpg?url';
+import ctaBg from '../assets/gallery/juegos-5.jpg?url';
+import mairaImg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
+import deymarImg from '../assets/gallery/all/horizontal-images/IMG_2734.jpg?url';
+import coordinadoraImg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
+
+const profiles = staffProfiles.map((profile) =>
+	profile.name === 'Maira Zambrano'
+		? { ...profile, image: mairaImg, imageAlt: 'Maira Zambrano acompañando una actividad de Cappi Xtremo' }
+		: profile.name === 'Deymar Oropeza'
+			? { ...profile, image: deymarImg, imageAlt: 'Deymar Oropeza durante una actividad de recreación de Cappi Xtremo' }
+			: profile,
+);
+
+const featured = profiles.filter((p) => p.image);
+const rest = profiles.filter((p) => !p.image);
+---
+
+<Layout
+	title="Nuestro Staff - Cappi Extremo"
+	description="Conoce al equipo Xtremo: las personas que preparan, acompañan y hacen posible cada experiencia de Cappi Extremo."
+>
+
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="EL STAFF"
+		title="Las manos que conectan "
+		highlight="cada sonrisa"
+		subtitle="Personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre."
+		disfuminar="bottom"
+	/>
+
+	<section class="py-16 space-y-16 md:py-24 mb-10">
+		<div class="container">
+			<div class="mx-auto max-w-3xl space-y-5 text-center leading-relaxed text-neutral-600">
+				<p data-motion="fade-up">
+					Detrás de cada Jugada Extrema hay una familia: personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre. Desde la Dirección hasta cada Facilitador en cancha, todos compartimos algo simple pero profundo — creemos que conectando sonrisas, se crea familia.
+				</p>
+				<p data-motion="fade-up">
+					Ser parte de la familia Xtremo es mucho más que un trabajo. Es sumarse a una comunidad que crece junto a cada niño que pasa por nuestros planes vacacionales, que se prepara temporada tras temporada para seguir mereciendo la confianza que cada familia nos regala.
+				</p>
+			</div>
+		</div>
+		<div data-motion="fade-up" class=" container">
+			<ImageAccent color="secondary" position="top" align="left">
+				<img src={teamFullView} alt="El staff de Cappi Xtremo en una foto grupal" loading="lazy" decoding="async" class="w-full" />	
+			</ImageAccent>	
+		</div>
+	</section>
+
+
+	<SectionPattern top="base-pattern" />
+	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
+		<div class="container">
+			<SectionHeading
+				eyebrow="Selección y preparación"
+				title="Así elegimos a quienes "
+				underline="cuidan de los tuyos"
+				color="primary"
+			/>
+			<p data-motion="fade-up" class="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-neutral-600">No dejamos nada al azar. Buscamos personas:</p>
+			<ul data-motion="fade-up" class="mx-auto mt-6 max-w-2xl space-y-3 text-neutral-700">
+				{staffSelectionItems.map((item) => (
+					<li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-secondary"></span><span>{item}</span></li>
+				))}
+			</ul>
+			<p data-motion="fade-up" class="mx-auto mt-8 max-w-3xl text-center leading-relaxed text-neutral-600">Antes de cada plan vacacional, toda la familia Xtremo se prepara con:</p>
+			<ul data-motion="fade-up" class="mx-auto mt-6 max-w-2xl space-y-3 text-neutral-700">
+				{staffPreparationItems.map((item) => (
+					<li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-secondary"></span><span>{item}</span></li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<SectionPattern bottom="base-pattern" />
+
+	<section class="py-16 md:py-24">
+		<div class="container">
+			<div class="grid items-center gap-10 lg:grid-cols-2">
+				<div data-motion="fade-up">
+					<SectionHeading
+						eyebrow="Coordinación"
+						title="La coordinadora de "
+						underline="animación"
+					/>
+					<p class="mt-6 leading-relaxed text-neutral-600">
+						Al frente de la animación y la recreación, una coordinadora apasionada lidera cada actividad
+						para que cada niño descubra la magia del juego, la aventura y la amistad dentro de un entorno
+						seguro y alegre. Su vocación garantiza que cada jornada en Cappixtremo sea una experiencia
+						vivida con energía, empatía y cuidado integral.
+					</p>
+				</div>
+				<div data-motion="fade-up" class="overflow-hidden rounded-2xl shadow-sm">
+					<ImageAccent color="secondary" position="top" align="left">
+						<img src={coordinadoraImg} alt="La coordinadora de animación de Cappi Xtremo" loading="lazy" decoding="async" class="w-full max-h-96 object-contain" />
+					</ImageAccent>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-16 md:py-24">
+		<div class="container">
+			<SectionHeading
+				eyebrow="La familia DE Cappi Xtremo"
+				title="Quiénes hacen posible "
+				underline="cada sonrisa"
+				color="secondary"
+			/>
+
+			<div class="mt-12 grid gap-6 sm:grid-cols-2">
+				{featured.map((profile, index) => (
+					<StaffProfileCard profile={profile} variant="featured" index={index} />
+				))}
+			</div>
+
+			<div class="mt-10 grid gap-6 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+				{rest.map((profile) => (
+					<StaffProfileCard profile={profile} variant="small" />
+				))}
+			</div>
+		</div>
+	</section>
+
+	<SectionPattern top="base-pattern" />
+	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
+		<div class="container">
+			<SectionHeading
+				eyebrow="Lo que nos une"
+				title="Lo que hace especial "
+				underline="a nuestra familia"
+				color="primary"
+			/>
+			<p data-motion="fade-up" class="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-neutral-600">Cada persona en Cappi Xtremo es distinta, y son justamente esas diferencias las que hacen única cada temporada. Buscamos —y celebramos— personas que sean:</p>
+			<ul data-motion="fade-up" class="mx-auto mt-6 max-w-2xl space-y-3 text-neutral-700">
+				{staffSharedValues.map((value) => (
+					<li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-secondary"></span><span>{value}</span></li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<CtaSection
+		variant="image"
+		disfuminar="bottom"
+		bgImage={ctaBg}
+		title="¿Quieres ser "
+		underline="parte del Staff"
+		titleAfter="?"
+		buttons={[
+			{ label: 'Quiero ser parte del Staff', href: '/quiero-ser-staff', variant: 'white' },
+			{ label: 'Conoce Cappixtremo', href: '/quienes-somos', variant: 'link' },
+		]}
+		padding="large"
+	/>
+</Layout>

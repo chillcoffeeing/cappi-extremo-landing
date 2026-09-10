@@ -17,17 +17,13 @@ import SectionPattern from '../components/astro/SectionPattern.astro';
 import { testimonials } from '../data/testimonials';
 import { faqs } from '../data/faqs';
 
-import flagIcon from '../assets/ui/flag.svg?url';
-import peopleIcon from '../assets/ui/people.svg?url';
-import laughIcon from '../assets/ui/laugh.svg?url';
-import shieldIcon from '../assets/ui/shield.svg?url';
-
 import heroPosterBg from '../assets/gallery/motos-full-view-2.jpg?url';
 import heroVideoMp4Bg from '../assets/videos/hero-video-bg.mp4?url';
-import motosFullView1 from '../assets/gallery/motos-full-view-1.jpg?url';
-import fiesta1 from '../assets/gallery/fiesta-1.jpg?url';
+import motos1 from '../assets/gallery/motos-1.jpg?url';
+import fiesta1 from '../assets/gallery/fiesta-3.jpg?url';
 import juegos1 from '../assets/gallery/juegos-1.jpg?url';
 import teamFullView from '../assets/gallery/team-full-view.jpg?url';
+import ctaBg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
 
 import h1 from '../assets/gallery/all/horizontal-images/IMG_3594.jpg?url';
 import h2 from '../assets/gallery/all/horizontal-images/IMG_4595.jpg?url';
@@ -60,31 +56,29 @@ import activity9 from '../assets/gallery/rusticos.jpg?url';
 
 const NEXT_CAMP_START = '2027-06-15T09:00:00-04:00';
 
-const COLORS = { col1: '#805611', col2: '#59802E', col3: '#026A80' };
-
 const serviceCards: ServiceCard[] = [
-	{ image: motosFullView1, title: 'Planes vacacionales', cta: 'Ver nuestros planes vacacionales', href: '/planes-vacacionales' },
-	{ image: fiesta1, title: 'Fiestas y eventos', cta: 'Ver servicio', href: '/otros-servicios' },
-	{ image: juegos1, title: 'Animación y recreación', cta: 'Ver servicio', href: '/otros-servicios' },
+	{ image: motos1, title: 'Planes vacacionales', cta: 'Ver planes vacacionales', href: '/plan-vacacional' },
+	{ image: fiesta1, title: 'Eventos corporativos', cta: 'Ver eventos corporativos', href: '/eventos-corporativos' },
+	{ image: juegos1, title: 'Experiencias escolares', cta: 'Ver experiencias escolares', href: '/experiencias-escolares' },
 ];
 
 const philosophyItems: PhilosophyItem[] = [
-	{ icon: flagIcon, title: 'Espíritu Aventurero', description: 'Fomentamos la curiosidad y la exploración libre de temores.' },
-	{ icon: peopleIcon, title: 'Compañerismo de Tribu', description: 'Promovemos el apoyo mutuo y el trabajo en equipo como clave del éxito.' },
-	{ icon: laughIcon, title: 'Energía y Resiliencia', description: 'Impulsamos una actitud positiva, valorando cada reto y logro.' },
-	{ icon: shieldIcon, title: 'Seguridad Consciente', description: 'Garantizamos la máxima protección física y emocional para disfrutar con tranquilidad.' },
+	{ icon: 'flag', title: 'Espíritu Aventurero', description: 'Fomentamos la curiosidad y la exploración libre de temores.' },
+	{ icon: 'people', title: 'Compañerismo de Tribu', description: 'Promovemos el apoyo mutuo y el trabajo en equipo como clave del éxito.' },
+	{ icon: 'laugh', title: 'Energía y Resiliencia', description: 'Impulsamos una actitud positiva, valorando cada reto y logro.' },
+	{ icon: 'shield', title: 'Seguridad Consciente', description: 'Garantizamos la máxima protección física y emocional para disfrutar con tranquilidad.' },
 ];
 
 const activitiesCards: ActivityItem[] = [
-	{ image: activity1, title: 'Pádel Fest', color: COLORS.col1 },
-	{ image: activity2, title: 'Paseo a caballo', color: COLORS.col2 },
-	{ image: activity3, title: 'Acuático', color: COLORS.col3 },
-	{ image: activity4, title: 'Deportes', color: COLORS.col1 },
-	{ image: activity5, title: 'Spa', color: COLORS.col2 },
-	{ image: activity6, title: 'Rally barro', color: COLORS.col3 },
-	{ image: activity7, title: 'VAR ritmo', color: COLORS.col1 },
-	{ image: activity8, title: 'Planetario', color: COLORS.col2 },
-	{ image: activity9, title: 'Rústicos', color: COLORS.col3 },
+	{ image: activity1, title: 'Pádel Fest' },
+	{ image: activity2, title: 'Paseo a caballo' },
+	{ image: activity3, title: 'Acuático' },
+	{ image: activity4, title: 'Deportes' },
+	{ image: activity5, title: 'Spa' },
+	{ image: activity6, title: 'Rally barro' },
+	{ image: activity7, title: 'VAR ritmo' },
+	{ image: activity8, title: 'Planetario' },
+	{ image: activity9, title: 'Rústicos' },
 ];
 
 const galleryRow1: GalleryImage[] = [
@@ -117,13 +111,12 @@ const galleryRow2: GalleryImage[] = [
 		bgVideoPoster={heroPosterBg}
 		eyebrow="Cappi "
 		eyebrowHighlight="Xtremo"
-		title="¡Las vacaciones más "
-		highlight="divertidas"
-		titleAfter=" están por comenzar!"
+		title="Conectando sonrisas creamos"
+		highlight="familia"
 		disfuminar='bottom'
-		subtitle="Deporte, amigos, aventura y risas sin parar. Dale a tu hijo un verano que va a recordar para siempre."
+		subtitle="Deportes, amigos, aventuras y risas infinitas. Unas vacaciones que va a recordar para siempre."
 		buttons={[
-			{ label: 'Ver fechas y plan vacacional', href: '/planes-vacacionales', variant: 'primary' },
+			{ label: 'Ver fechas y plan vacacional', href: '/plan-vacacional', variant: 'primary' },
 			{ label: 'Únete ahora', href: '#', variant: 'white' },
 		]}
 		dock
@@ -135,7 +128,7 @@ const galleryRow2: GalleryImage[] = [
 		underline="filosofía"
 		intro="combina la emoción de explorar con un entorno cuidado y positivo para todos. Basamos nuestra experiencia en cuatro pilares esenciales"
 		items={philosophyItems}
-		cta={{ label: 'Conoce nuestros planes vacacionales', href: '/planes-vacacionales' }}
+		cta={{ label: 'Conoce nuestros planes vacacionales', href: '/plan-vacacional' }}
 	/>
 
 	<SectionPattern top="base-pattern" />
@@ -144,12 +137,12 @@ const galleryRow2: GalleryImage[] = [
 		underline="Cappi Xtremo"
 		intro="Conoce nuestros servicios y todo lo que podemos hacer por ti. Planes vacacionales, eventos, fiestas y animaciones para celebrar por todo lo alto."
 		cards={serviceCards}
-		countdownId="camp-countdown"
+		countdownId="plan-countdown"
 		countdownTarget={NEXT_CAMP_START}
 		countdownSize="hero"
 		ctas={[
-			{ label: 'Apartar cupo para mi hijo', href: '/planes-vacacionales', variant: 'primary' },
-			{ label: 'Ver detalles del plan vacacional', href: '/planes-vacacionales', variant: 'link' },
+			{ label: 'Apartar cupo para mi hijo', href: '/plan-vacacional', variant: 'primary' },
+			{ label: 'Ver detalles del plan vacacional', href: '/plan-vacacional', variant: 'link' },
 		]}
 	/>
 	<SectionPattern bottom="base-pattern"  />
@@ -157,7 +150,7 @@ const galleryRow2: GalleryImage[] = [
 	<ActivitiesSection
 		eyebrow="Actividades"
 		underline="Jugadas extremas"
-		intro="Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se divierten, los campistas también desarrollan liderazgo, trabajo en equipo, confianza y respeto a su propio ritmo y sin darse cuenta."
+		intro="Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se divierten, los participantes también desarrollan liderazgo, trabajo en equipo, confianza y respeto a su propio ritmo y sin darse cuenta."
 		items={activitiesCards}
 	/>
 
@@ -201,7 +194,7 @@ const galleryRow2: GalleryImage[] = [
 	<CtaSection
 		variant="image"
 		disfuminar='bottom'
-		bgImage={motosFullView1}
+		bgImage={ctaBg}
 		title="¿Tienes preguntas sobre nuestros "
 		underline="planes vacacionales"
 		titleAfter="? Escríbenos."

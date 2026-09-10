@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import SectionHeading from '../../titles/SectionHeading.astro';
 import ImageAccent from '../../astro/ImageAccent.astro';
 import Button from '../../buttons/Button.astro';
+import { Icon } from 'astro-icon/components';
 
 export interface Service {
 	name: string;
@@ -25,9 +26,11 @@ export interface Props {
 	service: Service;
 	/** Destino de todos los CTAs de cada servicio */
 	ctaHref?: string;
+	ctaTarget?: string;
+	ctaRel?: string;
 }
 
-const { eyebrow = 'Celebra con Cappi', title, underline, intro, service, ctaHref = '/contacto' } = Astro.props;
+const { eyebrow = 'Celebra con Cappi', title, underline, intro, service, ctaHref = '/contacto', ctaTarget, ctaRel } = Astro.props;
 ---
 
 <section class="py-16 md:py-24">
@@ -50,9 +53,7 @@ const { eyebrow = 'Celebra con Cappi', title, underline, intro, service, ctaHref
 				<ul class="flex-1 space-y-3">
 					{service.features.map((f) => (
 						<li class="flex items-start gap-2 text-base text-neutral-600">
-							<svg class="mt-0.5 size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-								<path d="M20 6 9 17l-5-5" />
-							</svg>
+							<Icon name="lucide:check" class="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
 							{f}
 						</li>
 					))}
@@ -61,7 +62,7 @@ const { eyebrow = 'Celebra con Cappi', title, underline, intro, service, ctaHref
 					<span class="font-semibold">Directora:</span> {service.staft.director}
 					{service.staft.team && ` - ${service.staft.team.join(', ')}`}
 				</p>
-				<Button	 href={ctaHref}  class="mt-6" variant="primary" label={service.cta}></Button>
+				<Button href={ctaHref} target={ctaTarget} rel={ctaRel} class="mt-6" variant="primary" label={service.cta}></Button>
 			</div>
 
 		</div>

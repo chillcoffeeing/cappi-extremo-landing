@@ -1,0 +1,116 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+	/** id del <dialog>. Los triggers usan `data-modal-trigger="{id}"` por defecto. */
+	id: string;
+	/** id del título (accesibilidad) que vive en el slot "header". */
+	labelledBy: string;
+	/** Selector CSS de los triggers que abren el modal (default `[data-modal-trigger="{id}"]`). */
+	triggers?: string;
+	/** data-* atributos extra que se propagan al <dialog> (p. ej. dataset para el form). */
+	data?: Record<string, string>;
+	closeLabel?: string;
+	class?: string;
+}
+
+const {
+	id,
+	labelledBy,
+	triggers = `[data-modal-trigger="${id}"]`,
+	data,
+	closeLabel = 'Cerrar',
+	class: className = '',
+} = Astro.props;
+---
+
+<dialog
+	id={id}
+	data-modal
+	aria-labelledby={labelledBy}
+	{...data}
+	class:list={[
+		'fixed inset-0 z-[60] m-auto h-dvh max-h-full w-full max-w-full overflow-hidden border-0 bg-white p-0 text-neutral-900 shadow-2xl backdrop:bg-neutral-950/60 backdrop:backdrop-blur-xs',
+		'sm:h-auto sm:max-h-max sm:max-w-xl sm:rounded-2xl',
+		className,
+	]}
+>
+	<div class="flex h-fi flex-col overflow-hidden">
+		<div class="relative shrink-0">
+			<slot name="header" />
+			<button
+				type="button"
+				data-modal-close
+				aria-label={closeLabel}
+				class="absolute right-4 top-4 z-10 inline-flex size-8 items-center justify-center rounded-full bg-white/90 text-neutral-500 shadow-sm backdrop-blur transition-colors hover:bg-neutral-100 hover:text-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+			>
+				<Icon name="lucide:x" class="size-5" aria-hidden="true" />
+			</button>
+		</div>
+		<div data-modal-scroll class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain">
+			<slot />
+		</div>
+	</div>
+</dialog>
+
+<style>
+	dialog[data-modal]:not([open]) {
+		display: none;
+	}
+</style>
+
+<script define:vars={{ id, triggers }} is:inline>
+	const dialog = document.getElementById(id);
+
+	if (dialog instanceof HTMLDialogElement) {
+		let lastTrigger= null;
+		let previousBodyOverflow = '';
+
+		const lockBodyScroll = () => {
+			previousBodyOverflow = document.body.style.overflow;
+			document.body.style.overflow = 'hidden';
+		};
+
+		const unlockBodyScroll = () => {
+			document.body.style.overflow = previousBodyOverflow;
+		};
+
+		const focusFirstField = () => {
+			window.requestAnimationFrame(() => {
+				const focusable = dialog.querySelector(
+					'input, select, textarea, [href], button:not([data-modal-close])',
+				);
+				focusable?.focus();
+			});
+		};
+
+		const openDialog = (trigger) => {
+			lastTrigger = trigger;
+			lockBodyScroll();
+			dialog.showModal();
+			dialog.dispatchEvent(new CustomEvent('modal:open', { bubbles: true }));
+			focusFirstField();
+		};
+
+		const closeDialog = () => {
+			if (dialog.open) dialog.close();
+		};
+
+		document.querySelectorAll(triggers).forEach((trigger) => {
+			trigger.addEventListener('click', (event) => {
+				event.preventDefault();
+				openDialog(trigger);
+			});
+		});
+
+		dialog.addEventListener('click', (event) => {
+			const target = event.target;
+			if (target === dialog || target.closest('[data-modal-close]')) closeDialog();
+		});
+
+		dialog.addEventListener('close', () => {
+			unlockBodyScroll();
+			window.requestAnimationFrame(() => lastTrigger?.focus());
+		});
+	}
+</script>

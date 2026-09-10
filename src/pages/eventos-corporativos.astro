@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+import SectionHeading from '../components/titles/SectionHeading.astro';
+import SplitContentSection from '../components/sections/content/SplitContentSection.astro';
+import ContentListSection from '../components/sections/content/ContentListSection.astro';
+import LeadFormDialog from '../components/sections/forms/LeadFormDialog.astro';
+import Button from '../components/buttons/Button.astro';
+import {
+	corporateChildrenRanges,
+	corporateConversation,
+	corporateEventTypes,
+	corporatePrinciples,
+	corporateReasons,
+} from '../data/eventos-corporativos';
+import { CORPORATE_EVENTS_WHATSAPP_URL, INFO_EMAIL } from '../lib/lead-links';
+
+import heroBg from '../assets/gallery/fiesta-3.jpg?url';
+import eventImage from '../assets/gallery/juegos-6.jpg?url';
+
+const corporateDialogId = 'corporate-proposal-dialog';
+const corporateFields = [
+	{ id: 'full-name', name: 'fullName', label: 'Nombre y Apellidos', type: 'text' as const, required: true, autocomplete: 'name' },
+	{ id: 'company', name: 'company', label: 'Empresa', type: 'text' as const, required: true, autocomplete: 'organization' },
+	{ id: 'email', name: 'email', label: 'Correo electrónico', type: 'email' as const, required: true, autocomplete: 'email', placeholder: 'tu@empresa.com' },
+	{ id: 'phone', name: 'phone', label: 'Teléfono', type: 'tel' as const, required: true, autocomplete: 'tel', placeholder: '+58 000 000 0000' },
+	{ id: 'event-type', name: 'eventType', label: '¿Qué tipo de evento buscas?', type: 'select' as const, required: true, options: corporateEventTypes },
+	{ id: 'children-range', name: 'childrenRange', label: 'Número aproximado de niños', type: 'select' as const, required: true, options: corporateChildrenRanges },
+	{ id: 'goal', name: 'goal', label: '¿Qué quieres lograr? (opcional)', type: 'textarea' as const, placeholder: 'Cuéntanos qué te gustaría que viviera tu equipo y sus familias.' },
+];
+---
+
+<Layout
+	title="Eventos corporativos - Cappi Extremo"
+	description="Diseñamos experiencias de recreación infantil y jornadas familiares para celebraciones corporativas."
+>
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="EMPRESAS"
+		title="Lleva la energía Xtremo al evento de tu "
+		highlight="empresa"
+		subtitle="Diseñamos experiencias para el día de tu empresa: fiesta de fin de año, día del niño, jornada familiar o cualquier celebración corporativa — con el mismo equipo que hace vibrar cada plan vacacional."
+		buttons={[
+			{ label: 'Cuéntanos qué necesitas', href: `#${corporateDialogId}`, variant: 'primary', dialogId: corporateDialogId },
+		]}
+		disfuminar="bottom"
+	/>
+
+	<ContentListSection
+		id="por-que-cappi"
+		eyebrow="POR QUÉ CAPPI"
+		title="Por qué elegir a Cappi Xtremo"
+		items={corporateReasons}
+		columns={2}
+	/>
+
+	<SectionPattern top="base-pattern" />
+	<ContentListSection
+		id="nuestros-principios"
+		eyebrow="NUESTROS PRINCIPIOS"
+		title="Nuestros principios"
+		items={corporatePrinciples}
+		columns={2}
+		variant="principles"
+		tone="dark"
+	/>
+
+	<SplitContentSection
+		id="hablemos"
+		eyebrow="HABLEMOS"
+		title="Cuéntanos qué necesita tu empresa"
+		body="Cuéntanos qué estás organizando y te ayudaremos a diseñar una propuesta clara, divertida y adecuada para tu evento."
+		items={corporateConversation}
+		ctaLabel="Cuéntanos qué necesita tu equipo"
+		dialogId={corporateDialogId}
+		image={eventImage}
+		imageAlt="Niña disfrutando una actividad deportiva en un evento de Cappi Xtremo"
+		tone="dark"
+	/>
+
+	<section id="solicitar-propuesta" class="py-16 md:py-24">
+		<div class="container">
+			<div class="mx-auto max-w-3xl text-center">
+				<SectionHeading eyebrow="SOLICITAR PROPUESTA" title="Hablemos de tu evento" intro="Completa el formulario y enviaremos tu solicitud a nuestro equipo para continuar la conversación por WhatsApp." />
+				<div class="mt-8 flex justify-center">
+					<Button label="Solicitar propuesta" href={`#${corporateDialogId}`} variant="primary" dataDialogTrigger={corporateDialogId} />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<LeadFormDialog
+		id={corporateDialogId}
+		eyebrow="PROPUESTA CORPORATIVA"
+		title="Solicitar propuesta"
+		intro="Tu solicitud se enviará a nuestro equipo y luego podrás continuar por WhatsApp."
+		submitLabel="Enviar solicitud"
+		whatsappUrl={CORPORATE_EVENTS_WHATSAPP_URL}
+		mailto={INFO_EMAIL}
+		mailtoSubject="Solicitud de propuesta corporativa - Cappi Xtremo"
+		fields={corporateFields}
+	/>
+</Layout>

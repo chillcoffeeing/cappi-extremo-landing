@@ -1,6 +1,7 @@
 ---
 import Button from '../../buttons/Button.astro';
 import type { ButtonVariant } from '../../buttons/Button.astro';
+import { Icon } from 'astro-icon/components';
 
 export interface Crumb {
 	label: string;
@@ -31,7 +32,7 @@ export interface Props {
 	/** Píldora informativa bajo el subtítulo (ej. "100% personalizable") */
 	badge?: string;
 	/** Botones CTA */
-	buttons?: Array<{ label: string; href: string; variant?: Exclude<ButtonVariant, 'link'> }>;
+	buttons?: Array<{ label: string; href?: string; variant?: Exclude<ButtonVariant, 'link'>; dialogId?: string; target?: string; rel?: string }>;
 	/** Migas de pan opcionales (ej. detalle de plan) */
 	crumbs?: Crumb[];
 	/** Hero de pantalla completa (home) en vez de banda con padding */
@@ -140,9 +141,7 @@ const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar ===
 
 			{badge && (
 				<div data-motion="fade-up" class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase text-primary-foreground">
-					<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<path d="M12 3l1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z" />
-					</svg>
+					<Icon name="lucide:sparkle" class="size-5" aria-hidden="true" />
 					{badge}
 				</div>
 			)}
@@ -150,7 +149,7 @@ const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar ===
 			{buttons.length > 0 && (
 				<div data-motion="fade-up" class={ctasClass}>
 					{buttons.map((button) => (
-						<Button label={button.label} href={button.href} variant={button.variant ?? 'primary'} />
+						<Button label={button.label} href={button.href} variant={button.variant ?? 'primary'} target={button.target} rel={button.rel} dataDialogTrigger={button.dialogId} />
 					))}
 				</div>
 			)}

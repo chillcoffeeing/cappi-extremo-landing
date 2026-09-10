@@ -1,0 +1,148 @@
+---
+import Button from '../../buttons/Button.astro';
+import ModalComponent from '../../modal/ModalComponent.astro';
+import ConsentCheckbox from '../../forms/ConsentCheckbox.astro';
+import TurnstileField from '../../forms/TurnstileField.astro';
+
+export type LeadFieldType = 'text' | 'email' | 'tel' | 'select' | 'textarea';
+
+export interface LeadField {
+	id: string;
+	name: string;
+	label: string;
+	type: LeadFieldType;
+	required?: boolean;
+	autocomplete?: string;
+	placeholder?: string;
+	options?: string[];
+}
+
+export interface Props {
+	id: string;
+	eyebrow?: string;
+	title: string;
+	intro?: string;
+	submitLabel?: string;
+	whatsappUrl: string;
+	fields: LeadField[];
+	mailto?: string;
+	mailtoSubject?: string;
+}
+
+const {
+	id,
+	eyebrow = 'Hablemos con Cappi',
+	title,
+	intro,
+	submitLabel = 'Enviar',
+	whatsappUrl,
+	fields,
+	mailto,
+	mailtoSubject = 'Solicitud de propuesta - Cappi Xtremo',
+} = Astro.props;
+
+const inputClass = 'mt-1.5 block w-full max-w-full rounded-lg border border-neutral-300 px-3.5 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:px-4 sm:py-3 sm:text-base';
+const isCorporate = Boolean(mailto);
+
+const dialogData: Record<string, string> = { 'data-whatsapp-url': whatsappUrl };
+if (mailto) {
+	dialogData['data-mailto'] = mailto;
+	dialogData['data-mailto-subject'] = mailtoSubject;
+}
+---
+
+<ModalComponent
+	id={id}
+	labelledBy={`${id}-title`}
+	closeLabel="Cerrar formulario"
+	triggers={`[data-lead-dialog-trigger="${id}"]`}
+	data={dialogData}
+>
+	<Fragment slot="header">
+		<header class="bg-sections pr-14 pt-5 pb-3 sm:pr-20 sm:pt-6 sm:pb-4">
+			<div class="px-5 sm:px-7">
+				<p class="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-primary sm:text-xs">{eyebrow}</p>
+				<h2 id={`${id}-title`} class="mt-1 text-lg font-semibold sm:mt-2 sm:text-2xl">{title}</h2>
+				{intro && <p class="mt-1.5 max-w-md text-sm leading-relaxed text-neutral-600 sm:mt-3 sm:text-base">{intro}</p>}
+			</div>
+		</header>
+	</Fragment>
+
+	<form data-lead-form class="space-y-4 overflow-x-hidden px-5 py-5 sm:px-7 sm:py-6" novalidate>
+		{fields.map((field) => (
+			<div>
+				<label for={`${id}-${field.id}`} class="block text-sm font-medium text-neutral-700">
+					{field.label}{field.required && <span aria-hidden="true"> *</span>}
+				</label>
+				{field.type === 'textarea' ? (
+					<textarea id={`${id}-${field.id}`} name={field.name} rows={4} required={field.required} placeholder={field.placeholder} autocomplete={field.autocomplete} class={inputClass}></textarea>
+				) : field.type === 'select' ? (
+					<select id={`${id}-${field.id}`} name={field.name} required={field.required} class={inputClass}>
+						<option value="">Selecciona una opción</option>
+						{field.options?.map((option) => <option value={option}>{option}</option>)}
+					</select>
+				) : (
+					<input id={`${id}-${field.id}`} name={field.name} type={field.type} required={field.required} placeholder={field.placeholder} autocomplete={field.autocomplete} class={inputClass} />
+				)}
+			</div>
+		))}
+
+		<div class="space-y-3 border-t border-neutral-100 pt-4">
+			<ConsentCheckbox />
+			<TurnstileField id={`${id}-turnstile`} />
+		</div>
+
+		<p data-lead-status class="min-h-6 text-sm text-neutral-600" aria-live="polite" role="status"></p>
+		<div class="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
+			<Button type="button" variant="ghost" tone="primary" size="sm" label="Cancelar" attrs={{ 'data-modal-close': '' }} />
+			<Button type="submit" variant="primary" size="sm" label={submitLabel} attrs={{ 'data-lead-submit': '' }} />
+		</div>
+	</form>
+</ModalComponent>
+
+<script define:vars={{ id, isCorporate, submitLabel }} is:inline>
+	const dialog = document.getElementById(id);
+	const form = dialog?.querySelector('form[data-lead-form]');
+	const status = dialog?.querySelector('[data-lead-status]');
+	const submit = dialog?.querySelector('[data-lead-submit]');
+
+	if (dialog instanceof HTMLDialogElement && form instanceof HTMLFormElement && status && submit) {
+		dialog.addEventListener('modal:open', () => {
+			status.textContent = '';
+			submit.disabled = false;
+			submit.removeAttribute('aria-busy');
+			submit.textContent = submitLabel;
+		});
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			if (!form.reportValidity()) return;
+			if (!window.cappiValidateTurnstile(`${id}-turnstile`, `${id}-turnstile-error`)) {
+				status.textContent = 'Completa la verificación de seguridad para continuar.';
+				return;
+			}
+
+			submit.disabled = true;
+			submit.setAttribute('aria-busy', 'true');
+			submit.textContent = 'Enviando…';
+			status.textContent = 'Enviando tu solicitud…';
+
+			const values = new FormData(form);
+			const lines = Array.from(values.entries()).map(([name, value]) => `${name}: ${String(value)}`);
+			const whatsappUrl = dialog.dataset.whatsappUrl;
+			if (!whatsappUrl) return;
+
+			const whatsappHref = `${whatsappUrl}?text=${encodeURIComponent(lines.join('\n'))}`;
+			if (isCorporate) {
+				const email = dialog.dataset.mailto;
+				const subject = dialog.dataset.mailtoSubject ?? 'Solicitud para Cappi Xtremo';
+				if (email) {
+					const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+					window.open(mailto, '_blank', 'noopener,noreferrer');
+				}
+			}
+
+			window.location.href = whatsappHref;
+		});
+	}
+</script>

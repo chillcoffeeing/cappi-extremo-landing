@@ -1,10 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ComingSoonSection from '../components/sections/hero/ComingSoonSection.astro';
+import { WHATSAPP_URL } from '../lib/social';
 ---
 
-<Layout title="Próximamente - Cappi Extremo" description="El portal de padres está en desarrollo. Pronto podrás gestionar inscripciones, pagos y seguimiento de tu hijo.">
+<Layout title="Inscripciones - Cappi Extremo" description="¿Quieres inscribir a tu hijo? Escríbenos por WhatsApp y te enviamos toda la información del plan vacacional.">
 
-	<ComingSoonSection />
+	<ComingSoonSection
+		title="¿Quieres inscribir a tu/s hijo/as?"
+		description="Escríbenos por WhatsApp y te enviamos toda la información del plan vacacional: fechas, actividades y precio y todos los detalles. Si decides inscribir a tu hijo, ahí mismo te compartimos el link para registrarte y pagar."
+		links={[
+			{ label: 'Escribir por WhatsApp', href: WHATSAPP_URL, variant: 'primary' },
+		]}
+	/>
 
 </Layout>

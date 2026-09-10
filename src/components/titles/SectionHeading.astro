@@ -4,18 +4,18 @@ import UnderlineStroke from './UnderlineStroke.astro';
 export interface Props {
 	/** Texto corto en mayúsculas sobre el título */
 	eyebrow?: string;
+	/** Color de eyebrow */
+	eyebrowColor?: 'primary' | 'secondary' | 'neutral' | 'tertiary';
 	/** Fragmento del eyebrow resaltado en primary */
 	eyebrowHighlight?: string;
 	/** Título de la sección */
 	title: string;
 	/** Palabras subrayadas con UnderlineStroke */
 	underline?: string;
-	/** Clase de color del trazo (default verde/terciario) */
-	underlineColor?: string;
+	/** Color del trazo y acentos del heading */
+	color?: 'primary' | 'secondary' | 'neutral' | 'tertiary';
 	/** Evita que el subrayado se parta en varias líneas */
 	underlineNowrap?: boolean;
-	/** Tono según el fondo: secciones blancas, bandas secondary o bandas primary */
-	tone?: 'light' | 'dark' | 'primary';
 	/** Párrafo introductorio centrado */
 	intro?: string;
 	/** Clases extra para el <p> intro */
@@ -26,31 +26,30 @@ export interface Props {
 
 const {
 	eyebrow,
+	eyebrowColor,
 	eyebrowHighlight,
 	title,
 	underline,
-	underlineColor = 'text-primary',
+	color = 'primary',
 	underlineNowrap = true,
-	tone = 'light',
 	intro,
 	introClass = '',
 	titleClass = '',
 } = Astro.props;
 
-const eyebrowClass =
-	tone === 'dark' ? 'text-primary' : tone === 'primary' ? 'text-neutral-800' : 'text-primary';
+const colorMap = {
+	primary: { accent: 'text-primary', underline: 'text-primary', intro: 'text-neutral-600' },
+	secondary: { accent: 'text-secondary', underline: 'text-secondary', intro: 'text-neutral-600' },
+	neutral: { accent: 'text-neutral-600', underline: 'text-neutral-400', intro: 'text-neutral-600' },
+	tertiary: { accent: 'text-primary', underline: 'text-primary', intro: 'text-neutral-600' },
+} as const;
 
-const titleBase =
-	tone === 'dark'
-		? 'mt-3 text-center font-semibold uppercase text-neutral-900 md:leading-tight'
-		: 'mt-3 text-center font-semibold text-neutral-900 md:leading-tight';
+const palette = colorMap[color];
+const eyebrowClass = eyebrowColor ? `text-${eyebrowColor}` : palette.accent;
+const underlineColor = palette.underline;
+const introColor = palette.intro;
 
-const introBase =
-	tone === 'dark'
-		? 'text-neutral-600'
-		: tone === 'primary'
-			? 'text-neutral-800'
-			: 'text-neutral-600';
+const titleBase = 'mt-3 text-center font-semibold uppercase text-neutral-900 md:leading-tight';
 ---
 
 {
@@ -68,7 +67,7 @@ const introBase =
 {intro && (
 	<p
 		data-motion="fade-up"
-		class:list={['mx-auto mt-4 max-w-[700px] text-center leading-relaxed', introBase, introClass]}
+		class:list={['mx-auto mt-4 max-w-[700px] text-center leading-relaxed', introColor, introClass]}
 	>
 		{intro}
 	</p>

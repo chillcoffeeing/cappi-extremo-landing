@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+import SectionHeading from '../components/titles/SectionHeading.astro';
+import SplitContentSection from '../components/sections/content/SplitContentSection.astro';
+import ContentListSection from '../components/sections/content/ContentListSection.astro';
+import LeadFormDialog from '../components/sections/forms/LeadFormDialog.astro';
+import Button from '../components/buttons/Button.astro';
+import {
+	schoolBenefits,
+	schoolObservations,
+	schoolPrinciples,
+	schoolReasons,
+	schoolWays,
+} from '../data/experiencias-escolares';
+import { SCHOOL_EXPERIENCES_WHATSAPP_URL } from '../lib/lead-links';
+
+import heroBg from '../assets/gallery/juegos-4.jpg?url';
+import allyImage from '../assets/gallery/deportes.jpg?url';
+
+const schoolDialogId = 'school-lead-dialog';
+const schoolFields = [
+	{ id: 'name', name: 'name', label: 'Nombre', type: 'text' as const, required: true, autocomplete: 'given-name' },
+	{ id: 'last-name', name: 'lastName', label: 'Apellido', type: 'text' as const, required: true, autocomplete: 'family-name' },
+	{ id: 'school', name: 'school', label: 'Colegio', type: 'text' as const, required: true, autocomplete: 'organization' },
+	{ id: 'phone', name: 'phone', label: 'Teléfono', type: 'tel' as const, required: true, autocomplete: 'tel', placeholder: '+58 000 000 0000' },
+	{ id: 'email', name: 'email', label: 'Correo electrónico', type: 'email' as const, required: true, autocomplete: 'email', placeholder: 'tu@correo.com' },
+];
+---
+
+<Layout
+	title="Experiencias escolares - Cappi Extremo"
+	description="Llevamos la energía Xtremo a tu colegio con experiencias de juego, movimiento y conexión real para tus alumnos."
+>
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="EXPERIENCIAS ESCOLARES"
+		title="Hay aprendizajes que no caben en un "
+		highlight="salón de clases"
+		subtitle="Llevamos la energía Xtremo a tu colegio para que tus alumnos jueguen, se conecten de verdad y vivan algo que van a recordar por mucho tiempo."
+		buttons={[
+			{ label: 'Hablemos por WhatsApp', href: SCHOOL_EXPERIENCES_WHATSAPP_URL, variant: 'primary', target: '_blank', rel: 'noopener noreferrer' },
+			{ label: 'Quiero más información', href: `#${schoolDialogId}`, variant: 'white', dialogId: schoolDialogId },
+		]}
+		disfuminar="bottom"
+	/>
+
+	<ContentListSection
+		id="lo-que-vemos"
+		eyebrow="LO QUE VEMOS EN LOS NIÑOS DE HOY"
+		title="Lo que vemos en los niños de hoy"
+		items={schoolObservations}
+		columns={2}
+	/>
+
+	<SectionPattern top="base-pattern" />
+	<SplitContentSection
+		id="cappi-aliado"
+		eyebrow="CAPPI ES TU ALIADO"
+		title="Cappi Xtremo es tu aliado"
+		body="Diseñamos experiencias para colegios donde el juego, el movimiento y la conexión real complementan lo que ya se enseña en el aula. Actividades y dinámicas pensadas para alumnos, docentes y familias."
+		ctaLabel="Diseñemos tu experiencia"
+		dialogId={schoolDialogId}
+		image={allyImage}
+		tone='dark'
+		imageAlt="Niños compartiendo una actividad deportiva al aire libre con Cappi Xtremo"
+	/>
+	<SectionPattern bottom="base-pattern" />
+	
+	<ContentListSection
+		id="asi-lo-hacemos"
+		title="Así lo hacemos"
+		items={schoolWays}
+		columns={3}
+	/>
+
+	<ContentListSection
+		id="lo-que-se-llevan"
+		title="Lo que se llevan tus alumnos"
+		items={schoolBenefits}
+		columns={2}
+	/>
+
+	<SectionPattern top="base-pattern" />
+	<ContentListSection
+		id="por-que-cappi"
+		title="¿Por qué elegir a Cappi Xtremo?"
+		items={schoolReasons}
+		columns={2}
+		tone="dark"
+	/>
+
+	<ContentListSection
+		id="nuestros-principios"
+		eyebrow="NUESTROS PRINCIPIOS"
+		title="Nuestros principios"
+		items={schoolPrinciples}
+		columns={3}
+		tone="dark"
+	/>
+
+	<section id="informacion" class="py-16 md:py-24">
+		<div class="container">
+			<div class="mx-auto max-w-3xl text-center">
+				<SectionHeading eyebrow="FORMULARIO" title="Quiero más información" intro="Cuéntanos sobre tu colegio y te ayudaremos a diseñar una experiencia que tenga sentido para tu grupo." />
+				<div class="mt-8 flex justify-center">
+					<Button label="Quiero más información" href={`#${schoolDialogId}`} variant="primary" dataDialogTrigger={schoolDialogId} />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<LeadFormDialog
+		id={schoolDialogId}
+		title="Quiero más información"
+		intro="Déjanos tus datos y llevaremos la conversación a WhatsApp."
+		submitLabel="Enviar"
+		whatsappUrl={SCHOOL_EXPERIENCES_WHATSAPP_URL}
+		fields={schoolFields}
+	/>
+</Layout>

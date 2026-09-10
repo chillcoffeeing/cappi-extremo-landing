@@ -4,7 +4,6 @@ import SectionHeading from '../../titles/SectionHeading.astro';
 export interface ActivityItem {
 	image: string;
 	title: string;
-	color: string;
 }
 
 export interface Props {
@@ -22,6 +21,8 @@ export interface Props {
 const { eyebrow = 'Actividades', title = '', underline, intro, items, padding = 'default' } = Astro.props;
 
 const paddingClass = padding === 'large' ? 'py-16 md:py-24' : 'py-12 md:py-20';
+
+const primaryTones = ['bg-primary-800', 'bg-primary-700', 'bg-primary-600', 'bg-primary-500'];
 ---
 
 <section class:list={[paddingClass]}>
@@ -29,7 +30,7 @@ const paddingClass = padding === 'large' ? 'py-16 md:py-24' : 'py-12 md:py-20';
 		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} intro={intro} />
 
 		<div data-motion="fade-up" class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			{items.map((item) => (
+{items.map((item, i) => (
 				<article class="overflow-hidden shadow-sm">
 					<img
 						src={item.image}
@@ -39,8 +40,10 @@ const paddingClass = padding === 'large' ? 'py-16 md:py-24' : 'py-12 md:py-20';
 						class="h-40 w-full object-cover"
 					/>
 					<div
-						class="flex h-10 items-center justify-center px-3 text-center text-lg font-semibold uppercase tracking-wide text-white"
-						style={`background-color:${item.color}`}
+						class:list={[
+							'flex h-10 items-center justify-center px-3 text-center text-lg font-semibold uppercase tracking-wide text-white',
+							primaryTones[i % primaryTones.length],
+						]}
 					>
 						{item.title}
 					</div>

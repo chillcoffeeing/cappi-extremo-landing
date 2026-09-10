@@ -18,7 +18,7 @@ export const faqs: Faq[] = [
   },
   {
     question: `¿Para qué edades es el plan vacacional?`,
-    answer: `Trabajamos con niños y jóvenes de 5 a 15 años. Dentro de esos rangos, agrupamos a los campistas para que cada actividad se sienta hecha a su medida.`,
+    answer: `Trabajamos con niños y jóvenes de 5 a 15 años. Dentro de esos rangos, agrupamos a los participantes para que cada actividad se sienta hecha a su medida.`,
   },
   {
     question: `¿Hay transporte?`,
@@ -29,19 +29,19 @@ export const faqs: Faq[] = [
     answer: `[Pendiente: dirección real de la sede - mientras tanto puedes ver el mapa en nuestra página de Contacto]`,
   },
   {
-    question: `¿Qué actividades hacen los campistas?`,
+    question: `¿Qué actividades hacen los participantes?`,
     answer: `Ningún día se parece al otro: hay deporte, agua, retos al aire libre y espacio para la creatividad, desde juegos en equipo hasta noches de fogata. Todo diseñado para que tu hijo se divierta a fondo mientras, sin darse cuenta, va ganando confianza y aprendiendo a trabajar con otros.`,
   },
   {
-    question: `¿Hay una acampada en el daycamp?`,
-    answer: `No, nuestros planes son siempre de día. Los campistas llegan en la mañana y se retiran en la tarde.`,
+    question: `¿El plan es de día completo?`,
+    answer: `Sí, nuestros planes son siempre de día. Los participantes llegan en la mañana y se retiran en la tarde.`,
   },
   {
     question: `¿Por qué no se recomienda el uso de celulares?`,
     answer: `Un plan vacacional se disfruta mejor con las manos ocupadas en juegos y la mirada puesta en los amigos, no en una pantalla. Limitar el celular ayuda a que tu hijo se suelte, participe al máximo y se lleve recuerdos reales, no solo fotos.`,
   },
   {
-    question: `¿Cómo organizan a los campistas?`,
+    question: `¿Cómo organizan a los participantes?`,
     answer: `Formamos grupos según la edad, para que las actividades tengan el ritmo y el nivel justo para cada etapa - ni muy fácil, ni fuera de su alcance.`,
   },
   {
@@ -50,7 +50,7 @@ export const faqs: Faq[] = [
   },
   {
     question: `¿Qué medidas de seguridad tienen durante el plan?`,
-    answer: `Contamos con personal capacitado en primeros auxilios, ficha médica y contactos de emergencia de cada campista, y protocolos claros para cada actividad. La seguridad de tu hijo va primero, siempre.`,
+    answer: `Contamos con personal capacitado en primeros auxilios, ficha médica y contactos de emergencia de cada participante, y protocolos claros para cada actividad. La seguridad de tu hijo va primero, siempre.`,
   },
   {
     question: `¿Cómo es la comunicación con mi hijo durante el plan?`,
@@ -58,7 +58,7 @@ export const faqs: Faq[] = [
   },
   {
     question: `¿Los adultos pueden entrar al plan vacacional durante temporadas?`,
-    answer: `Preferimos mantener el acceso solo para el equipo de Cappi mientras dura la temporada, así los campistas se enfocan por completo en la experiencia sin interrupciones. Igual estarás al tanto de todo a través de los grupos de WhatsApp y el contacto directo con los coordinadores.`,
+    answer: `Preferimos mantener el acceso solo para el equipo de Cappi mientras dura la temporada, así los participantes se enfocan por completo en la experiencia sin interrupciones. Igual estarás al tanto de todo a través de los grupos de WhatsApp y el contacto directo con los coordinadores.`,
   },
   {
     question: `¿Quiénes somos?`,
@@ -66,7 +66,7 @@ export const faqs: Faq[] = [
   },
   {
     question: `¿Quiénes son los guías/el staff?`,
-    answer: `Nuestro equipo pasa por selección, verificación de antecedentes y entrenamiento en primeros auxilios antes de estar frente a los campistas.`,
+    answer: `Nuestro equipo pasa por selección, verificación de antecedentes y entrenamiento en primeros auxilios antes de estar frente a los participantes.`,
   },
   {
     question: `¿Ofrecen otros servicios aparte del plan vacacional?`,

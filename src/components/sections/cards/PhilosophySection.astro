@@ -1,5 +1,7 @@
 ---
 import SectionHeading from '../../titles/SectionHeading.astro';
+import Button from '../../buttons/Button.astro';
+import { Icon } from 'astro-icon/components';
 
 export interface PhilosophyItem {
 	icon: string;
@@ -25,9 +27,9 @@ const { title, underline, intro, items, cta } = Astro.props;
 		<div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
 			{items.map((item) => (
 				<div data-motion="fade-up" class="flex flex-col items-center text-center">
-					<div class="flex size-[110px] items-center justify-center rounded-full bg-sections p-[30px]">
-						<img src={item.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" class="h-full w-full object-contain" />
-					</div>
+<div class="flex size-[110px] items-center justify-center rounded-full bg-sections p-[30px]">
+					<Icon name={item.icon} class="h-full w-full" aria-hidden="true" />
+				</div>
 					<h3 class="mt-4 font-medium flex items-center justify-center text-lg text-neutral-900 h-10">{item.title}</h3>
 					<p class="mt-2 leading-relaxed text-neutral-600">{item.description}</p>
 				</div>
@@ -36,12 +38,7 @@ const { title, underline, intro, items, cta } = Astro.props;
 
 		{cta && (
 			<div data-motion="fade-up" class="mt-14 flex justify-center">
-				<a
-					href={cta.href}
-					class="rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-				>
-					{cta.label}
-				</a>
+				<Button label={cta.label} href={cta.href} variant="primary" />
 			</div>
 		)}
 	</div>

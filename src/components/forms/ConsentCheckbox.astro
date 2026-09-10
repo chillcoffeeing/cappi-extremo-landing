@@ -1,0 +1,23 @@
+---
+interface Props {
+	name?: string;
+}
+
+const { name = 'consent' } = Astro.props;
+---
+
+<label class="flex items-start gap-3 text-sm leading-relaxed text-neutral-600">
+	<input
+		type="checkbox"
+		name={name}
+		value="aceptado"
+		required
+		class="mt-0.5 size-4 shrink-0 rounded border-neutral-300 accent-primary focus:ring-primary"
+	/>
+	<span class="select-none">
+		He leído y acepto la{' '}
+		<a href="/privacidad" class="font-medium text-primary underline decoration-current underline-offset-2 hover:opacity-80">Política de Privacidad</a>{' '}
+		y los{' '}
+		<a href="/terminos" class="font-medium text-primary underline decoration-current underline-offset-2 hover:opacity-80">Términos de Uso</a>.
+	</span>
+</label>

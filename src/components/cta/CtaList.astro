@@ -1,13 +1,22 @@
 ---
 import Button from '../buttons/Button.astro';
-import type { ButtonVariant } from '../buttons/Button.astro';
+import type { ButtonProps, ButtonVariant } from '../buttons/Button.astro';
 
 export interface Cta {
 	label: string;
 	href: string;
 	variant?: ButtonVariant;
+	size?: ButtonProps['size'];
+	weight?: ButtonProps['weight'];
+	tone?: ButtonProps['tone'];
+	radius?: ButtonProps['radius'];
+	underline?: boolean;
+	underlineColor?: string;
 	/** Color del texto para variant "link" */
 	linkColor?: string;
+	target?: string;
+	rel?: string;
+	attrs?: ButtonProps['attrs'];
 }
 
 export interface Props {
@@ -16,7 +25,7 @@ export interface Props {
 	/** Clase del contenedor flex */
 	class?: string;
 	/** Tamaño de los botones */
-	size?: 'default' | 'sm';
+	size?: ButtonProps['size'];
 }
 
 const { ctas, class: containerClass = '', size = 'default' } = Astro.props;
@@ -24,6 +33,20 @@ const { ctas, class: containerClass = '', size = 'default' } = Astro.props;
 
 <div class:list={['flex flex-col items-center gap-4', containerClass]}>
 	{ctas.map((cta) => (
-		<Button label={cta.label} href={cta.href} variant={cta.variant ?? 'white'} size={size} linkColor={cta.linkColor} />
+		<Button
+			label={cta.label}
+			href={cta.href}
+			variant={cta.variant ?? 'white'}
+			size={size ?? cta.size}
+			weight={cta.weight}
+			tone={cta.tone}
+			radius={cta.radius}
+			underline={cta.underline}
+			underlineColor={cta.underlineColor}
+			linkColor={cta.linkColor}
+			target={cta.target}
+			rel={cta.rel}
+			attrs={cta.attrs}
+		/>
 	))}
 </div>

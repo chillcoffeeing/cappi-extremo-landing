@@ -1,7 +1,6 @@
 ---
 import SectionHeading from '../../titles/SectionHeading.astro';
-
-import chevronDownSvg from '../../../assets/ui/chevron-down.svg?raw';
+import { Icon } from 'astro-icon/components';
 
 export interface FaqItem {
 	question: string;
@@ -45,8 +44,7 @@ const answerColor = 'text-neutral-600';
 			eyebrow={eyebrow}
 			title={title}
 			underline={underline}
-			underlineColor="text-primary"
-			tone={dark ? 'dark' : 'light'}
+			color="primary"
 		/>
 
 		<div class={`mx-auto mt-14 max-w-3xl divide-y border-y ${borderClass}`}>
@@ -54,9 +52,7 @@ const answerColor = 'text-neutral-600';
 				<details data-motion="fade-up" class="group">
 					<summary class={`${summaryBase} ${summaryColor}`}>
 						{faq.question}
-						<Fragment
-							set:html={chevronDownSvg.replace('<svg', '<svg class="size-5 shrink-0 transition-transform duration-200 group-open:rotate-180"')}
-						/>
+						<Icon name="lucide:chevron-down" class="size-5 shrink-0 transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
 					</summary>
 					<p class={`pb-6 pr-8 leading-relaxed ${answerColor}`}>{faq.answer}</p>
 				</details>

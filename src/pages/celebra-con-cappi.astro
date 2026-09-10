@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import ServicesSection from '../components/sections/cards/ServicesSection.astro';
+import StepsSection from '../components/sections/steps/StepsSection.astro';
+import GallerySection from '../components/sections/gallery/GallerySection.astro';
+import TestimonialsSection from '../components/sections/testimonials/TestimonialsSection.astro';
+import FaqSection from '../components/sections/faq/FaqSection.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+import type { Step } from '../components/sections/steps/StepsSection.astro';
+import type { GalleryImage } from '../components/sections/gallery/GallerySection.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+import { faqs } from '../data/faqs';
+import { testimonials } from '../data/testimonials';
+import { CELEBRA_CON_CAPPI_WHATSAPP_URL } from '../lib/lead-links';
+
+import heroBg from '../assets/gallery/fiesta-3.jpg?url';
+import ctaBg from '../assets/gallery/all/horizontal-images/IMG_2734.jpg?url';
+import h14 from '../assets/gallery/all/horizontal-images/IMG_4187.jpg?url';
+
+const steps: Step[] = [
+	{ number: '1', title: 'Cuéntanos qué estás celebrando', description: 'Fecha, cantidad de niños, tipo de evento.' },
+	{ number: '2', title: 'Te enviamos una propuesta a medida', description: 'Diseñamos algo único para tu celebración.' },
+	{ number: '3', title: 'Confirmas y coordinamos todo', description: 'Nos encargamos de cada detalle.' },
+];
+
+const galleryModules = import.meta.glob(
+	'../assets/gallery/all/**/*.{jpg,jpeg,png,webp,avif,gif}',
+	{ eager: true, query: '?url', import: 'default' },
+) as Record<string, string>;
+
+const allGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(([, src]) => ({
+	src,
+	alt: 'Experiencia Cappi Xtremo',
+}));
+
+const galleryRow1: GalleryImage[] = allGalleryImages.slice(0, Math.ceil(allGalleryImages.length / 2));
+const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
+---
+
+<Layout title="Celebra con Cappi - Cappi Extremo" description="Fiestas, eventos y animaciones a la medida de tu celebración con Cappi Xtremo.">
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="CELEBRA CON CAPPI"
+		title="Más formas de vivir la "
+		highlight="experiencia"
+		titleAfter=" Cappi"
+		subtitle="Fiestas, eventos y animaciones a la medida de tu celebración."
+		badge="100% personalizable"
+		buttons={[{ label: 'Cuéntanos qué quieres celebrar', href: CELEBRA_CON_CAPPI_WHATSAPP_URL, variant: 'primary', target: '_blank', rel: 'noopener noreferrer' }]}
+		disfuminar="bottom"
+	/>
+
+	<ServicesSection
+		title="Queremos ofrecer celebraciones a los padres al estilo "
+		underline="Cappi"
+		intro="Llevamos la adrenalina y la diversión de CappiXtremo a tu celebración. Diseñamos eventos y fiestas totalmente personalizados a la medida de tu espacio y temática preferida."
+		service={{
+			name: 'Celebra con Cappi',
+			priceLabel: 'Cotizaciones a medida',
+			image: h14,
+			features: [
+				'Recreación y dinámicas',
+				'Logística integral',
+				'Estaciones de pintura/arte, mesas creativas, glitter, tattoo, zonas de juegos temáticos y animación',
+				'Celebraciones escolares, promos y corporativos',
+				'Staff - quiénes son, historia de Cappi.',
+			],
+			staft: {
+				director: 'Maira Zambrano',
+			},
+			cta: 'Solicitar cotización',
+		}}
+		ctaHref={CELEBRA_CON_CAPPI_WHATSAPP_URL}
+		ctaTarget="_blank"
+		ctaRel="noopener noreferrer"
+	/>
+
+	<SectionPattern top="base-pattern" />
+	<StepsSection
+		eyebrow="¿Cómo funciona?"
+		underline="Cotización sencilla"
+		steps={steps}
+		columns={3}
+	/>
+	<SectionPattern bottom="base-pattern" />
+
+	<GallerySection
+		eyebrow="Galería"
+		title="Así se vive la experiencia "
+		underline="CAPPI"
+		intro="Cada foto cuenta una celebración distinta, la próxima puede ser la tuya."
+		rows={[
+			{ images: galleryRow1, direction: 'left' },
+			{ images: galleryRow2, direction: 'right' },
+		]}
+	/>
+
+	<TestimonialsSection
+		eyebrow="Testimonios"
+		title="Lo que dicen "
+		underline="las familias"
+		items={testimonials}
+	/>
+
+	<SectionPattern top="base-pattern" />
+	<FaqSection tone="dark" eyebrow="Respondemos tus dudas" title="Preguntas " underline="frecuentes" items={faqs} />
+
+	<CtaSection
+		variant="image"
+		bgImage={ctaBg}
+		disfuminar="bottom"
+		title="¿Listo para crear una celebración inolvidable?"
+		buttons={[
+			{ label: 'Solicitar cotización', href: CELEBRA_CON_CAPPI_WHATSAPP_URL, variant: 'white', target: '_blank', rel: 'noopener noreferrer' },
+			{ label: 'Tengo preguntas', href: CELEBRA_CON_CAPPI_WHATSAPP_URL, variant: 'link', target: '_blank', rel: 'noopener noreferrer' },
+		]}
+	/>
+</Layout>
