@@ -39,7 +39,7 @@ const { eyebrow = 'Plan vacacional', title = '¿Qué incluye?', underline, intro
 				{eyebrow && <p class="font-semibold uppercase tracking-widest text-primary/80">{eyebrow}</p>}
 				<h2 class="mt-3 font-semibold uppercase md:leading-tight">
 					{title}
-					{underline && <UnderlineStroke color="text-primary">{underline}</UnderlineStroke>}
+					{underline && <UnderlineStroke color="text-secondary">{underline}</UnderlineStroke>}
 				</h2>
 			</div>
 		)}
@@ -64,11 +64,11 @@ const { eyebrow = 'Plan vacacional', title = '¿Qué incluye?', underline, intro
 
 		<p data-motion="fade-up" class="mt-8 text-center font-semibold text-primary">{location}</p>
 
-		<div data-motion="fade-up" class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+		<div data-motion="fade-up" class="mt-14 justify-center flex flex-wrap gap-3 sm:gap-6">
 			{items.map((item) => (
-				<div class="flex flex-col items-center gap-4 rounded-2xl border-[3px] border-primary bg-white p-6 text-center">
+				<div class="flex items-center flex-col w-40 md:w-50 gap-4 rounded-2xl text-center bg-white p-6">
 					<div class="flex size-26 items-center justify-center rounded-full bg-primary/20 text-primary">
-						<Icon name={item.icon} class="size-12" aria-hidden="true" />
+						<Icon name={item.icon} class="size-10" aria-hidden="true" />
 					</div>
 					<p class="font-semibold text-primary">{item.label}</p>
 				</div>

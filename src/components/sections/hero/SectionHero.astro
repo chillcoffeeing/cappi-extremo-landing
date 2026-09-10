@@ -1,6 +1,7 @@
 ---
 import Button from '../../buttons/Button.astro';
 import type { ButtonVariant } from '../../buttons/Button.astro';
+import UnderlineStroke from '../../titles/UnderlineStroke.astro';
 import { Icon } from 'astro-icon/components';
 
 export interface Crumb {
@@ -10,7 +11,9 @@ export interface Crumb {
 
 export interface Props {
 	/** Imagen de fondo (cubren toda la sección) */
-	bgImage: string;
+	bgImage?: string;
+	/** Gradiente de fondo (clases tailwind, ej. bg-gradient-to-br from-primary to-secondary). Reemplaza la imagen */
+	bgGradient?: string;
 	/** Video de fondo opcional (supera la imagen) */
 	bgVideo?: string;
 	/** Poster para el video */
@@ -45,6 +48,7 @@ export interface Props {
 
 const {
 	bgImage,
+	bgGradient,
 	bgVideo,
 	bgVideoPoster,
 	bgColor,
@@ -87,8 +91,9 @@ const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar ===
 ---
 
 <div class="relative isolate z-1 h-[680px] overflow-hidden" class:list={[bgColor]}>
-	{
-		bgVideo ? (
+	{bgGradient ? (
+		<div aria-hidden="true" class="absolute inset-0 -z-10 h-full w-full" class:list={[bgGradient, disfuminarClass]} />
+	) : bgVideo ? (
 			<video poster={bgVideoPoster} preload="none" autoplay muted loop class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50" class:list={[disfuminarClass]}>
 				<source src={bgVideo} type="video/mp4" />
 			</video>
@@ -129,7 +134,7 @@ const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar ===
 
 			<h1 data-motion="fade-up" class={titleClass}>
 				{title}
-				{highlight && <span>{highlight}</span>}
+				{highlight && <UnderlineStroke color="text-primary">{highlight}</UnderlineStroke>}
 				{titleAfter}
 			</h1>
 

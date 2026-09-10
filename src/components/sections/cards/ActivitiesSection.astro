@@ -1,9 +1,11 @@
 ---
 import SectionHeading from '../../titles/SectionHeading.astro';
+import { Icon } from 'astro-icon/components';
 
 export interface ActivityItem {
-	image: string;
 	title: string;
+	image?: string;
+	icon?: string;
 }
 
 export interface Props {
@@ -12,7 +14,7 @@ export interface Props {
 	title?: string;
 	underline?: string;
 	intro?: string;
-	/** Tarjetas de actividad (imagen + barra de color) */
+	/** Tarjetas de actividad (icono en círculo) o de imagen (imagen + barra de color) */
 	items: ActivityItem[];
 	/** Padding alto (py-16 md:py-24) vs estándar (py-12 md:py-20) */
 	padding?: 'default' | 'large';
@@ -29,26 +31,35 @@ const primaryTones = ['bg-primary-800', 'bg-primary-700', 'bg-primary-600', 'bg-
 	<div class="container">
 		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} intro={intro} />
 
-		<div data-motion="fade-up" class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-{items.map((item, i) => (
-				<article class="overflow-hidden shadow-sm">
-					<img
-						src={item.image}
-						alt={item.title}
-						loading="lazy"
-						decoding="async"
-						class="h-40 w-full object-cover"
-					/>
-					<div
-						class:list={[
-							'flex h-10 items-center justify-center px-3 text-center text-lg font-semibold uppercase tracking-wide text-white',
-							primaryTones[i % primaryTones.length],
-						]}
-					>
-						{item.title}
+		<div data-motion="fade-up" class="mt-14 justify-center flex flex-wrap gap-6 sm:gap-8 md:gap-10">
+			{items.map((item, i) =>
+				item.icon ? (
+					<div class="flex items-center flex-col w-40 md:w-50 gap-4 rounded-2xl text-center">
+						<div class="flex size-26 items-center justify-center rounded-full bg-primary/20 text-primary">
+							<Icon name={item.icon} class="size-10" aria-hidden="true" />
+						</div>
+						<p class="font-semibold text-primary">{item.title}</p>
 					</div>
-				</article>
-			))}
+				) : (
+					<article class="overflow-hidden shadow-sm">
+						<img
+							src={item.image}
+							alt={item.title}
+							loading="lazy"
+							decoding="async"
+							class="h-40 w-full object-cover"
+						/>
+						<div
+							class:list={[
+								'flex h-10 items-center justify-center px-3 text-center text-lg font-semibold uppercase tracking-wide text-white',
+								primaryTones[i % primaryTones.length],
+							]}
+						>
+							{item.title}
+						</div>
+					</article>
+				)
+			)}
 		</div>
 	</div>
 </section>

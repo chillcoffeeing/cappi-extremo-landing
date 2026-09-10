@@ -10,6 +10,8 @@ export interface Props {
 	eyebrowHighlight?: string;
 	/** Título de la sección */
 	title: string;
+	/** Title after  */
+	afterTitle?: string;
 	/** Palabras subrayadas con UnderlineStroke */
 	underline?: string;
 	/** Color del trazo y acentos del heading */
@@ -26,9 +28,10 @@ export interface Props {
 
 const {
 	eyebrow,
-	eyebrowColor,
+	eyebrowColor = "primary",
 	eyebrowHighlight,
 	title,
+	afterTitle,
 	underline,
 	color = 'primary',
 	underlineNowrap = true,
@@ -56,13 +59,16 @@ const titleBase = 'mt-3 text-center font-semibold uppercase text-neutral-900 md:
 	eyebrow && (
 		<p data-motion="fade-up" class:list={['text-center font-semibold uppercase tracking-widest', eyebrowClass]}>
 			{eyebrow}
-			{eyebrowHighlight && <span>{eyebrowHighlight}</span>}
+			{eyebrowHighlight && (
+				<UnderlineStroke color={eyebrowClass}>{eyebrowHighlight}</UnderlineStroke>
+			)}
 		</p>
 	)
 }
 <h2 data-motion="fade-up" class:list={[titleBase, titleClass]}>
 	{title}
 	{underline && <UnderlineStroke color={underlineColor} nowrap={underlineNowrap}>{underline}</UnderlineStroke>}
+	{afterTitle}
 </h2>
 {intro && (
 	<p

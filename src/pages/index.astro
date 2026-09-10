@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SectionHero from '../components/sections/hero/SectionHero.astro';
 import PhilosophySection from '../components/sections/cards/PhilosophySection.astro';
 import ServicesBand from '../components/sections/cta/ServicesBand.astro';
-import ActivitiesSection from '../components/sections/cards/ActivitiesSection.astro';
+import ActivitiesGridSection from '../components/sections/cards/ActivitiesGridSection.astro';
 import TestimonialsSection from '../components/sections/testimonials/TestimonialsSection.astro';
 import GallerySection from '../components/sections/gallery/GallerySection.astro';
 import StaffSection from '../components/sections/cards/StaffSection.astro';
@@ -11,7 +11,7 @@ import FaqSection from '../components/sections/faq/FaqSection.astro';
 import CtaSection from '../components/sections/cta/CtaSection.astro';
 import type { ServiceCard } from '../components/sections/cta/ServicesBand.astro';
 import type { PhilosophyItem } from '../components/sections/cards/PhilosophySection.astro';
-import type { ActivityItem } from '../components/sections/cards/ActivitiesSection.astro';
+import type { ActivityGridItem } from '../components/sections/cards/ActivitiesGridSection.astro';
 import type { GalleryImage } from '../components/sections/gallery/GallerySection.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
 import { testimonials } from '../data/testimonials';
@@ -69,7 +69,7 @@ const philosophyItems: PhilosophyItem[] = [
 	{ icon: 'shield', title: 'Seguridad Consciente', description: 'Garantizamos la máxima protección física y emocional para disfrutar con tranquilidad.' },
 ];
 
-const activitiesCards: ActivityItem[] = [
+const activitiesCards: ActivityGridItem[] = [
 	{ image: activity1, title: 'Pádel Fest' },
 	{ image: activity2, title: 'Paseo a caballo' },
 	{ image: activity3, title: 'Acuático' },
@@ -109,9 +109,8 @@ const galleryRow2: GalleryImage[] = [
 		bgImage={heroPosterBg}
 		bgVideo={heroVideoMp4Bg}
 		bgVideoPoster={heroPosterBg}
-		eyebrow="Cappi "
-		eyebrowHighlight="Xtremo"
-		title="Conectando sonrisas creamos"
+		eyebrow="Cappi Xtremo"
+		title="Conectando sonrisas creamos "
 		highlight="familia"
 		disfuminar='bottom'
 		subtitle="Deportes, amigos, aventuras y risas infinitas. Unas vacaciones que va a recordar para siempre."
@@ -141,15 +140,16 @@ const galleryRow2: GalleryImage[] = [
 		countdownTarget={NEXT_CAMP_START}
 		countdownSize="hero"
 		ctas={[
-			{ label: 'Apartar cupo para mi hijo', href: '/plan-vacacional', variant: 'primary' },
+			{ label: 'Reservar cupo', href: '/plan-vacacional', variant: 'secondary' },
 			{ label: 'Ver detalles del plan vacacional', href: '/plan-vacacional', variant: 'link' },
 		]}
 	/>
 	<SectionPattern bottom="base-pattern"  />
 
-	<ActivitiesSection
+	<ActivitiesGridSection
 		eyebrow="Actividades"
 		underline="Jugadas extremas"
+		color="secondary"
 		intro="Cada día trae un reto distinto: deporte, agua, aire libre y mucha creatividad. Mientras se divierten, los participantes también desarrollan liderazgo, trabajo en equipo, confianza y respeto a su propio ritmo y sin darse cuenta."
 		items={activitiesCards}
 	/>
@@ -165,6 +165,7 @@ const galleryRow2: GalleryImage[] = [
 		eyebrow="Galería"
 		title="Así se vive "
 		underline="Cappi Xtremo"
+		color="secondary"
 		intro="Cada foto cuenta una aventura distinta, la próxima puede ser la de tu hijo."
 		introClass="max-w-175"
 		rows={[

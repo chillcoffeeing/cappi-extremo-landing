@@ -13,23 +13,9 @@ import {
 	staffSharedValues,
 } from '../data/staff';
 
-import heroBg from '../assets/gallery/all/horizontal-images/IMG_4595.jpg?url';
+import heroBg from '../assets/gallery/all/horizontal-images/IMG_2734.jpg?url';
 import teamFullView from '../assets/gallery/team-full-view.jpg?url';
 import ctaBg from '../assets/gallery/juegos-5.jpg?url';
-import mairaImg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
-import deymarImg from '../assets/gallery/all/horizontal-images/IMG_2734.jpg?url';
-import coordinadoraImg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
-
-const profiles = staffProfiles.map((profile) =>
-	profile.name === 'Maira Zambrano'
-		? { ...profile, image: mairaImg, imageAlt: 'Maira Zambrano acompañando una actividad de Cappi Xtremo' }
-		: profile.name === 'Deymar Oropeza'
-			? { ...profile, image: deymarImg, imageAlt: 'Deymar Oropeza durante una actividad de recreación de Cappi Xtremo' }
-			: profile,
-);
-
-const featured = profiles.filter((p) => p.image);
-const rest = profiles.filter((p) => !p.image);
 ---
 
 <Layout
@@ -93,31 +79,6 @@ const rest = profiles.filter((p) => !p.image);
 
 	<section class="py-16 md:py-24">
 		<div class="container">
-			<div class="grid items-center gap-10 lg:grid-cols-2">
-				<div data-motion="fade-up">
-					<SectionHeading
-						eyebrow="Coordinación"
-						title="La coordinadora de "
-						underline="animación"
-					/>
-					<p class="mt-6 leading-relaxed text-neutral-600">
-						Al frente de la animación y la recreación, una coordinadora apasionada lidera cada actividad
-						para que cada niño descubra la magia del juego, la aventura y la amistad dentro de un entorno
-						seguro y alegre. Su vocación garantiza que cada jornada en Cappixtremo sea una experiencia
-						vivida con energía, empatía y cuidado integral.
-					</p>
-				</div>
-				<div data-motion="fade-up" class="overflow-hidden rounded-2xl shadow-sm">
-					<ImageAccent color="secondary" position="top" align="left">
-						<img src={coordinadoraImg} alt="La coordinadora de animación de Cappi Xtremo" loading="lazy" decoding="async" class="w-full max-h-96 object-contain" />
-					</ImageAccent>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="py-16 md:py-24">
-		<div class="container">
 			<SectionHeading
 				eyebrow="La familia DE Cappi Xtremo"
 				title="Quiénes hacen posible "
@@ -125,14 +86,8 @@ const rest = profiles.filter((p) => !p.image);
 				color="secondary"
 			/>
 
-			<div class="mt-12 grid gap-6 sm:grid-cols-2">
-				{featured.map((profile, index) => (
-					<StaffProfileCard profile={profile} variant="featured" index={index} />
-				))}
-			</div>
-
-			<div class="mt-10 grid gap-6 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-				{rest.map((profile) => (
+			<div data-motion="fade-up" class="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+				{staffProfiles.map((profile) => (
 					<StaffProfileCard profile={profile} variant="small" />
 				))}
 			</div>
@@ -146,7 +101,7 @@ const rest = profiles.filter((p) => !p.image);
 				eyebrow="Lo que nos une"
 				title="Lo que hace especial "
 				underline="a nuestra familia"
-				color="primary"
+				color="secondary"
 			/>
 			<p data-motion="fade-up" class="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-neutral-600">Cada persona en Cappi Xtremo es distinta, y son justamente esas diferencias las que hacen única cada temporada. Buscamos —y celebramos— personas que sean:</p>
 			<ul data-motion="fade-up" class="mx-auto mt-6 max-w-2xl space-y-3 text-neutral-700">

@@ -12,16 +12,6 @@ import { christmasVacationPlan } from '../data/plan-vacacional';
 
 import heroBg from '../assets/gallery/motos-2.jpg?url';
 
-import activity1 from '../assets/gallery/padel-fest.jpg?url';
-import activity2 from '../assets/gallery/paseo-a-caballo.jpg?url';
-import activity3 from '../assets/gallery/acuatico.jpg?url';
-import activity4 from '../assets/gallery/deportes.jpg?url';
-import activity5 from '../assets/gallery/spa.jpg?url';
-import activity6 from '../assets/gallery/rally-barro.jpg?url';
-import activity7 from '../assets/gallery/var-ritmo.jpg?url';
-import activity8 from '../assets/gallery/planetario.jpg?url';
-import activity9 from '../assets/gallery/rusticos.jpg?url';
-
 const plan = christmasVacationPlan;
 
 const inclusionPills: Pill[] = [
@@ -45,15 +35,17 @@ const inclusionsItems: IncludedItem[] = [
 ];
 
 const activitiesCards: ActivityItem[] = [
-	{ image: activity1, title: 'Pádel Fest' },
-	{ image: activity2, title: 'Paseo a caballo' },
-	{ image: activity3, title: 'Acuático' },
-	{ image: activity4, title: 'Deportes' },
-	{ image: activity5, title: 'Spa' },
-	{ image: activity6, title: 'Rally barro' },
-	{ image: activity7, title: 'VAR ritmo' },
-	{ image: activity8, title: 'Planetario' },
-	{ image: activity9, title: 'Rústicos' },
+	{ title: 'Paintball hidrogel (para los grandes)', icon: 'lucide:crosshair' },
+	{ title: 'Cuatrimotos', icon: 'lucide:motorbike' },
+	{ title: 'Tirolesa', icon: 'lucide:mountain' },
+	{ title: 'Rally', icon: 'lucide:route' },
+	{ title: 'Carta de Navidad', icon: 'lucide:mail' },
+	{ title: 'Piscina', icon: 'lucide:waves' },
+	{ title: 'Gymcanas', icon: 'lucide:puzzle' },
+	{ title: 'Deportes', icon: 'lucide:dumbbell' },
+	{ title: 'Manualidades', icon: 'lucide:scissors' },
+	{ title: 'Competencias', icon: 'lucide:trophy' },
+	{ title: 'Sorpresas', icon: 'lucide:gift' },
 ];
 ---
 
@@ -63,13 +55,12 @@ const activitiesCards: ActivityItem[] = [
 >
 	<SectionHero
 		bgImage={heroBg}
-		crumbs={[{ label: 'Aventuras', href: '/plan-vacacional' }, { label: plan.name }]}
 		eyebrow="PLAN VACACIONAL"
 		title="PLAN VACACIONAL - "
 		highlight="EDICIÓN NAVIDAD"
 		subtitle={`${plan.date} · ${plan.hours} · ${plan.ages}`}
-		buttons={[{ label: 'Inscripciones por la página web', href: plan.registrationUrl, variant: 'primary' }]}
-		titleMargin={false}
+		buttons={[{ label: 'Reservar cupo', href: plan.registrationUrl, variant: 'primary' }]}
+		disfuminar="bottom"
 	/>
 
 	<CountdownSection
@@ -84,7 +75,7 @@ const activitiesCards: ActivityItem[] = [
 		pills={inclusionPills}
 		location={plan.location}
 		items={inclusionsItems}
-		cta={{ label: 'Inscripciones por la página web', href: plan.registrationUrl }}
+		cta={{ label: 'Reservar cupo', href: plan.registrationUrl }}
 	/>
 	
 	<SectionPattern bottom="base-pattern" />
@@ -101,8 +92,8 @@ const activitiesCards: ActivityItem[] = [
 
 	<CtaSection
 		variant="light"
-		title="Inscripciones por la "
-		underline="página web"
+		title="Reservar "
+		underline="cupo"
 		titleAfter=""
 		intro={`Reserva la experiencia de Navidad en ${plan.registrationUrl.replace('https://', '')}. También puedes encontrarnos en Instagram: ${plan.instagramHandle}.`}
 		buttons={[

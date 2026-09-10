@@ -83,12 +83,12 @@ export const staffProfiles: StaffProfile[] = [
   },
   {
     name: "Valeria Ramos",
-    role: "Fisioterapeuta y recreadora",
+    role: "Recreadora",
     bio: "Especialista en primera infancia. 4+ años de experiencia.",
   },
   {
     name: "José Herrera",
-    role: "DJ y Productor",
+    role: "Recreador",
     bio: "A cargo de la musicalización y puesta en escena. 5+ años de experiencia.",
   },
   {
@@ -97,13 +97,13 @@ export const staffProfiles: StaffProfile[] = [
     bio: "Enfocada en los más pequeños. Estudiante de Fisioterapia. 2 años en el equipo.",
   },
   {
-    name: "Sebastian Barbosa",
-    role: "Fotógrafo deportivo",
-    bio: "Fotógrafo deportivo del equipo.",
+    name: "Mariana González",
+    role: "Marketing",
+    bio: "Encargada de la comunicación y el posicionamiento del equipo.",
   },
   {
-    name: "Katiuska Cañizales",
-    role: "Especialista en maquillaje artístico y glitter",
+    name: "Katiuska Cañizalez",
+    role: "Recreadora",
     bio: "5+ años de experiencia.",
   },
 ];

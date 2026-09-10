@@ -1,0 +1,56 @@
+---
+import SectionHeading from '../../titles/SectionHeading.astro';
+
+export interface ActivityGridItem {
+	image: string;
+	title: string;
+}
+
+export interface Props {
+	/** Encabezado de la sección */
+	eyebrow?: string;
+	title?: string;
+	underline?: string;
+	/** Color del trazo y acentos del heading */
+	color?: 'primary' | 'secondary' | 'neutral' | 'tertiary';
+	intro?: string;
+	/** Tarjetas de actividad (imagen + barra de color) */
+	items: ActivityGridItem[];
+	/** Padding alto (py-16 md:py-24) vs estándar (py-12 md:py-20) */
+	padding?: 'default' | 'large';
+}
+
+const { eyebrow = 'Actividades', title = '', underline, color, intro, items, padding = 'default' } = Astro.props;
+
+const paddingClass = padding === 'large' ? 'py-16 md:py-24' : 'py-12 md:py-20';
+
+const primaryTones = ['bg-primary-800', 'bg-primary-700', 'bg-primary-600', 'bg-primary-500'];
+---
+
+<section class:list={[paddingClass]}>
+	<div class="container">
+		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} color={color} intro={intro} />
+
+		<div data-motion="fade-up" class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{items.map((item, i) => (
+				<article class="overflow-hidden shadow-sm">
+					<img
+						src={item.image}
+						alt={item.title}
+						loading="lazy"
+						decoding="async"
+						class="h-40 w-full object-cover"
+					/>
+					<div
+						class:list={[
+							'flex h-10 items-center justify-center px-3 text-center text-lg font-semibold uppercase tracking-wide text-white',
+							primaryTones[i % primaryTones.length],
+						]}
+					>
+						{item.title}
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</section>

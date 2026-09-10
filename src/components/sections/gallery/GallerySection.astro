@@ -16,6 +16,8 @@ export interface Props {
 	eyebrow?: string;
 	title: string;
 	underline?: string;
+	/** Color del trazo y acentos del heading */
+	color?: 'primary' | 'secondary' | 'neutral' | 'tertiary';
 	intro?: string;
 	/** Clases extra para el intro (ej. max-w-[700px]) */
 	introClass?: string;
@@ -23,14 +25,14 @@ export interface Props {
 	padding?: 'default' | 'large';
 }
 
-const { eyebrow = 'Galería', title, underline, intro, introClass = '', rows, padding = 'large' } = Astro.props;
+const { eyebrow = 'Galería', title, underline, color, intro, introClass = '', rows, padding = 'large' } = Astro.props;
 
 const paddingClass = padding === 'large' ? 'py-16 md:py-24' : 'py-12 md:py-20';
 ---
 
 <section class={paddingClass}>
 	<div class="container">
-		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} intro={intro} introClass={introClass} />
+		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} color={color} intro={intro} introClass={introClass} />
 
 		<div class="mt-14 space-y-4 sm:space-y-6">
 			{rows.map((row) => (
