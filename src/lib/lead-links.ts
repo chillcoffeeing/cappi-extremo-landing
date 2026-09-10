@@ -1,7 +1,7 @@
 export const SCHOOL_EXPERIENCES_WHATSAPP_URL = 'https://wa.link/0emz5n';
 export const CORPORATE_EVENTS_WHATSAPP_URL = 'https://wa.link/ox0bdz';
 export const CELEBRA_CON_CAPPI_WHATSAPP_URL = 'https://wa.link/lcjcpu';
-export const INFO_EMAIL = 'info@cappiextremo.com';
+export const INFO_EMAIL = 'info@cappixtremo.com';
 
 export function buildWhatsAppUrl(baseUrl: string, lines: string[]) {
 	const message = lines.filter(Boolean).join('\n');

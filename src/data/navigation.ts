@@ -110,12 +110,6 @@ export const navigation: NavigationItem[] = [
             label: "EL STAFF",
             href: "/nuestro-staff",
           },
-          {
-            kind: "link",
-            id: "quienes-querer-ser-staff",
-            label: "QUIERO SER STAFF",
-            href: "/quiero-ser-staff",
-          },
         ],
       },
     ],
