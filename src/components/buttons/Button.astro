@@ -2,10 +2,9 @@
 import UnderlineStroke from '../titles/UnderlineStroke.astro';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'white' | 'foreground' | 'outline' | 'ghost' | 'link';
-export type ButtonTone = 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'white';
 export type ButtonWeight = 'normal' | 'medium' | 'semibold' | 'bold';
 export type ButtonRadius = 'full' | 'lg' | 'none';
-export type ButtonSize = 'sm' | 'default' | 'lg';
+export type ButtonSize = 'sm' | 'default' | 'lg' | 'xl';
 
 export interface Props {
 	/** Texto del botón */
@@ -17,20 +16,22 @@ export interface Props {
 	rel?: string;
 	/** Solo para <button> */
 	type?: 'button' | 'submit' | 'reset';
-	/** Estilo base del botón */
+	/** Estilo/estructura base. Define colores por defecto que puedes sobreescribir */
 	variant?: ButtonVariant;
-	/** Tono de texto/borde para outline, ghost y link */
-	tone?: ButtonTone;
 	/** Peso tipográfico (default: semibold; medium en link) */
 	weight?: ButtonWeight;
 	size?: ButtonSize;
 	radius?: ButtonRadius;
+	/** Clases Tailwind del color de texto (ej. "text-white"). Sobreescribe el preset del variant */
+	textColor?: string;
+	/** Clases Tailwind del color de fondo (ej. "bg-primary hover:bg-primary/90"). Sobreescribe el preset */
+	bgColor?: string;
+	/** Clases Tailwind del color del borde (ej. "border-primary/40 hover:border-primary"). Sobreescribe el preset */
+	borderColor?: string;
+	/** Clases Tailwind del trazo del subrayado (variant="link"); por defecto usa textColor */
+	underlineColor?: string;
 	/** Para variant="link": subraya el texto con UnderlineStroke */
 	underline?: boolean;
-	/** Clase de color del trazo del subrayado */
-	underlineColor?: string;
-	/** Clase de color del texto para link/ghost/outline (sobreescribe tone) */
-	linkColor?: string;
 	class?: string;
 	disabled?: boolean;
 	ariaLabel?: string;
@@ -49,13 +50,14 @@ const {
 	rel,
 	type = 'button',
 	variant = 'primary',
-	tone = 'primary',
 	weight,
 	size = 'default',
 	radius = 'full',
-	underline = false,
+	textColor,
+	bgColor,
+	borderColor,
 	underlineColor,
-	linkColor,
+	underline = false,
 	class: extraClass = '',
 	disabled = false,
 	ariaLabel,
@@ -63,48 +65,36 @@ const {
 	attrs,
 } = Astro.props;
 
-const filledVariants: Record<Exclude<ButtonVariant, 'outline' | 'ghost' | 'link'>, string> = {
-	primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-	secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
-	tertiary: 'bg-tertiary text-neutral-900 hover:bg-tertiary/90',
-	white: 'bg-white text-neutral-900 hover:bg-neutral-100',
-	foreground: 'bg-primary-foreground text-primary hover:bg-primary-foreground/90',
-};
+interface VariantPreset {
+	base: string;
+	bg: string;
+	text: string;
+	border: string;
+}
 
-const textTones: Record<ButtonTone, string> = {
-	primary: 'text-primary',
-	secondary: 'text-secondary',
-	tertiary: 'text-neutral-800',
-	neutral: 'text-neutral-700',
-	white: 'text-white',
-};
-
-const borderTones: Record<ButtonTone, string> = {
-	primary: 'border-primary/40 hover:border-primary',
-	secondary: 'border-secondary/50 hover:border-secondary',
-	tertiary: 'border-neutral-300 hover:border-neutral-500',
-	neutral: 'border-neutral-300 hover:border-neutral-500',
-	white: 'border-white/70 hover:border-white',
-};
-
-const tintTones: Record<ButtonTone, string> = {
-	primary: 'hover:bg-primary/5',
-	secondary: 'hover:bg-secondary/5',
-	tertiary: 'hover:bg-neutral-100',
-	neutral: 'hover:bg-neutral-100',
-	white: 'hover:bg-white/10',
+const variantPresets: Record<ButtonVariant, VariantPreset> = {
+	primary:   { base: '',                     bg: 'bg-primary hover:bg-primary/90',                  text: 'text-primary-foreground', border: '' },
+	secondary: { base: '',                     bg: 'bg-secondary hover:bg-secondary/90',              text: 'text-secondary-foreground', border: '' },
+	tertiary:  { base: '',                     bg: 'bg-tertiary hover:bg-tertiary/90',                text: 'text-neutral-900',       border: '' },
+	white:     { base: '',                     bg: 'bg-white hover:bg-neutral-100',                  text: 'text-neutral-900',       border: '' },
+	foreground:{ base: '',                     bg: 'bg-primary-foreground hover:bg-primary-foreground/90', text: 'text-primary',     border: '' },
+	outline:   { base: '',                     bg: 'hover:bg-primary/5',                             text: 'text-primary',           border: 'border border-primary/40 hover:border-primary' },
+	ghost:     { base: 'hover:opacity-70',     bg: '',                                               text: 'text-primary',           border: '' },
+	link:      { base: 'transition-opacity hover:opacity-70', bg: '',                                text: 'text-primary',           border: '' },
 };
 
 const sizes: Record<ButtonSize, string> = {
 	sm: 'px-5 py-2.5 text-sm',
 	default: 'px-8 py-3.5 text-base',
 	lg: 'px-10 py-4 text-lg',
+	xl: 'px-12 py-5 text-xl',
 };
 
 const linkSizes: Record<ButtonSize, string> = {
 	sm: 'text-sm',
 	default: 'text-base',
 	lg: 'text-lg',
+	xl: 'text-xl',
 };
 
 const radii: Record<ButtonRadius, string> = {
@@ -120,7 +110,19 @@ const weights: Record<ButtonWeight, string> = {
 	bold: 'font-bold',
 };
 
-const textColor = linkColor ?? textTones[tone];
+const preset = variantPresets[variant] ?? variantPresets.primary;
+const resolvedText = textColor ?? preset.text;
+const resolvedBg   = bgColor   ?? preset.bg;
+const resolvedBorder = borderColor
+	? `${preset.border.includes('border') ? '' : 'border '}${borderColor}`
+	: preset.border;
+
+/** Los botones con fondo de color suben una talla (sm → default → lg → xl) */
+const filledVariants = new Set<ButtonVariant>(['primary', 'secondary', 'tertiary', 'white', 'foreground']);
+const hasFilledBg = filledVariants.has(variant) || Boolean(bgColor);
+const sizeUp: Record<ButtonSize, ButtonSize> = { sm: 'default', default: 'lg', lg: 'xl', xl: 'xl' };
+const effectiveSize = hasFilledBg ? sizeUp[size] : size;
+
 const weightClass = weight ? weights[weight] : variant === 'link' ? weights.medium : weights.semibold;
 const hasTextSize = /text-(xs|sm|base|lg|xl|2xl)/.test(extraClass);
 const linkSizeClass = hasTextSize ? '' : linkSizes[size];
@@ -129,24 +131,13 @@ const focusClass = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus
 
 let cls: string;
 if (variant === 'link') {
-	cls = `${focusClass} inline-flex items-center justify-center uppercase transition-opacity hover:opacity-70 ${linkSizeClass} ${weightClass} ${textColor}`;
+	cls = `${focusClass} inline-flex items-center justify-center ${preset.base} ${linkSizeClass} ${weightClass} ${resolvedText}`;
 } else {
-	let styleClass: string;
-	switch (variant) {
-		case 'outline':
-			styleClass = `border ${borderTones[tone]} ${tintTones[tone]} ${textColor}`;
-			break;
-		case 'ghost':
-			styleClass = `${textColor} hover:opacity-70`;
-			break;
-		default:
-			styleClass = filledVariants[variant as Exclude<ButtonVariant, 'outline' | 'ghost' | 'link'>] ?? filledVariants.primary;
-	}
-	cls = `${focusClass} inline-flex items-center justify-center ${sizes[size]} ${radii[radius]} ${weightClass} ${styleClass}`;
+	cls = `${focusClass} inline-flex items-center justify-center transition-colors duration-200 ease-out ${sizes[effectiveSize]} ${radii[radius]} ${weightClass} ${resolvedBorder} ${resolvedBg} ${resolvedText} ${preset.base}`;
 }
 
 if (disabled) cls += ' cursor-not-allowed opacity-60';
-cls = `${cls} ${extraClass}`.trim();
+cls = `${cls} ${extraClass} uppercase`.trim();
 
 const common = {
 	...attrs,
@@ -160,7 +151,7 @@ const common = {
 	href && (
 		<a href={href} target={target} rel={rel} {...common}>
 			{variant === 'link' && underline ? (
-				<UnderlineStroke color={underlineColor ?? textColor}>{label}</UnderlineStroke>
+				<UnderlineStroke color={underlineColor ?? resolvedText}>{label}</UnderlineStroke>
 			) : (
 				label
 			)}
@@ -171,7 +162,7 @@ const common = {
 	!href && (
 		<button type={type} disabled={disabled} {...common}>
 			{variant === 'link' && underline ? (
-				<UnderlineStroke color={underlineColor ?? textColor}>{label}</UnderlineStroke>
+				<UnderlineStroke color={underlineColor ?? resolvedText}>{label}</UnderlineStroke>
 			) : (
 				label
 			)}

@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import SectionHero from '../components/sections/hero/SectionHero.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
 import SectionHeading from '../components/titles/SectionHeading.astro';
-import SplitContentSection from '../components/sections/content/SplitContentSection.astro';
 import ContentListSection from '../components/sections/content/ContentListSection.astro';
 import LeadFormDialog from '../components/sections/forms/LeadFormDialog.astro';
 import Button from '../components/buttons/Button.astro';
@@ -15,8 +14,6 @@ import {
 	corporateReasons,
 } from '../data/eventos-corporativos';
 import { CORPORATE_EVENTS_WHATSAPP_URL, INFO_EMAIL } from '../lib/lead-links';
-
-import eventImage from '../assets/gallery/juegos-6.jpg?url';
 
 const corporateDialogId = 'corporate-proposal-dialog';
 const corporateFields = [
@@ -41,7 +38,7 @@ const corporateFields = [
 		highlight="empresa"
 		subtitle="Diseñamos experiencias para el día de tu empresa: fiesta de fin de año, día del niño, jornada familiar o cualquier celebración corporativa — con el mismo equipo que hace vibrar cada plan vacacional."
 		buttons={[
-			{ label: 'Cuéntanos qué necesitas', href: `#${corporateDialogId}`, variant: 'primary', dialogId: corporateDialogId },
+			{ label: 'Cuéntanos qué necesitas', href: `#${corporateDialogId}`, variant: 'white', dialogId: corporateDialogId, textColor: 'text-primary'  },
 		]}
 		disfuminar="bottom"
 	/>
@@ -50,8 +47,8 @@ const corporateFields = [
 		id="por-que-cappi"
 		eyebrow="POR QUÉ CAPPI"
 		title="Por qué elegir a Cappi Xtremo"
+
 		items={corporateReasons}
-		columns={2}
 	/>
 
 	<SectionPattern top="base-pattern" />
@@ -60,35 +57,36 @@ const corporateFields = [
 		eyebrow="NUESTROS PRINCIPIOS"
 		title="Nuestros principios"
 		items={corporatePrinciples}
-		columns={2}
-		variant="principles"
 		tone="dark"
 	/>
+	<SectionPattern bottom="base-pattern" />
 
-	<SplitContentSection
-		id="hablemos"
-		eyebrow="HABLEMOS"
-		title="Cuéntanos qué necesita tu empresa"
-		body="Cuéntanos qué estás organizando y te ayudaremos a diseñar una propuesta clara, divertida y adecuada para tu evento."
-		items={corporateConversation}
-		ctaLabel="Cuéntanos qué necesita tu equipo"
-		dialogId={corporateDialogId}
-		image={eventImage}
-		imageAlt="Niña disfrutando una actividad deportiva en un evento de Cappi Xtremo"
-		tone="dark"
-	/>
-
-	<section id="solicitar-propuesta" class="py-16 md:py-24">
+	<section id="hablemos" class="py-16 md:py-24">
 		<div class="container">
 			<div class="mx-auto max-w-3xl text-center">
-				<SectionHeading eyebrow="SOLICITAR PROPUESTA" title="Hablemos de tu evento" intro="Completa el formulario y enviaremos tu solicitud a nuestro equipo para continuar la conversación por WhatsApp." />
+				<SectionHeading
+					eyebrow="HABLEMOS"
+					title="Cuéntanos qué necesita tu empresa"
+					intro="Cuéntanos qué estás organizando y te ayudaremos a diseñar una propuesta clara, divertida y adecuada para tu evento."
+				/>
+				<ul class="mx-auto mt-8 max-w-md space-y-3 text-left">
+					{corporateConversation.map((item) => (
+						<li class="flex items-start gap-3 text-neutral-700">
+							<span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-secondary"></span>
+							<span>
+								{item.title}
+							</span>
+						</li>
+					))}
+				</ul>
 				<div class="mt-8 flex justify-center">
-					<Button label="Solicitar propuesta" href={`#${corporateDialogId}`} variant="primary" dataDialogTrigger={corporateDialogId} />
+					<Button label="Cuéntanos qué necesita tu equipo" href={`#${corporateDialogId}`} variant="primary" dataDialogTrigger={corporateDialogId} />
 				</div>
 			</div>
 		</div>
 	</section>
 
+	
 	<LeadFormDialog
 		id={corporateDialogId}
 		eyebrow="PROPUESTA CORPORATIVA"

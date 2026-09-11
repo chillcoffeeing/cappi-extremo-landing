@@ -6,11 +6,9 @@ import ImageAccent from '../components/astro/ImageAccent.astro';
 import SectionPattern from '../components/astro/SectionPattern.astro';
 import CtaSection from '../components/sections/cta/CtaSection.astro';
 
-import heroBg from '../assets/gallery/fiesta-3.jpg?url';
-import historiaImg from '../assets/gallery/all/horizontal-images/IMG_2781.jpg?url';
-import coordinadoraImg from '../assets/gallery/all/horizontal-images/IMG_2697.jpg?url';
-import teamFullView from '../assets/gallery/team-full-view.jpg?url';
-import ctaBg from '../assets/gallery/fiesta-3.jpg?url';
+import heroBg from '../assets/gallery/motos-full-view-2.webp?url';
+import historiaImg from '../assets/gallery/all/horizontal-images/IMG_2781.webp?url';
+import teamFullView from '../assets/gallery/team-full-view.webp?url';
 ---
 
 <Layout
@@ -141,18 +139,17 @@ import ctaBg from '../assets/gallery/fiesta-3.jpg?url';
 	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
 		<div class="container">
 			<SectionHeading
-				title="Un espacio para "
-				underline="crecer y soñar"
-				color="secondary"
-				intro="Cappixtremo une la experiencia del desarrollo infantil con la calidez del amor materno, para que cada niño juegue, conecte y construya amistades para toda la vida."
+			title="Un espacio para "
+			underline="crecer y soñar"
+			color="secondary"
+			intro="Cappixtremo une la experiencia del desarrollo infantil con la calidez del amor materno, para que cada niño juegue, conecte y construya amistades para toda la vida."
 			/>
 		</div>
 	</section>
+	<SectionPattern bottom="base-pattern" />
 
 	<CtaSection
-		variant="image"
-		disfuminar="bottom"
-		bgImage={ctaBg}
+		variant="light"
 		title="Vive la experiencia "
 		underline="Cappixtremo"
 		titleAfter=" con tu hijo"

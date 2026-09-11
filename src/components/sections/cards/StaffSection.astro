@@ -6,17 +6,19 @@ export interface Props {
 	eyebrow?: string;
 	title: string;
 	underline?: string;
+	/** Color del trazo y acentos del heading */
+	color?: 'primary' | 'secondary';
 	intro?: string;
 	image: string;
 	imageAlt: string;
 }
 
-const { eyebrow = 'Nuestro staff', title, underline, intro, image, imageAlt } = Astro.props;
+const { eyebrow = 'Nuestro staff', title, underline, color = 'secondary', intro, image, imageAlt } = Astro.props;
 ---
 
 <section class="py-12 md:py-20">
 	<div class="container">
-		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} intro={intro} />
+		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} color={color} intro={intro} />
 
 		<div data-motion="fade-up" class="mt-12 flex justify-center">
 <Button label="Conocer más" href="/nuestro-staff" variant="primary" />

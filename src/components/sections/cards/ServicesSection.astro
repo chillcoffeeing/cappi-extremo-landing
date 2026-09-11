@@ -22,6 +22,8 @@ export interface Props {
 	eyebrow?: string;
 	title: string;
 	underline?: string;
+	/** Color del trazo y acentos del heading */
+	color?: 'primary' | 'secondary';
 	intro?: string;
 	service: Service;
 	/** Destino de todos los CTAs de cada servicio */
@@ -30,12 +32,12 @@ export interface Props {
 	ctaRel?: string;
 }
 
-const { eyebrow = 'Celebra con Cappi', title, underline, intro, service, ctaHref = '/contacto', ctaTarget, ctaRel } = Astro.props;
+const { eyebrow = 'Celebra con Cappi', title, underline, color = 'secondary', intro, service, ctaHref = '/contacto', ctaTarget, ctaRel } = Astro.props;
 ---
 
 <section class="py-16 md:py-24">
 	<div class="container">
-		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} intro={intro} />
+		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} color={color} intro={intro} />
 
 		<div class="md:flex md:items-center mt-10">
 			<div class="relative md:mr-8 md:w-1/2 md:flex-none overflow-hidden">

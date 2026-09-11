@@ -1,6 +1,6 @@
 ---
 import Button from '../../buttons/Button.astro';
-import type { ButtonVariant } from '../../buttons/Button.astro';
+import type { ButtonProps } from '../../buttons/Button.astro';
 import UnderlineStroke from '../../titles/UnderlineStroke.astro';
 import { Icon } from 'astro-icon/components';
 
@@ -16,6 +16,8 @@ export interface Props {
 	bgGradient?: string;
 	/** Video de fondo opcional (supera la imagen) */
 	bgVideo?: string;
+	/** Posición del video de fondo (ej. "center", "top", "bottom") */
+	bgMediaPosition?: 'center' | 'top' | 'bottom';
 	/** Poster para el video */
 	bgVideoPoster?: string;
 	/** Color de fondo */
@@ -35,7 +37,7 @@ export interface Props {
 	/** Píldora informativa bajo el subtítulo (ej. "100% personalizable") */
 	badge?: string;
 	/** Botones CTA */
-	buttons?: Array<{ label: string; href?: string; variant?: Exclude<ButtonVariant, 'link'>; dialogId?: string; target?: string; rel?: string }>;
+	buttons?: Array<ButtonProps & { dialogId?: string; }>;
 	/** Migas de pan opcionales (ej. detalle de plan) */
 	crumbs?: Crumb[];
 	/** Hero de pantalla completa (home) en vez de banda con padding */
@@ -49,6 +51,7 @@ export interface Props {
 const {
 	bgImage,
 	bgGradient,
+	bgMediaPosition = 'center',
 	bgVideo,
 	bgVideoPoster,
 	bgColor,
@@ -68,37 +71,36 @@ const {
 
 const innerClass = [
 	'flex flex-col items-center justify-center text-center',
-	'-translate-y-[60px]',
-	dock ? 'py-10' : '',
+	'-translate-y-4 sm:-translate-y-6 lg:-translate-y-[60px]',
+	dock ? 'py-4 lg:py-10' : '',
 ].filter(Boolean).join(' ');
 
 const contentClass = [
-	'mx-auto flex h-[680px] w-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8',
-	dock ? '' : '',
+	'mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8',
 ].filter(Boolean).join(' ');
 
 const titleClass = [
-	'font-bold tracking-tight text-white',
-	titleMargin && 'mt-4',
+	'text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-tight text-white',
+	titleMargin && 'mt-2 lg:mt-4',
 	dock ? 'max-w-4xl' : 'max-w-3xl',
 ].filter(Boolean).join(' ');
 
-const ctasClass = dock
-	? 'mt-8 flex flex-col items-center gap-4 sm:flex-row'
-	: 'mt-10 flex flex-col items-center gap-4 sm:flex-row';
+const ctasClass = 'mt-6 sm:mt-8 flex flex-col items-center gap-3 sm:gap-4 sm:flex-row';
 
 const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar === 'bottom' ? 'diffuminar-bottom' : '';
+
+const bgMediaPositionClass = bgMediaPosition === 'top' ? 'object-top' : bgMediaPosition === 'bottom' ? 'object-bottom' : 'object-center';
 ---
 
-<div class="relative isolate z-1 h-[680px] overflow-hidden" class:list={[bgColor]}>
+<div class="relative isolate z-1 flex flex-col justify-center min-h-[320px] sm:min-h-[416px] lg:min-h-[685px] xl:min-h-[785px] 2xl:min-h-[992px] overflow-hidden" class:list={[bgColor]}>
 	{bgGradient ? (
 		<div aria-hidden="true" class="absolute inset-0 -z-10 h-full w-full" class:list={[bgGradient, disfuminarClass]} />
 	) : bgVideo ? (
-			<video poster={bgVideoPoster} preload="none" autoplay muted loop class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50" class:list={[disfuminarClass]}>
+			<video poster={bgVideoPoster} preload="none" autoplay muted loop class=" absolute inset-0 -z-10 h-full w-full object-cover brightness-50" class:list={[disfuminarClass, bgMediaPositionClass]}>
 				<source src={bgVideo} type="video/mp4" />
 			</video>
 		) : (
-			<img src={bgImage} alt="" aria-hidden="true" loading="eager" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50" class:list={[disfuminarClass]} />
+			<img src={bgImage} alt="" aria-hidden="true" loading="eager" fetchpriority="high" class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50" class:list={[disfuminarClass, bgMediaPositionClass]} />
 		)
 	}
 
@@ -134,18 +136,18 @@ const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar ===
 
 			<h1 data-motion="fade-up" class={titleClass}>
 				{title}
-				{highlight && <UnderlineStroke color="text-primary">{highlight}</UnderlineStroke>}
+				{highlight && <UnderlineStroke color="text-secondary">{highlight}</UnderlineStroke>}
 				{titleAfter}
 			</h1>
 
 			{subtitle && (
-				<p data-motion="fade-up" class="mt-6 max-w-2xl font-normal leading-relaxed text-white">
+				<p data-motion="fade-up" class="mt-4 sm:mt-6 max-w-2xl font-normal leading-relaxed text-white">
 					{subtitle}
 				</p>
 			)}
 
 			{badge && (
-				<div data-motion="fade-up" class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase text-primary-foreground">
+				<div data-motion="fade-up" class="mt-6 sm:mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase text-primary-foreground">
 					<Icon name="lucide:sparkle" class="size-5" aria-hidden="true" />
 					{badge}
 				</div>
@@ -154,7 +156,7 @@ const disfuminarClass = disfuminar === 'top' ? 'diffuminar-top' : disfuminar ===
 			{buttons.length > 0 && (
 				<div data-motion="fade-up" class={ctasClass}>
 					{buttons.map((button) => (
-						<Button label={button.label} href={button.href} variant={button.variant ?? 'primary'} target={button.target} rel={button.rel} dataDialogTrigger={button.dialogId} />
+						<Button label={button.label} href={button.href} variant={button.variant ?? 'primary'} target={button.target} rel={button.rel} dataDialogTrigger={button.dialogId} textColor={button.textColor} bgColor={button.bgColor} borderColor={button.borderColor} />
 					))}
 				</div>
 			)}

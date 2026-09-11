@@ -22,11 +22,11 @@ export const faqs: Faq[] = [
   },
   {
     question: `¿Hay transporte?`,
-    answer: `[Pendiente confirmar con Cappi]`,
+    answer: `Si hay transporte con horarios establecidos, tanto ida como de retorno.`,
   },
   {
     question: `¿Dónde están ubicados?`,
-    answer: `[Pendiente: dirección real de la sede - mientras tanto puedes ver el mapa en nuestra página de Contacto]`,
+    answer: `Ubicación: Guanare estado Portuguesa.`,
   },
   {
     question: `¿Qué actividades hacen los participantes?`,

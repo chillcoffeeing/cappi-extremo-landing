@@ -13,8 +13,8 @@ import {
 } from '../data/staff';
 import { EMAIL_URL } from '../lib/social';
 
-import heroBg from '../assets/gallery/team-full-view.jpg?url';
-import ctaBg from '../assets/gallery/juegos-5.jpg?url';
+import heroBg from '../assets/gallery/team-full-view.webp?url';
+import ctaBg from '../assets/gallery/juegos-5.webp?url';
 
 interface StaffApplicationField {
 	id: string;
@@ -46,6 +46,7 @@ const textareaClass = `${inputClass} placeholder-neutral-400`;
 >
 	<SectionHero
 		bgImage={heroBg}
+		bgMediaPosition='top'																																
 		eyebrow={recruitmentCopy.eyebrow}
 		title="¿Quieres ser parte del "
 		highlight="Staff"
@@ -131,7 +132,7 @@ const textareaClass = `${inputClass} placeholder-neutral-400`;
 			<TurnstileField id="staff-application-turnstile" />
 		
 			<div class="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
-				<Button type="button" variant="ghost" tone="primary" size="sm" label="Cancelar" class="min-h-11" attrs={{ 'data-modal-close': '' }} />
+				<Button type="button" variant="ghost" size="sm" label="Cancelar" class="min-h-11" attrs={{ 'data-modal-close': '' }} />
 				<Button type="submit" variant="primary" size="sm" label="Enviar postulación" class="min-h-11" />
 			</div>
 		</form>

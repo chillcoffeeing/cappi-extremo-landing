@@ -8,12 +8,15 @@ export interface Cta {
 	variant?: ButtonVariant;
 	size?: ButtonProps['size'];
 	weight?: ButtonProps['weight'];
-	tone?: ButtonProps['tone'];
 	radius?: ButtonProps['radius'];
+	/** Clase de color del texto (ej. "text-white") */
+	textColor?: string;
+	/** Clase de color del fondo (ej. "bg-primary hover:bg-primary/90") */
+	bgColor?: string;
+	/** Clase de color del borde (ej. "border-white/40 hover:border-white") */
+	borderColor?: string;
 	underline?: boolean;
 	underlineColor?: string;
-	/** Color del texto para variant "link" */
-	linkColor?: string;
 	target?: string;
 	rel?: string;
 	attrs?: ButtonProps['attrs'];
@@ -39,11 +42,12 @@ const { ctas, class: containerClass = '', size = 'default' } = Astro.props;
 			variant={cta.variant ?? 'white'}
 			size={size ?? cta.size}
 			weight={cta.weight}
-			tone={cta.tone}
 			radius={cta.radius}
+			textColor={cta.textColor}
+			bgColor={cta.bgColor}
+			borderColor={cta.borderColor}
 			underline={cta.underline}
 			underlineColor={cta.underlineColor}
-			linkColor={cta.linkColor}
 			target={cta.target}
 			rel={cta.rel}
 			attrs={cta.attrs}

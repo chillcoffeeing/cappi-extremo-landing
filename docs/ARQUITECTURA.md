@@ -95,7 +95,7 @@ import SectionHero from '../components/sections/hero/SectionHero.astro';
 // …demás secciones de la vista
 import type { MiCard } from '../components/sections/cards/MiSection.astro';
 
-import heroBg from '../assets/gallery/fiesta-3.jpg?url';
+import heroBg from '../assets/gallery/fiesta-3.webp?url';
 
 const cards: MiCard[] = [ /* datos estáticos en el frontmatter */ ];
 ---
