@@ -122,7 +122,7 @@ const cards: MiCard[] = [ /* datos estáticos en el frontmatter */ ];
 
 - **Datos en el frontmatter, no en la vista**: se declaran `interface Props`, se importan los `type` de los componentes y se construyen los arrays (cards, items, sesiones) arriba del markup.
 - Imágenes: `import img from '../assets/…/foto.jpg?url'` para background/`<img>` simple; **`astro:assets` `<Image>`** (`import { Image } from 'astro:assets'`) para imágenes optimizadas (planes, servicios, programas).
-- Galería masiva: `import.meta.glob('../assets/gallery/all/**/*.{jpg,jpeg,png,webp,avif,gif}', { eager: true, query: '?url', import: 'default' })` (patrón usado en `planes-vacacionales.astro` y `programas-especiales.astro`).
+- Galería masiva: `import.meta.glob('../assets/gallery/**/*.{jpg,jpeg,png,webp,avif,gif}', { eager: true, query: '?url', import: 'default' })` (patrón usado en `celebra-con-cappi.astro` y `cappi-social.astro`). Incluye todas las imágenes de `/assets/gallery`, incluidas las de la raíz.
 
 ### 3.2 Anatomía de una sección/vista
 

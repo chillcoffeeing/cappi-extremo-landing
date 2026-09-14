@@ -25,23 +25,6 @@ import juegos1 from '../assets/gallery/juegos-1.webp?url';
 import teamFullView from '../assets/gallery/team-full-view.webp?url';
 import ctaBg from '../assets/gallery/all/horizontal-images/IMG_2697.webp?url';
 
-import h1 from '../assets/gallery/all/horizontal-images/IMG_2878.webp?url';
-import h2 from '../assets/gallery/all/horizontal-images/IMG_4595.webp?url';
-import h3 from '../assets/gallery/all/horizontal-images/IMG_4593.webp?url';
-import h4 from '../assets/gallery/all/horizontal-images/IMG_4578.webp?url';
-import h5 from '../assets/gallery/all/horizontal-images/IMG_4576.webp?url';
-import h6 from '../assets/gallery/all/horizontal-images/IMG_4565.webp?url';
-import h7 from '../assets/gallery/all/horizontal-images/IMG_4213.webp?url';
-import h8 from '../assets/gallery/all/horizontal-images/IMG_4198.webp?url';
-import v1 from '../assets/gallery/all/vertical-images/IMG_4749.webp?url';
-import v2 from '../assets/gallery/all/vertical-images/IMG_4157.webp?url';
-import v3 from '../assets/gallery/all/vertical-images/IMG_4152.webp?url';
-import v4 from '../assets/gallery/all/vertical-images/IMG_4143.webp?url';
-import v5 from '../assets/gallery/all/vertical-images/IMG_4142.webp?url';
-import v6 from '../assets/gallery/all/vertical-images/IMG_4138.webp?url';
-import v7 from '../assets/gallery/all/vertical-images/IMG_3826.webp?url';
-import v8 from '../assets/gallery/all/vertical-images/IMG_3526.webp?url';
-
 import activity1 from '../assets/gallery/padel-fest.webp?url';
 import activity2 from '../assets/gallery/paseo-a-caballo.webp?url';
 import activity3 from '../assets/gallery/juegos-6.webp?url';
@@ -54,7 +37,7 @@ import activity9 from '../assets/gallery/rusticos.webp?url';
 
 
 
-const NEXT_CAMP_START = '2027-06-15T09:00:00-04:00';
+const NEXT_CAMP_START = '2026-12-14T08:00:00-04:00';
 
 const serviceCards: ServiceCard[] = [
 	{ image: motos1, title: 'Planes vacacionales', cta: 'Ver planes vacacionales', href: '/plan-vacacional' },
@@ -81,27 +64,19 @@ const activitiesCards: ActivityGridItem[] = [
 	{ image: activity9, title: 'Rústicos' },
 ];
 
-const galleryRow1: GalleryImage[] = [
-	{ src: h1, alt: 'Actividades al aire libre en Cappi Xtremo' },
-	{ src: h2, alt: 'Grupo de niños disfrutando aventuras' },
-	{ src: h3, alt: 'Deportes y juegos extremos' },
-	{ src: h4, alt: 'Experiencia vacacional inolvidable' },
-	{ src: h5, alt: 'Niños en actividad recreativa' },
-	{ src: h6, alt: 'Circuito de aventura en el parque' },
-	{ src: h7, alt: 'Aventura y diversión para todos' },
-	{ src: h8, alt: 'Momentos de diversión en Cappi' },
-];
+const galleryModules = import.meta.glob(
+	'../assets/gallery/**/*.{jpg,jpeg,png,webp,avif,gif}',
+	{ eager: true, query: '?url', import: 'default' },
+) as Record<string, string>;
 
-const galleryRow2: GalleryImage[] = [
-	{ src: v1, alt: 'Niño conduciendo cuatriciclo' },
-	{ src: v2, alt: 'Actividades deportivas en equipo' },
-	{ src: v3, alt: 'Juegos de agua y aventura' },
-	{ src: v4, alt: 'Exploración y descubrimiento' },
-	{ src: v5, alt: 'Nuevos amigos en el plan vacacional' },
-	{ src: v6, alt: 'Talleres creativos al aire libre' },
-	{ src: v7, alt: 'Circuitos de obstáculos' },
-	{ src: v8, alt: 'Energía y diversión sin parar' },
-];
+const allGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(([, src]) => ({
+	src,
+	alt: 'Aventuras en Cappi Xtremo',
+}));
+
+const randomGalleryImages = [...allGalleryImages].sort(() => Math.random() - 0.5);
+const galleryRow1: GalleryImage[] = randomGalleryImages.slice(0, 15);
+const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
 ---
 
 <Layout>
@@ -110,10 +85,10 @@ const galleryRow2: GalleryImage[] = [
 		bgVideo={heroVideoMp4Bg}
 		bgVideoPoster={heroPosterBg}
 		eyebrow="Cappi Xtremo"
-		title="Conectando sonrisas creamos "
+		title="Conectando sonrisas, <hr class='border-0'> creamos "
 		highlight="familia"
 		disfuminar='bottom'
-		subtitle="Deportes, amigos, aventuras y risas infinitas. Unas vacaciones que va a recordar para siempre."
+		subtitle="<p>Deportes, amigos, aventuras y risas infinitas.</p> <hr class='border-0'> <p>Unas vacaciones que va a recordar para siempre.</p>"
 		buttons={[
 			{ label: 'Ver fechas y plan vacacional', href: '/plan-vacacional', variant: 'primary' },
 			{ label: 'Únete ahora', href: '#', variant: 'white' },
@@ -125,7 +100,7 @@ const galleryRow2: GalleryImage[] = [
 	<PhilosophySection
 		title="Nuestra "
 		underline="filosofía"
-		intro="combina la emoción de explorar con un entorno cuidado y positivo para todos. Basamos nuestra experiencia en cuatro pilares esenciales"
+		intro="Combina la emoción de explorar con un entorno cuidado y positivo para todos. Basamos nuestra experiencia en cuatro pilares esenciales"
 		items={philosophyItems}
 		cta={{ label: 'Conoce nuestros planes vacacionales', href: '/plan-vacacional' }}
 	/>

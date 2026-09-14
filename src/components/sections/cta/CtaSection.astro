@@ -78,6 +78,9 @@ const ctas = buttons.map((b) => ({
 					{underline && <UnderlineStroke color={underlineColor}>{underline}</UnderlineStroke>}
 					{titleAfter}
 				</h2>
+				{intro && (
+					<p data-motion="fade-up" class="mx-auto mt-6 max-w-[700px] text-center leading-relaxed text-white/85">{intro}</p>
+				)}
 				<CtaList ctas={ctas} class="mt-10" />
 			</div>
 		</section>

@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SectionHero from '../components/sections/hero/SectionHero.astro';
 import ContactSection from '../components/sections/contact/ContactSection.astro';
 import type { ScheduleEntry } from '../components/sections/contact/ContactSection.astro';
 
@@ -15,16 +14,26 @@ const schedule: ScheduleEntry[] = [
 
 <Layout title="Contacto - Cappi Extremo" description="¿Tienes preguntas? Contáctanos por WhatsApp, correo o llena nuestro formulario. Estamos para ayudarte.">
 
-	<SectionHero
-		bgImage={heroBg}
-		eyebrow="Cappi "
-		eyebrowHighlight="Xtremo"
-		title="¿Tienes "
-		highlight="preguntas"
-		titleAfter="? Estamos para ayudarte"
-		subtitle="Escríbenos por WhatsApp, correo o llena el formulario y te respondemos lo antes posible."
-		disfuminar="bottom"
-	/>
+	<section class="relative z-10 isolate flex flex-col justify-center overflow-hidden py-16 md:py-20">
+		<img
+			src={heroBg}
+			alt=""
+			aria-hidden="true"
+			loading="eager"
+			fetchpriority="high"
+			class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
+			class:list={["diffuminar-bottom"]}
+		/>
+		<div class="mx-auto w-full max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+			<p data-motion="fade-up" class="font-semibold uppercase tracking-wide text-white">Cappi <span>Xtremo</span></p>
+			<h1 data-motion="fade-up" class="mx-auto mt-3 max-w-3xl text-2xl font-bold tracking-tight text-white sm:text-3xl lg:max-w-2xl lg:text-4xl">
+				¿Tienes preguntas? Estamos para ayudarte
+			</h1>
+			<p data-motion="fade-up" class="mx-auto mt-4 max-w-2xl font-normal leading-relaxed text-white">
+				Escríbenos por WhatsApp, correo o llena el formulario y te respondemos lo antes posible.
+			</p>
+		</div>
+	</section>
 
 	<ContactSection schedule={schedule} />
 

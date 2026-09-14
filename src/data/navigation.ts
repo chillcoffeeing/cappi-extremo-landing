@@ -87,6 +87,18 @@ export const navigation: NavigationItem[] = [
           },
         ],
       },
+      {
+        id: "programas-labor-social",
+        label: "LABOR SOCIAL",
+        items: [
+          {
+            kind: "link",
+            id: "labor-social",
+            label: "Cappi Social",
+            href: "/cappi-social",
+          },
+        ],
+      },
     ],
   },
   {

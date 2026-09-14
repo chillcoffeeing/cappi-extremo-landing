@@ -24,7 +24,7 @@ const steps: Step[] = [
 ];
 
 const galleryModules = import.meta.glob(
-	'../assets/gallery/all/**/*.{jpg,jpeg,png,webp,avif,gif}',
+	'../assets/gallery/**/*.{jpg,jpeg,png,webp,avif,gif}',
 	{ eager: true, query: '?url', import: 'default' },
 ) as Record<string, string>;
 
@@ -33,8 +33,9 @@ const allGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(([, 
 	alt: 'Experiencia Cappi Xtremo',
 }));
 
-const galleryRow1: GalleryImage[] = allGalleryImages.slice(0, Math.ceil(allGalleryImages.length / 2));
-const galleryRow2: GalleryImage[] = allGalleryImages.slice(Math.ceil(allGalleryImages.length / 2));
+const randomGalleryImages = [...allGalleryImages].sort(() => Math.random() - 0.5);
+const galleryRow1: GalleryImage[] = randomGalleryImages.slice(0, 15);
+const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
 ---
 
 <Layout title="Celebra con Cappi - Cappi Extremo" description="Fiestas, eventos y animaciones a la medida de tu celebración con Cappi Xtremo.">

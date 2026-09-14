@@ -26,13 +26,13 @@ export interface Props {
 	eyebrow?: string;
 	/** Fragmento del eyebrow */
 	eyebrowHighlight?: string;
-	/** Título h1 */
+	/** Título h1 (acepta HTML, ej. para controlar saltos de línea con <br> o <span class="block">) */
 	title: string;
-	/** Fragmento del título */
+	/** Fragmento del título que recibe el trazo subrayado (mantiene soporte de UnderlineStroke) */
 	highlight?: string;
-	/** Texto posterior al fragmento resaltado */
+	/** Texto posterior al fragmento resaltado (acepta HTML) */
 	titleAfter?: string;
-	/** Subtítulo */
+	/** Subtítulo (acepta HTML) */
 	subtitle?: string;
 	/** Píldora informativa bajo el subtítulo (ej. "100% personalizable") */
 	badge?: string;
@@ -80,7 +80,7 @@ const contentClass = [
 ].filter(Boolean).join(' ');
 
 const titleClass = [
-	'text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-tight text-white',
+	'text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-tight text-white pre-line',
 	titleMargin && 'mt-2 lg:mt-4',
 	dock ? 'max-w-4xl' : 'max-w-3xl',
 ].filter(Boolean).join(' ');
@@ -134,16 +134,10 @@ const bgMediaPositionClass = bgMediaPosition === 'top' ? 'object-top' : bgMediaP
 				</p>
 			)}
 
-			<h1 data-motion="fade-up" class={titleClass}>
-				{title}
-				{highlight && <UnderlineStroke color="text-secondary">{highlight}</UnderlineStroke>}
-				{titleAfter}
-			</h1>
+			<h1 data-motion="fade-up" class={titleClass}><span set:html={title}></span>{highlight && <UnderlineStroke color="text-secondary">{highlight}</UnderlineStroke>}<span set:html={titleAfter}></span></h1>
 
 			{subtitle && (
-				<p data-motion="fade-up" class="mt-4 sm:mt-6 max-w-2xl font-normal leading-relaxed text-white">
-					{subtitle}
-				</p>
+				<div data-motion="fade-up" class="mt-4 sm:mt-6 max-w-2xl font-normal leading-relaxed text-white" set:html={subtitle}></div>
 			)}
 
 			{badge && (

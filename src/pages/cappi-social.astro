@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import SectionHeading from '../components/titles/SectionHeading.astro';
+import SectionPattern from '../components/astro/SectionPattern.astro';
+import GallerySection from '../components/sections/gallery/GallerySection.astro';
+import FaqSection from '../components/sections/faq/FaqSection.astro';
+import CtaSection from '../components/sections/cta/CtaSection.astro';
+import Button from '../components/buttons/Button.astro';
+import type { GalleryImage } from '../components/sections/gallery/GallerySection.astro';
+import type { FaqItem } from '../components/sections/faq/FaqSection.astro';
+import { WHATSAPP_URL } from '../lib/social';
+import { buildWhatsAppUrl } from '../lib/lead-links';
+import { Icon } from 'astro-icon/components';
+
+import heroBg from '../assets/gallery/motos-full-view-1.webp?url';
+import cardMonetariaBg from '../assets/gallery/all/horizontal-images/IMG_4164.webp?url';
+import cardInsumosBg from '../assets/gallery/all/horizontal-images/IMG_4187.webp?url';
+import ctaBg from '../assets/gallery/all/horizontal-images/IMG_2734.webp?url';
+
+const donateUrl = buildWhatsAppUrl(WHATSAPP_URL, ['Hola, quiero hacer una donación a la labor social de Cappi Xtremo.']);
+const suppliesUrl = buildWhatsAppUrl(WHATSAPP_URL, ['Hola, quiero coordinar la entrega de insumos para la labor social de Cappi Xtremo.']);
+
+const donationCards = [
+	{
+		title: 'Donación monetaria',
+		image: cardMonetariaBg,
+		features: ['Aporta el monto que quieras', 'Zelle, Binance, transferencia o efectivo', '100% se destina a la labor social'],
+		cta: { label: 'Donar ahora', href: donateUrl, target: '_blank', rel: 'noopener noreferrer' },
+	},
+	{
+		title: 'Donación de insumos',
+		image: cardInsumosBg,
+		features: ['Alimentos no perecederos', 'Útiles escolares y deportivos', 'Ropa y calzado en buen estado'],
+		cta: { label: 'Coordinar entrega', href: suppliesUrl, target: '_blank', rel: 'noopener noreferrer' },
+	},
+];
+
+const socialFaqs: FaqItem[] = [
+	{
+		question: '¿Mi donación tiene algún costo o comisión adicional?',
+		answer: 'No. El 100% de lo que dones llega directo a la labor social — nosotros no cobramos ninguna comisión.',
+	},
+	{
+		question: '¿Puedo donar insumos aunque no sea dinero en efectivo?',
+		answer: 'Sí, con gusto. Puedes coordinar la entrega de insumos directamente con nuestro equipo por WhatsApp, y te decimos qué necesitamos en ese momento y cómo hacerla llegar.',
+	},
+	{
+		question: '¿Cómo sé que mi donación se usó correctamente?',
+		answer: 'Compartimos el resultado de cada jornada social en nuestras redes y en esta misma sección, con fotos y el detalle de lo realizado, para que veas exactamente en qué se convirtió tu aporte.',
+	},
+	{
+		question: '¿Puedo donar una sola vez o de forma recurrente?',
+		answer: 'Como prefieras. Muchas personas empiezan con una donación puntual y luego deciden sumarse de forma recurrente — tú decides el ritmo.',
+	},
+];
+
+const galleryModules = import.meta.glob(
+	'../assets/gallery/**/*.{jpg,jpeg,png,webp,avif,gif}',
+	{ eager: true, query: '?url', import: 'default' },
+) as Record<string, string>;
+
+const allGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(([, src]) => ({
+	src,
+	alt: 'Jornada social de Cappi Xtremo',
+}));
+
+const randomGalleryImages = [...allGalleryImages].sort(() => Math.random() - 0.5);
+const galleryRow1: GalleryImage[] = randomGalleryImages.slice(0, 15);
+const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
+---
+
+<Layout
+	title="Cappi Social - Cappi Extremo"
+	description="Conoce la labor social de Cappi Xtremo: jornadas recreativas, entregas de insumos y actividades para niños de comunidades que lo necesitan. Súmate con tiempo, insumos o una donación."
+>
+	<SectionHero
+		bgImage={heroBg}
+		eyebrow="Cappi Social"
+		title="Más que campamentos, comunidad"
+		subtitle="Creemos que la diversión también puede transformar vidas. Conoce nuestra labor social y súmate como quieras: con tiempo, insumos o una donación."
+		buttons={[
+			{ label: 'Quiero donar', href: '#sumate-a-la-causa', variant: 'primary' },
+			{ label: 'Conoce nuestra labor', href: '#nuestra-labor-social', variant: 'white' },
+		]}
+		disfuminar="bottom"
+	/>
+
+	<section id="nuestra-labor-social" class="py-16 md:py-24">
+		<div class="container">
+			<SectionHeading eyebrow="Nuestra labor social" title="¿Qué hacemos?" underline="social" color="secondary" />
+			<div class="mx-auto mt-10 max-w-3xl space-y-5 text-center leading-relaxed text-neutral-600">
+				<p data-motion="fade-up">
+					En Cappi Xtremo no solo creamos experiencias inolvidables para las familias que se inscriben con nosotros — también
+					llevamos parte de esa misma energía a comunidades que lo necesitan. Organizamos jornadas recreativas, entregas de
+					insumos y actividades para niños que no siempre tienen acceso a espacios como los nuestros.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	
+	<SectionPattern top="base-pattern" />
+	<GallerySection
+	eyebrow="Así impactamos"
+		title="Momentos que dejan "
+		underline="huella"
+		intro="Cada actividad social lleva la misma energía que ponemos en nuestros planes vacacionales."
+		rows={[
+			{ images: galleryRow1, direction: 'left' },
+			{ images: galleryRow2, direction: 'right' },
+		]}
+		bgColor='bg-sections'
+	/>
+	<SectionPattern bottom="base-pattern" />
+	
+	<section id="sumate-a-la-causa" class="relative z-10 isolate  py-16 md:py-24">
+		<div class="container">
+			<SectionHeading eyebrow="Cómo puedes ayudar" title="Súmate a la causa" intro="Cualquier aporte cuenta — elige la forma que más se ajuste a ti." />
+
+			<div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
+				{donationCards.map((card) => (
+					<article data-motion="fade-up" class="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm">
+						<div class="relative h-44 overflow-hidden">
+							<img src={card.image} alt="" aria-hidden="true" loading="lazy" decoding="async" class="h-full w-full object-cover" />
+							<div class="absolute inset-0 bg-neutral-950/30" aria-hidden="true"></div>
+							<h4 class="absolute inset-x-0 bottom-4 px-6 font-semibold uppercase tracking-wide text-white">{card.title}</h4>
+						</div>
+						<div class="flex flex-1 flex-col p-6 md:p-8">
+							<ul class="flex-1 space-y-3">
+								{card.features.map((f) => (
+									<li class="flex items-start gap-2 text-neutral-600">
+										<Icon name="lucide:check" class="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
+										{f}
+									</li>
+								))}
+							</ul>
+							<Button label={card.cta.label} href={card.cta.href} target={card.cta.target} rel={card.cta.rel} class="mt-8" variant="primary" />
+						</div>
+					</article>
+				))}
+			</div>
+
+			<p data-motion="fade-up" class="mt-10 text-center leading-relaxed text-white/90">
+				¿Prefieres coordinar directamente?{' '}
+				<a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="font-semibold text-secondary underline underline-offset-4">
+					Escríbenos por WhatsApp
+				</a>{' '}
+				y te contamos cómo puedes ayudar hoy mismo.
+			</p>
+		</div>
+	</section>
+
+	<FaqSection tone="light" eyebrow="Respondemos tus dudas" title="Preguntas " underline="frecuentes" items={socialFaqs} />
+
+	<CtaSection
+		variant="image"
+		bgImage={ctaBg}
+		disfuminar="bottom"
+		title="Tu ayuda hace la diferencia"
+		intro="Súmate a la comunidad Cappi y sé parte de historias que van más allá de un plan vacacional."
+		buttons={[
+			{ label: 'Quiero ayudar', href: donateUrl, variant: 'white', target: '_blank', rel: 'noopener noreferrer' },
+		]}
+		padding="large"
+	/>
+</Layout>

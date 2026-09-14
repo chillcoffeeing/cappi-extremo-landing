@@ -1,7 +1,7 @@
 ---
 import { WHATSAPP_URL, EMAIL_URL } from "../../lib/social";
 import logoSrc from "../../assets/cappi-extremo-logo.png?url";
-import Button from "../buttons/Button.astro";
+
 
 const year = new Date().getFullYear();
 ---
@@ -39,7 +39,12 @@ const year = new Date().getFullYear();
 		>
 			Login
 		</a>
-		<Button type="button" href="/quiero-ser-staff" label="¡QUIERO SER STAFF!" variant="primary" />
+		<a
+			href="/quiero-ser-staff"
+			class="text-lg font-medium uppercase text-neutral-700 transition-colors hover:text-primary"
+		>
+			¡Quiero ser staff!
+		</a>
 	</div>
 
 	<div class="border-t border-neutral-200">

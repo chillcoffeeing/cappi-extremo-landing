@@ -23,14 +23,15 @@ export interface Props {
 	introClass?: string;
 	rows: Row[];
 	padding?: 'default' | 'large';
+	bgColor?: string;
 }
 
-const { eyebrow = 'Galería', title, underline, color, intro, introClass = '', rows, padding = 'large' } = Astro.props;
+const { eyebrow = 'Galería', title, underline, color, intro, introClass = '', rows, padding = 'large', bgColor } = Astro.props;
 
 const paddingClass = padding === 'large' ? 'py-16 md:py-24' : 'py-12 md:py-20';
 ---
 
-<section class={paddingClass}>
+<section class:list={[paddingClass, bgColor]}>
 	<div class="container">
 		<SectionHeading eyebrow={eyebrow} title={title} underline={underline} color={color} intro={intro} introClass={introClass} />
 
