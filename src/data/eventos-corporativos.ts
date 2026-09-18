@@ -12,8 +12,8 @@ export const corporateReasons: CorporateListItem[] = [
 ];
 
 export const corporatePrinciples: CorporateListItem[] = [
-	{ title: 'Estructura con espacio para la magia', description: 'planificamos cada detalle, pero dejamos lugar para la sorpresa.', icon: 'lucide:wand-sparkles' },
-	{ title: 'Se gana en equipo', description: 'retamos a los niños a superarse, sabiendo que la meta se alcanza juntos.', icon: 'lucide:trophy' },
+	{ title: 'Estructura con espacio para la magia', description: 'Planificamos cada detalle, pero dejamos lugar para la sorpresa.', icon: 'lucide:wand-sparkles' },
+	{ title: 'Se gana en equipo', description: 'Retamos a los niños a superarse, sabiendo que la meta se alcanza juntos.', icon: 'lucide:trophy' },
 	{ title: 'Un espacio seguro para ser ellos mismos.', icon: 'lucide:shield' },
 	{ title: 'Una comunidad real, no una pantalla más.', icon: 'lucide:users' },
 ];

@@ -13,9 +13,9 @@ export const schoolObservations: SchoolListItem[] = [
 ];
 
 export const schoolWays: SchoolListItem[] = [
-	{ title: 'En tu colegio', description: 'llevamos la experiencia Xtremo directo a tus instalaciones.', icon: 'lucide:school' },
-	{ title: 'Donde tú lo sueñes', description: 'tú eliges el lugar, nosotros ponemos la logística y la diversión.', icon: 'lucide:map-pin' },
-	{ title: 'Sello Cappi', description: 'dinámicas con propósito, organizadas al detalle.', icon: 'lucide:badge-check' },
+	{ title: 'En tu colegio', description: 'Llevamos la experiencia Xtremo directo a tus instalaciones.', icon: 'lucide:school' },
+	{ title: 'Donde tú lo sueñes', description: 'Tú eliges el lugar, nosotros ponemos la logística y la diversión.', icon: 'lucide:map-pin' },
+	{ title: 'Sello Cappi', description: 'Dinámicas con propósito, organizadas al detalle.', icon: 'lucide:badge-check' },
 ];
 
 export const schoolBenefits: SchoolListItem[] = [
@@ -35,7 +35,7 @@ export const schoolReasons: SchoolListItem[] = [
 ];
 
 export const schoolPrinciples: SchoolListItem[] = [
-	{ title: 'Estructura con espacio para la magia', description: 'planificamos cada detalle, pero dejamos lugar para la sorpresa.', icon: 'lucide:wand-sparkles' },
-	{ title: 'Se gana en equipo', description: 'retamos a los niños a superarse, sabiendo que la meta se alcanza juntos.', icon: 'lucide:trophy' },
+	{ title: 'Estructura con espacio para la magia', description: 'Planificamos cada detalle, pero dejamos lugar para la sorpresa.', icon: 'lucide:wand-sparkles' },
+	{ title: 'Se gana en equipo', description: 'Retamos a los niños a superarse, sabiendo que la meta se alcanza juntos.', icon: 'lucide:trophy' },
 	{ title: 'Un espacio seguro para ser ellos mismos.', icon: 'lucide:shield' },
 ];

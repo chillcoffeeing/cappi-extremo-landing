@@ -55,19 +55,18 @@ const socialFaqs: FaqItem[] = [
 	},
 ];
 
-const galleryModules = import.meta.glob(
-	'../assets/gallery/**/*.{jpg,jpeg,png,webp,avif,gif}',
+const socialModules = import.meta.glob(
+	'../assets/gallery/social/**/*.{jpg,jpeg,png,webp,avif,gif}',
 	{ eager: true, query: '?url', import: 'default' },
 ) as Record<string, string>;
 
-const allGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(([, src]) => ({
+const socialGalleryImages: GalleryImage[] = Object.values(socialModules).map((src) => ({
 	src,
 	alt: 'Jornada social de Cappi Xtremo',
 }));
 
-const randomGalleryImages = [...allGalleryImages].sort(() => Math.random() - 0.5);
-const galleryRow1: GalleryImage[] = randomGalleryImages.slice(0, 15);
-const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
+const galleryRow1: GalleryImage[] = [...socialGalleryImages].sort(() => Math.random() - 0.5);
+const galleryRow2: GalleryImage[] = [...galleryRow1].reverse();
 ---
 
 <Layout
@@ -88,12 +87,11 @@ const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
 
 	<section id="nuestra-labor-social" class="py-16 md:py-24">
 		<div class="container">
-			<SectionHeading eyebrow="Nuestra labor social" title="¿Qué hacemos?" underline="social" color="secondary" />
+			<SectionHeading eyebrow="Nuestra labor social" title="¿Qué hacemos en Cappi " underline="Social" afterTitle='?' color="secondary" />
 			<div class="mx-auto mt-10 max-w-3xl space-y-5 text-center leading-relaxed text-neutral-600">
 				<p data-motion="fade-up">
 					En Cappi Xtremo no solo creamos experiencias inolvidables para las familias que se inscriben con nosotros — también
-					llevamos parte de esa misma energía a comunidades que lo necesitan. Organizamos jornadas recreativas, entregas de
-					insumos y actividades para niños que no siempre tienen acceso a espacios como los nuestros.
+					llevamos parte de esa misma energía a comunidades que lo necesitan. Organizamos actividades recreativas, entregas de insumos para niños que no siempre tienen acceso a espacios como los nuestros.
 				</p>
 			</div>
 		</div>
