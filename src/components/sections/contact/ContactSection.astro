@@ -4,7 +4,7 @@ import Button from '../../buttons/Button.astro';
 import ConsentCheckbox from '../../forms/ConsentCheckbox.astro';
 import TurnstileField from '../../forms/TurnstileField.astro';
 import { Icon } from 'astro-icon/components';
-import { WHATSAPP_URL, EMAIL_URL } from '../../../lib/social';
+import { WHATSAPP_URL, EMAIL_URL, isWhatsAppUrl } from '../../../lib/social';
 
 export interface Channel {
 	title: string;
@@ -109,8 +109,8 @@ const inputClass =
 					{channels.map((channel) => (
 						<a
 							href={channel.href}
-							target={channel.target}
-							rel={channel.target ? 'noopener noreferrer' : undefined}
+							target={channel.target ?? (isWhatsAppUrl(channel.href) ? '_blank' : undefined)}
+							rel={channel.target || isWhatsAppUrl(channel.href) ? 'noopener noreferrer' : undefined}
 							data-motion="fade-up"
 							class="flex items-center gap-4 rounded-2xl border border-neutral-200 p-6 transition-colors hover:border-secondary/50 hover:bg-secondary/5"
 						>
@@ -182,7 +182,17 @@ const inputClass =
 				`Asunto: ${values.get('subject') ?? ''}`,
 				`Mensaje: ${values.get('message') ?? ''}`,
 			].join('\n');
-			window.location.href = `${WHATSAPP_URL}?text=${encodeURIComponent(body)}`;
+			// F-048: WhatsApp en pestaña nueva; si el navegador bloquea la
+			// ventana emergente, se mantiene la navegación en la misma pestaña.
+			const whatsappHref = `${WHATSAPP_URL}?text=${encodeURIComponent(body)}`;
+			const whatsappWindow = window.open(whatsappHref, '_blank');
+			if (whatsappWindow) {
+				whatsappWindow.opener = null;
+				// F-052 (B-4): token de Turnstile de un solo uso por envío.
+				window.cappiResetTurnstile('contact-turnstile');
+			} else {
+				window.location.href = whatsappHref;
+			}
 		});
 	</script>
 </section>

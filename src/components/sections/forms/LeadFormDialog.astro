@@ -114,6 +114,12 @@ if (mailto) {
 			submit.textContent = submitLabel;
 		});
 
+		const resetSubmit = () => {
+			submit.disabled = false;
+			submit.removeAttribute('aria-busy');
+			submit.textContent = submitLabel;
+		};
+
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
 			if (!form.reportValidity()) return;
@@ -128,9 +134,18 @@ if (mailto) {
 			status.textContent = 'Enviando tu solicitud…';
 
 			const values = new FormData(form);
-			const lines = Array.from(values.entries()).map(([name, value]) => `${name}: ${String(value)}`);
+			// F-052 (B-4): el widget de Turnstile agrega un input oculto con el
+			// token (`cf-turnstile-response`); no debe viajar en el mensaje.
+			const lines = Array.from(values.entries())
+				.filter(([name]) => name !== 'cf-turnstile-response')
+				.map(([name, value]) => `${name}: ${String(value)}`);
 			const whatsappUrl = dialog.dataset.whatsappUrl;
-			if (!whatsappUrl) return;
+			if (!whatsappUrl) {
+				// F-052 (A-14): sin URL de WhatsApp el botón no queda en "Enviando…".
+				resetSubmit();
+				status.textContent = 'No pudimos abrir WhatsApp. Escríbenos directamente por el botón de WhatsApp de la página.';
+				return;
+			}
 
 			const whatsappHref = `${whatsappUrl}?text=${encodeURIComponent(lines.join('\n'))}`;
 			if (isCorporate) {
@@ -142,7 +157,23 @@ if (mailto) {
 				}
 			}
 
-			window.location.href = whatsappHref;
+			// F-048: WhatsApp en pestaña nueva; si el navegador bloquea la
+			// ventana emergente (p. ej. ya se abrió el mailto), se navega en la
+			// misma pestaña como antes.
+			const whatsappWindow = window.open(whatsappHref, '_blank');
+			if (whatsappWindow) {
+				whatsappWindow.opener = null;
+				// F-052 (A-14/B-4): envío completado -> formulario limpio, token de
+				// Turnstile reiniciado y diálogo cerrado (un segundo clic ya no
+				// abre otra pestaña con los mismos datos).
+				form.reset();
+				window.cappiResetTurnstile(`${id}-turnstile`);
+				resetSubmit();
+				status.textContent = '';
+				dialog.close();
+			} else {
+				window.location.href = whatsappHref;
+			}
 		});
 	}
 </script>

@@ -1,5 +1,6 @@
 ---
 import UnderlineStroke from '../titles/UnderlineStroke.astro';
+import { isWhatsAppUrl } from '../../lib/social';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'white' | 'foreground' | 'outline' | 'ghost' | 'link';
 export type ButtonWeight = 'normal' | 'medium' | 'semibold' | 'bold';
@@ -9,6 +10,8 @@ export type ButtonSize = 'sm' | 'default' | 'lg' | 'xl';
 export interface Props {
 	/** Texto del botón */
 	label: string;
+	/** Texto corto para móvil (< md). Si falta, se usa `label` en todos los tamaños */
+	mobileLabel?: string;
 	/** Si existe renderiza un <a>, si no un <button> */
 	href?: string;
 	/** Solo para <a> */
@@ -45,6 +48,7 @@ export type ButtonProps = Props;
 
 const {
 	label,
+	mobileLabel,
 	href,
 	target,
 	rel,
@@ -84,10 +88,10 @@ const variantPresets: Record<ButtonVariant, VariantPreset> = {
 };
 
 const sizes: Record<ButtonSize, string> = {
-	sm: 'px-5 py-2.5 text-sm',
-	default: 'px-8 py-3.5 text-base',
-	lg: 'px-10 py-4 text-lg',
-	xl: 'px-12 py-5 text-xl',
+	sm: 'px-4 py-2 text-sm md:px-5 md:py-2.5',
+	default: 'px-5 py-3 text-sm md:px-8 md:py-3.5 md:text-base',
+	lg: 'px-6 py-3 text-base md:px-10 md:py-4 md:text-lg',
+	xl: 'px-8 py-4 text-lg md:px-12 md:py-5 md:text-xl',
 };
 
 const linkSizes: Record<ButtonSize, string> = {
@@ -131,13 +135,19 @@ const focusClass = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus
 
 let cls: string;
 if (variant === 'link') {
-	cls = `${focusClass} inline-flex items-center justify-center ${preset.base} ${linkSizeClass} ${weightClass} ${resolvedText}`;
+	cls = `${focusClass} inline-flex items-center justify-center text-center ${preset.base} ${linkSizeClass} ${weightClass} ${resolvedText}`;
 } else {
-	cls = `${focusClass} inline-flex items-center justify-center transition-colors duration-200 ease-out ${sizes[effectiveSize]} ${radii[radius]} ${weightClass} ${resolvedBorder} ${resolvedBg} ${resolvedText} ${preset.base}`;
+	cls = `${focusClass} inline-flex items-center justify-center text-center leading-tight transition-colors duration-200 ease-out ${sizes[effectiveSize]} ${radii[radius]} ${weightClass} ${resolvedBorder} ${resolvedBg} ${resolvedText} ${preset.base}`;
 }
 
 if (disabled) cls += ' cursor-not-allowed opacity-60';
 cls = `${cls} ${extraClass} uppercase`.trim();
+
+// F-048: los links a WhatsApp abren siempre en pestaña nueva, aunque quien
+// usa el botón no pase target/rel. Los links internos no cambian.
+const isWhatsApp = isWhatsAppUrl(href);
+const resolvedTarget = target ?? (isWhatsApp ? '_blank' : undefined);
+const resolvedRel = rel ?? (isWhatsApp ? 'noopener noreferrer' : undefined);
 
 const common = {
 	...attrs,
@@ -149,9 +159,14 @@ const common = {
 
 {
 	href && (
-		<a href={href} target={target} rel={rel} {...common}>
+		<a href={href} target={resolvedTarget} rel={resolvedRel} {...common}>
 			{variant === 'link' && underline ? (
 				<UnderlineStroke color={underlineColor ?? resolvedText}>{label}</UnderlineStroke>
+			) : mobileLabel ? (
+				<Fragment>
+					<span class="md:hidden">{mobileLabel}</span>
+					<span class="hidden md:inline">{label}</span>
+				</Fragment>
 			) : (
 				label
 			)}
@@ -163,6 +178,11 @@ const common = {
 		<button type={type} disabled={disabled} {...common}>
 			{variant === 'link' && underline ? (
 				<UnderlineStroke color={underlineColor ?? resolvedText}>{label}</UnderlineStroke>
+			) : mobileLabel ? (
+				<Fragment>
+					<span class="md:hidden">{mobileLabel}</span>
+					<span class="hidden md:inline">{label}</span>
+				</Fragment>
 			) : (
 				label
 			)}

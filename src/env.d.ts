@@ -9,4 +9,5 @@ interface Window {
 	cappiTurnstileSitekey: string;
 	onloadTurnstileCallback: () => void;
 	cappiValidateTurnstile: (widgetId: string, errorId?: string) => boolean;
+	cappiResetTurnstile: (widgetId: string) => void;
 }

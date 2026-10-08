@@ -24,7 +24,7 @@ const { pathname } = Astro.url;
 
 			<div class="flex items-center justify-self-end gap-3">
 				<MobileMenu client:load navigation={navigation} ctaHref={ctaHref} currentPath={pathname} />
-				<Button label="Inscribir ahora" href={ctaHref} variant="primary" size="sm" class="hidden lg:inline-flex" />
+				<Button label="Inscribir ahora" mobileLabel="Inscríbete" href={ctaHref} variant="primary" size="sm" class="whitespace-nowrap" />
 			</div>
 		</nav>
 	</div>

@@ -211,7 +211,7 @@ export default function MobileMenu({
         onClick={() => (open ? closeMenu(false) : setOpen(true))}
         className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2 text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
       >
-        <Icon icon={open ? closeIcon : menuIcon} className="size-6" aria-hidden="true" />
+        <Icon icon={open ? closeIcon : menuIcon} className="size-8" aria-hidden="true" />
       </button>
 
       <div

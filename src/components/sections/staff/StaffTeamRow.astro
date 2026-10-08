@@ -1,0 +1,40 @@
+---
+export interface StaffTeam {
+	id: string;
+	name: string;
+	paragraphs: string[];
+	image: string;
+	imageAlt: string;
+	/** Posición del recorte de la foto dentro del marco */
+	imagePosition?: string;
+	/** Gradiente superpuesto a la foto (primary → secondary) */
+	overlay: string;
+	/** Foto a la derecha del texto (en desktop) */
+	reverse?: boolean;
+}
+
+interface Props {
+	team: StaffTeam;
+}
+
+const { team } = Astro.props;
+---
+
+<article
+	id={team.id}
+	class:list={[
+		'mx-auto flex max-w-[1320px] flex-col items-center gap-8',
+		team.reverse ? 'md:flex-row-reverse md:justify-between md:gap-10' : 'md:flex-row md:gap-[65px]',
+	]}
+>
+	<div data-motion="fade-up" class="relative aspect-[513/701] w-full max-w-[513px] shrink-0 overflow-hidden">
+		<img src={team.image} alt={team.imageAlt} loading="lazy" decoding="async" class:list={['absolute inset-0 size-full object-cover', team.imagePosition]} />
+		<div aria-hidden="true" class:list={['absolute inset-0', team.overlay]}></div>
+	</div>
+	<div data-motion="fade-up" class="w-full max-w-[637px] space-y-6 font-inter text-black">
+		<h2 class="font-sansita text-[2.5rem] leading-normal text-primary md:text-[55px]">{team.name}</h2>
+		{team.paragraphs.map((text) => (
+			<p class="font-light leading-[1.22] md:text-lg">{text}</p>
+		))}
+	</div>
+</article>

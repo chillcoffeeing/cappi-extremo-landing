@@ -7,7 +7,7 @@ import SectionPattern from '../components/astro/SectionPattern.astro';
 import CtaSection from '../components/sections/cta/CtaSection.astro';
 
 import heroBg from '../assets/gallery/motos-full-view-2.webp?url';
-import historiaImg from '../assets/gallery/all/horizontal-images/IMG_2781.webp?url';
+import historiaImg from '../assets/gallery/staff/la-historia-de-cappixtremo.jpeg?url';
 import teamFullView from '../assets/gallery/team-full-view.webp?url';
 ---
 
@@ -79,32 +79,42 @@ import teamFullView from '../assets/gallery/team-full-view.webp?url';
 				intro="Un sueño que nació del amor de mamá."
 			/>
 
-			<ImageAccent color="tertiary" position="bottom" align="right">
-				<img src={historiaImg} alt="El origen de Cappixtremo: un sueño nacido del amor de mamá" loading="lazy" decoding="async" class="mt-14 w-full" />
-			</ImageAccent>
+			<!--
+				Layout propio de esta sección:
+				< sm: texto primero, imagen debajo.
+				sm–xl: imagen 312×492 flotando a la izquierda y el texto la rodea.
+				≥ xl: imagen (312×492) a la izquierda y texto a la derecha, sin float.
+			-->
+			<div class="mt-14 flex flex-col gap-10 sm:flow-root xl:grid xl:grid-cols-[312px_1fr] xl:items-center xl:gap-16">
+				<div class="order-last mx-auto w-full max-w-md sm:order-none sm:float-left sm:mb-6 sm:mr-10 sm:w-[312px] sm:max-w-none xl:float-none xl:m-0">
+					<ImageAccent color="tertiary" position="bottom" align="left">
+						<img src={historiaImg} alt="El origen de Cappixtremo: un sueño nacido del amor de mamá" width="626" height="988" loading="lazy" decoding="async" class="h-auto w-full object-cover sm:h-[492px] sm:w-[312px]" />
+					</ImageAccent>
+				</div>
 
-			<div class="mx-auto mt-12 max-w-3xl space-y-5 leading-relaxed text-neutral-600">
-				<p data-motion="fade-up" class="font-semibold text-neutral-900">
-					Esta historia no empezó en una oficina ni en un escritorio, sino en el corazón de una madre.
-				</p>
-				<blockquote data-motion="fade-up" class="border-l-4 border-primary pl-5 italic text-neutral-700">
-					"Al ver crecer a mis hijos, me di cuenta de una gran necesidad en nuestra ciudad: faltaban
-					espacios verdaderamente geniales, divertidos y seguros donde los niños pudieran conectar,
-					explorar, hacer amigos reales y construir recuerdos diferentes."
-				</blockquote>
-				<p data-motion="fade-up">
-					Con la llegada de la pandemia, esta desconexión se hizo aún más difícil, dejando a los más
-					pequeños aislados y con la urgente necesidad de volver a disfrutar su infancia en libertad.
-				</p>
-				<p data-motion="fade-up">
-					Desde mi trabajo y visión al frente del Centro de Atención Integral, conocía de cerca el
-					impacto positivo que el juego, el afecto y la socialización tienen en el desarrollo emocional
-					y cognitivo de los niños. Movida por ese amor materno y el deseo de transformar la experiencia
-					vacacional de nuestra ciudad, decidí dar un paso más. Para construir una marca con identidad
-					propia y con mucha alma, anexando una P que representa la suma de dos fuerzas fundamentales
-					que hacen posible la experiencia: P de Petrolandia, columna vertebral de la recreación en cada
-					edición. Juntos nos convertimos en CAPPIXTREMO.
-				</p>
+				<div class="space-y-5 leading-relaxed text-neutral-600">
+					<p data-motion="fade-up" class="font-semibold text-neutral-900">
+						Esta historia no empezó en una oficina ni en un escritorio, sino en el corazón de una madre.
+					</p>
+					<blockquote data-motion="fade-up" class="border-l-4 border-primary pl-5 italic text-neutral-700 sm:flow-root">
+						"Al ver crecer a mis hijos, me di cuenta de una gran necesidad en nuestra ciudad: faltaban
+						espacios verdaderamente geniales, divertidos y seguros donde los niños pudieran conectar,
+						explorar, hacer amigos reales y construir recuerdos diferentes."
+					</blockquote>
+					<p data-motion="fade-up">
+						Con la llegada de la pandemia, esta desconexión se hizo aún más difícil, dejando a los más
+						pequeños aislados y con la urgente necesidad de volver a disfrutar su infancia en libertad.
+					</p>
+					<p data-motion="fade-up">
+						Desde mi trabajo y visión al frente del Centro de Atención Integral, conocía de cerca el
+						impacto positivo que el juego, el afecto y la socialización tienen en el desarrollo emocional
+						y cognitivo de los niños. Movida por ese amor materno y el deseo de transformar la experiencia
+						vacacional de nuestra ciudad, decidí dar un paso más. Para construir una marca con identidad
+						propia y con mucha alma, anexando una P que representa la suma de dos fuerzas fundamentales
+						que hacen posible la experiencia: P de Petrolandia, columna vertebral de la recreación en cada
+						edición. Juntos nos convertimos en CAPPIXTREMO.
+					</p>
+				</div>
 			</div>
 		</div>
 	</section>

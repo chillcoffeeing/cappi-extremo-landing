@@ -1,128 +1,141 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SectionHero from '../components/sections/hero/SectionHero.astro';
-import SectionHeading from '../components/titles/SectionHeading.astro';
-import SectionPattern from '../components/astro/SectionPattern.astro';
-import ImageAccent from '../components/astro/ImageAccent.astro';
-import CtaSection from '../components/sections/cta/CtaSection.astro';
-import StaffProfileCard from '../components/sections/staff/StaffProfileCard.astro';
-import {
-	staffPreparationItems,
-	staffProfiles,
-	staffSelectionItems,
-	staffSharedValues,
-} from '../data/staff';
+import StaffTeamRow from '../components/sections/staff/StaffTeamRow.astro';
+import type { StaffTeam } from '../components/sections/staff/StaffTeamRow.astro';
 
-import heroBg from '../assets/gallery/all/horizontal-images/IMG_2734.webp?url';
-import teamFullView from '../assets/gallery/team-full-view.webp?url';
-import ctaBg from '../assets/gallery/juegos-5.webp?url';
+import heroBg from '../assets/gallery/staff/hero.webp?url';
+import brujulaImg from '../assets/gallery/staff/brujula.webp?url';
+import radarImg from '../assets/gallery/staff/radar-extremo.webp?url';
+import farosImg from '../assets/gallery/staff/faros.webp?url';
+import focoImg from '../assets/gallery/staff/foco-xtremo.webp?url';
+import sonreirImg from '../assets/gallery/staff/sonreir-jugando.png?url';
+import underlineStroke from '../assets/gallery/staff/underline.svg?url';
+
+const overlay30 = 'bg-gradient-to-b from-primary/30 to-secondary/30';
+
+const brujula: StaffTeam = {
+	id: 'brujula',
+	name: 'Brújula',
+	paragraphs: [
+		'Son los coordinadores y el norte de nuestro equipo. Su misión es mantener el rumbo en cada jornada, guiando a nuestros guías, velando por la seguridad y asegurando que cada actividad fluya con alegría, orden y propósito. La Brújula conecta, organiza y está atenta a cada detalle para que nuestros participantes vivan una experiencia inolvidable',
+	],
+	image: brujulaImg,
+	imageAlt: 'Dos coordinadoras de Cappi Xtremo acostadas en la grama, sonriendo',
+	imagePosition: 'object-[center_38%]',
+	overlay: overlay30,
+};
+
+const radar: StaffTeam = {
+	id: 'radar-extremo',
+	name: 'Radar Extremo',
+	paragraphs: [
+		'Es la dirección estratégica y el corazón operativo de nuestro plan vacacional. Se encarga de monitorear cada detalle antes, durante y después de la experiencia: desde la logística general y la seguridad integral, hasta el rendimiento de los equipos y la toma de decisiones en tiempo real. Como un radar activo 24/7, nuestra directiva detecta oportunidades, anticipa cualquier reto y garantiza que el estándar de excelencia, la protección y la diversión se mantengan al máximo nivel en cada aventura.',
+	],
+	image: radarImg,
+	imageAlt: 'Equipo directivo de Cappi Xtremo',
+	overlay: 'bg-gradient-to-b from-primary/40 to-secondary/40',
+};
+
+const faros: StaffTeam = {
+	id: 'nuestros-faros',
+	name: 'Nuestros Faros',
+	paragraphs: [
+		'Son los guías que acompañan, cuidan e iluminan cada paso de nuestros campistas. Con su energía desbordante, empatía y entusiasmo, son la luz brillante que enciende la diversión, inspira confianza y sostiene la alegría del grupo en todo momento.',
+		'Los Faros guían con el ejemplo, crean vínculos inolvidables y garantizan que nadie se pierda la aventura.',
+	],
+	image: farosImg,
+	imageAlt: 'Guías de Cappi Xtremo acostados en la grama formando un círculo',
+	overlay: overlay30,
+	reverse: true,
+};
+
+const foco: StaffTeam = {
+	id: 'foco-xtremo',
+	name: 'FocoXtremo',
+	paragraphs: [
+		'Es el equipo creativo encargado de capturar y proyectar la esencia, la emoción y la magia de nuestro plan vacacional. Su misión es enfocar cada sonrisa, documentar las grandes aventuras en tiempo real y conectar a las familias con la vivencia de sus hijos a través de fotos y videos inolvidables.',
+		'Con Foco Extremo, nada se pasa por alto y cada momento se convierte en un recuerdo que trasciende.',
+	],
+	image: focoImg,
+	imageAlt: 'Equipo creativo de Cappi Xtremo posando juntos',
+	overlay: 'bg-[linear-gradient(178deg,rgba(0,128,128,0.3)_1%,rgba(255,127,80,0.3)_72%)]',
+};
 ---
 
 <Layout
 	title="Nuestro Staff - Cappi Extremo"
 	description="Conoce al equipo Xtremo: las personas que preparan, acompañan y hacen posible cada experiencia de Cappi Extremo."
 >
+	<!-- Hero -->
+	<div class="relative isolate flex min-h-[40vw] items-center justify-center overflow-hidden px-4 py-14 md:py-24">
+		<img
+			src={heroBg}
+			alt=""
+			aria-hidden="true"
+			loading="eager"
+			fetchpriority="high"
+			class="absolute inset-0 -z-10 size-full object-cover object-[50%_10%]"
+		/>
+		<div aria-hidden="true" class="absolute inset-0 -z-10 bg-black/50"></div>
 
-	<SectionHero
-		bgImage={heroBg}
-		eyebrow="EL STAFF"
-		title="Las manos que conectan "
-		highlight="cada sonrisa"
-		subtitle="Personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre."
-		disfuminar="bottom"
-	/>
-
-	<section class="py-16 space-y-16 md:py-24 mb-10">
-		<div class="container">
-			<div class="mx-auto max-w-3xl space-y-5 text-center leading-relaxed text-neutral-600">
-				<p data-motion="fade-up">
-					Detrás de cada Jugada Extrema hay una familia: personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre. Desde la Dirección hasta cada Facilitador en cancha, todos compartimos algo simple pero profundo — creemos que conectando sonrisas, se crea familia.
-				</p>
-				<p data-motion="fade-up">
-					Ser parte de la familia Xtremo es mucho más que un trabajo. Es sumarse a una comunidad que crece junto a cada niño que pasa por nuestros planes vacacionales, que se prepara temporada tras temporada para seguir mereciendo la confianza que cada familia nos regala.
-				</p>
-			</div>
+		<div class="flex w-full max-w-[813px] flex-col items-center gap-2.5 text-center text-white">
+			<p data-motion="fade-up" class="text-base font-bold italic md:text-xl">CAPPI XTREMO</p>
+			<h1 data-motion="fade-up" class="max-w-[693px] text-[2.25rem] font-bold italic leading-[0.91] md:text-[50px]">
+				Las manos que conectan cada sonrisa
+			</h1>
+			<p data-motion="fade-up" class="mt-2 max-w-[693px] text-base font-semibold leading-normal md:text-lg">
+				Personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre.
+			</p>
 		</div>
-		<div data-motion="fade-up" class=" container">
-			<ImageAccent color="secondary" position="top" align="left">
-				<img src={teamFullView} alt="El staff de Cappi Xtremo en una foto grupal" loading="lazy" decoding="async" class="w-full" />	
-			</ImageAccent>	
+	</div>
+
+	<!-- Intro -->
+	<div class="px-4 pt-14 md:pt-[87px]">
+		<div data-motion="fade-up" class="mx-auto max-w-[949px] space-y-6 text-center text-black">
+			<p class="font-light leading-normal md:text-lg">
+				Detrás de cada Jugada Extrema hay una familia: personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre. Desde la Dirección hasta cada Facilitador en cancha, todos compartimos algo simple pero profundo, creemos que conectando sonrisas, se crea familia.
+			</p>
+			<p class="font-light leading-normal md:text-lg">
+				Ser parte de la familia Xtremo es mucho más que un trabajo. Es sumarse a una comunidad que crece junto a cada niño que pasa por nuestros planes vacacionales, que se prepara temporada tras temporada para seguir mereciendo la confianza que cada familia nos regala.
+			</p>
 		</div>
-	</section>
+	</div>
 
+	<!-- Equipo: Brújula -->
+	<div class="px-4 pb-20 pt-14 md:pb-[138px] md:pt-20">
+		<StaffTeamRow team={brujula} />
+	</div>
 
-	<SectionPattern top="base-pattern" />
-	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
-		<div class="container">
-			<SectionHeading
-				eyebrow="Selección y preparación"
-				title="Así elegimos a quienes "
-				underline="cuidan de los tuyos"
-				color="primary"
-			/>
-			<p data-motion="fade-up" class="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-neutral-600">No dejamos nada al azar. Buscamos personas:</p>
-			<ul data-motion="fade-up" class="mx-auto mt-6 max-w-2xl space-y-3 text-neutral-700">
-				{staffSelectionItems.map((item) => (
-					<li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-secondary"></span><span>{item}</span></li>
-				))}
-			</ul>
-			<p data-motion="fade-up" class="mx-auto mt-8 max-w-3xl text-center leading-relaxed text-neutral-600">Antes de cada plan vacacional, toda la familia Xtremo se prepara con:</p>
-			<ul data-motion="fade-up" class="mx-auto mt-6 max-w-2xl space-y-3 text-neutral-700">
-				{staffPreparationItems.map((item) => (
-					<li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-secondary"></span><span>{item}</span></li>
-				))}
-			</ul>
+	<!-- Banda: Hacemos sonreír, jugando -->
+	<div class="relative isolate flex min-h-[420px] items-end py-20 sm:items-center overflow-hidden bg-primary md:h-[457px] lg:min-h-[600px]">
+		<img
+			src={sonreirImg}
+			alt="Dos integrantes del staff jugando, una sobre la espalda de la otra"
+			loading="lazy"
+			decoding="async"
+			class="absolute bottom-0 left-0 -z-10 h-[95%] w-auto object-contain object-bottom opacity-60 md:h-[435px] lg:h-[570px] md:opacity-100"
+		/>
+		<div aria-hidden="true" class="absolute inset-0 -z-10 bg-primary/20"></div>
+
+		<div data-motion="fade-up" class="relative px-4 text-center sm:text-left sm:ml-[calc(35%+60px)] lg:ml-[calc(44%)] xl:container xl:pl-[500px] 2xl:pl-[300px] md:w-auto md:px-0">
+			<h2 class="leading-none mx-auto">
+				<span class="block font-black uppercase text-white text-[2rem] sm:text-[2.10rem] md:text-[40px] lg:text-[55px] 2xl:text-[65px]">Hacemos sonreír,</span>
+				<span class="block font-sansita-swashed font-black text-secondary text-[3.5rem] md:-mt-1 md:text-[55px] lg:text-[85px]">Jugando</span>
+			</h2>
+			<img src={underlineStroke} alt="" aria-hidden="true" width="400" height="14" class="mt-3 h-auto w-[240px] mx-auto sm:mx-0 md:mt-4 md:w-[250px] lg:w-[340px]" />
 		</div>
-	</section>
+	</div>
 
-	<SectionPattern bottom="base-pattern" />
+	<!-- Equipos -->
+	<div class="px-4 py-14 md:py-[120px]">
+		<StaffTeamRow team={radar} />
+	</div>
 
-	<section class="py-16 md:py-24">
-		<div class="container">
-			<SectionHeading
-				eyebrow="La familia DE Cappi Xtremo"
-				title="Quiénes hacen posible "
-				underline="cada sonrisa"
-				color="secondary"
-			/>
+	<div class="bg-sections px-4 py-14 md:py-[125px]">
+		<StaffTeamRow team={faros} />
+	</div>
 
-			<div data-motion="fade-up" class="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-				{staffProfiles.map((profile) => (
-					<StaffProfileCard profile={profile} variant="small" />
-				))}
-			</div>
-		</div>
-	</section>
-
-	<SectionPattern top="base-pattern" />
-	<section class="relative z-10 isolate bg-sections py-16 md:py-24">
-		<div class="container">
-			<SectionHeading
-				eyebrow="Lo que nos une"
-				title="Lo que hace especial "
-				underline="a nuestra familia"
-				color="secondary"
-			/>
-			<p data-motion="fade-up" class="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-neutral-600">Cada persona en Cappi Xtremo es distinta, y son justamente esas diferencias las que hacen única cada temporada. Buscamos —y celebramos— personas que sean:</p>
-			<ul data-motion="fade-up" class="mx-auto mt-6 max-w-2xl space-y-3 text-neutral-700">
-				{staffSharedValues.map((value) => (
-					<li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-secondary"></span><span>{value}</span></li>
-				))}
-			</ul>
-		</div>
-	</section>
-
-	<CtaSection
-		variant="image"
-		disfuminar="bottom"
-		bgImage={ctaBg}
-		title="¿Quieres ser "
-		underline="parte del Staff"
-		titleAfter="?"
-		buttons={[
-			{ label: 'Quiero ser parte del Staff', href: '/quiero-ser-staff', variant: 'white' },
-			{ label: 'Conoce Cappixtremo', href: '/quienes-somos', variant: 'link' },
-		]}
-		padding="large"
-	/>
+	<div class="px-4 py-14 md:py-[126px]">
+		<StaffTeamRow team={foco} />
+	</div>
 </Layout>
