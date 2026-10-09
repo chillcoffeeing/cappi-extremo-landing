@@ -30,7 +30,9 @@ Estructura del body (`flex min-h-dvh flex-col overflow-x-hidden`):
 Cargas en el `<head>`:
 
 - `<script is:inline> document.documentElement.classList.add("js") </script>` — permite progressive enhancement (ver SISTEMA-DISENO §10).
-- Favicons: `/favicon.svg` + `/favicon.ico`.
+- Favicons: `/favicon.ico` (48×48), PNGs de 32×32 y 16×16, Apple touch icon (180×180) y `/site.webmanifest`.
+- SEO y redes sociales: cada página pasa su título y descripción al layout; se generan canonical, Open Graph y Twitter Cards usando `/og-image.jpg`.
+- Sitemap y rastreo: la integración oficial `@astrojs/sitemap` genera `sitemap-index.xml`; `robots.txt` permite el rastreo e indica la URL del sitemap.
 - Preconnect + Google Fonts Poppins (300–700, `display=swap`).
 - `meta name="description"`, `generator`, but **sin theme-color** (se vistió `#008080` antiguo; hoy no se declara).
 - sidebar no existe: basta `<title>` + `<meta description>`.

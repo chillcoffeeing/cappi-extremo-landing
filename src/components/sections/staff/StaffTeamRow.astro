@@ -1,4 +1,6 @@
 ---
+import ImageAccent from '../../astro/ImageAccent.astro';
+
 export interface StaffTeam {
 	id: string;
 	name: string;
@@ -27,9 +29,13 @@ const { team } = Astro.props;
 		team.reverse ? 'md:flex-row-reverse md:justify-between md:gap-10' : 'md:flex-row md:gap-[65px]',
 	]}
 >
-	<div data-motion="fade-up" class="relative aspect-[513/701] w-full max-w-[513px] shrink-0 overflow-hidden">
-		<img src={team.image} alt={team.imageAlt} loading="lazy" decoding="async" class:list={['absolute inset-0 size-full object-cover', team.imagePosition]} />
-		<div aria-hidden="true" class:list={['absolute inset-0', team.overlay]}></div>
+	<div data-motion="fade-up" class="w-full max-w-[513px] shrink-0">
+		<ImageAccent color="tertiary" position="bottom" align={team.reverse ? 'right' : 'left'}>
+			<div class="relative aspect-[513/701] w-full overflow-hidden">
+				<img src={team.image} alt={team.imageAlt} loading="lazy" decoding="async" class:list={['absolute inset-0 size-full object-cover', team.imagePosition]} />
+				<div aria-hidden="true" class:list={['absolute inset-0', team.overlay]}></div>
+			</div>
+		</ImageAccent>
 	</div>
 	<div data-motion="fade-up" class="w-full max-w-[637px] space-y-6 font-inter text-black">
 		<h2 class="font-sansita text-[2.5rem] leading-normal text-primary md:text-[55px]">{team.name}</h2>

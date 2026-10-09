@@ -24,6 +24,8 @@ export interface Props {
 	bgColor?: string;
 	/** Texto corto sobre el título */
 	eyebrow?: string;
+	/** Aplica estilo itálico al eyebrow y al título */
+	italic?: boolean;
 	/** Fragmento del eyebrow */
 	eyebrowHighlight?: string;
 	/** Título h1 (acepta HTML, ej. para controlar saltos de línea con <br> o <span class="block">) */
@@ -56,6 +58,7 @@ const {
 	bgVideoPoster,
 	bgColor,
 	eyebrow,
+	italic = false,
 	eyebrowHighlight,
 	title,
 	highlight,
@@ -81,6 +84,7 @@ const contentClass = [
 
 const titleClass = [
 	'text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-tight text-white pre-line',
+	italic && 'italic',
 	titleMargin && 'mt-2 lg:mt-4',
 	dock ? 'max-w-4xl' : 'max-w-3xl',
 ].filter(Boolean).join(' ');
@@ -128,7 +132,7 @@ const bgMediaPositionClass = bgMediaPosition === 'top' ? 'object-top' : bgMediaP
 			)}
 
 			{(eyebrow || eyebrowHighlight) && (
-				<p data-motion="fade-up" class="font-semibold uppercase tracking-wide text-white">
+				<p data-motion="fade-up" class:list={['font-semibold uppercase tracking-wide text-white', italic && 'italic']}>
 					{eyebrow}
 					{eyebrowHighlight && <span>{eyebrowHighlight}</span>}
 				</p>

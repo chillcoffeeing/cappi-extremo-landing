@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionHero from '../components/sections/hero/SectionHero.astro';
+import ImageAccent from '../components/astro/ImageAccent.astro';
 import StaffTeamRow from '../components/sections/staff/StaffTeamRow.astro';
 import type { StaffTeam } from '../components/sections/staff/StaffTeamRow.astro';
 
@@ -10,6 +12,7 @@ import farosImg from '../assets/gallery/staff/faros.webp?url';
 import focoImg from '../assets/gallery/staff/foco-xtremo.webp?url';
 import sonreirImg from '../assets/gallery/staff/sonreir-jugando.png?url';
 import underlineStroke from '../assets/gallery/staff/underline.svg?url';
+import SectionPattern from '../components/astro/SectionPattern.astro';
 
 const overlay30 = 'bg-gradient-to-b from-primary/30 to-secondary/30';
 
@@ -19,7 +22,7 @@ const brujula: StaffTeam = {
 	paragraphs: [
 		'Son los coordinadores y el norte de nuestro equipo. Su misión es mantener el rumbo en cada jornada, guiando a nuestros guías, velando por la seguridad y asegurando que cada actividad fluya con alegría, orden y propósito. La Brújula conecta, organiza y está atenta a cada detalle para que nuestros participantes vivan una experiencia inolvidable',
 	],
-	image: brujulaImg,
+	image: radarImg,
 	imageAlt: 'Dos coordinadoras de Cappi Xtremo acostadas en la grama, sonriendo',
 	imagePosition: 'object-[center_38%]',
 	overlay: overlay30,
@@ -31,7 +34,7 @@ const radar: StaffTeam = {
 	paragraphs: [
 		'Es la dirección estratégica y el corazón operativo de nuestro plan vacacional. Se encarga de monitorear cada detalle antes, durante y después de la experiencia: desde la logística general y la seguridad integral, hasta el rendimiento de los equipos y la toma de decisiones en tiempo real. Como un radar activo 24/7, nuestra directiva detecta oportunidades, anticipa cualquier reto y garantiza que el estándar de excelencia, la protección y la diversión se mantengan al máximo nivel en cada aventura.',
 	],
-	image: radarImg,
+	image: brujulaImg,
 	imageAlt: 'Equipo directivo de Cappi Xtremo',
 	overlay: 'bg-gradient-to-b from-primary/40 to-secondary/40',
 };
@@ -66,28 +69,16 @@ const foco: StaffTeam = {
 	title="Nuestro Staff - Cappi Extremo"
 	description="Conoce al equipo Xtremo: las personas que preparan, acompañan y hacen posible cada experiencia de Cappi Extremo."
 >
-	<!-- Hero -->
-	<div class="relative isolate flex min-h-[40vw] items-center justify-center overflow-hidden px-4 py-14 md:py-24">
-		<img
-			src={heroBg}
-			alt=""
-			aria-hidden="true"
-			loading="eager"
-			fetchpriority="high"
-			class="absolute inset-0 -z-10 size-full object-cover object-[50%_10%]"
+	<ImageAccent color="tertiary" position="bottom" align="right">
+		<SectionHero
+			bgImage={heroBg}
+			bgMediaPosition="top"
+			eyebrow="CAPPI XTREMO"
+			italic
+			title="Las manos que conectan cada sonrisa"
+			subtitle="Personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre."
 		/>
-		<div aria-hidden="true" class="absolute inset-0 -z-10 bg-black/50"></div>
-
-		<div class="flex w-full max-w-[813px] flex-col items-center gap-2.5 text-center text-white">
-			<p data-motion="fade-up" class="text-base font-bold italic md:text-xl">CAPPI XTREMO</p>
-			<h1 data-motion="fade-up" class="max-w-[693px] text-[2.25rem] font-bold italic leading-[0.91] md:text-[50px]">
-				Las manos que conectan cada sonrisa
-			</h1>
-			<p data-motion="fade-up" class="mt-2 max-w-[693px] text-base font-semibold leading-normal md:text-lg">
-				Personas que, desde distintos roles, ponen el corazón para que cada participante viva días que va a recordar para siempre.
-			</p>
-		</div>
-	</div>
+	</ImageAccent>
 
 	<!-- Intro -->
 	<div class="px-4 pt-14 md:pt-[87px]">
@@ -101,12 +92,13 @@ const foco: StaffTeam = {
 		</div>
 	</div>
 
-	<!-- Equipo: Brújula -->
+	<!-- Equipo: Radar Extremo -->
 	<div class="px-4 pb-20 pt-14 md:pb-[138px] md:pt-20">
-		<StaffTeamRow team={brujula} />
+		<StaffTeamRow team={radar} />
 	</div>
 
 	<!-- Banda: Hacemos sonreír, jugando -->
+	<SectionPattern top="base-pattern" additionalClasses={['text-primary']} />
 	<div class="relative isolate flex min-h-[420px] items-end py-20 sm:items-center overflow-hidden bg-primary md:h-[457px] lg:min-h-[600px]">
 		<img
 			src={sonreirImg}
@@ -125,15 +117,18 @@ const foco: StaffTeam = {
 			<img src={underlineStroke} alt="" aria-hidden="true" width="400" height="14" class="mt-3 h-auto w-[240px] mx-auto sm:mx-0 md:mt-4 md:w-[250px] lg:w-[340px]" />
 		</div>
 	</div>
-
+	<SectionPattern bottom="base-pattern" additionalClasses={['text-primary']} />
+	
 	<!-- Equipos -->
 	<div class="px-4 py-14 md:py-[120px]">
-		<StaffTeamRow team={radar} />
+		<StaffTeamRow team={brujula} />
 	</div>
-
+	
+	<SectionPattern top="base-pattern" additionalClasses={['text-sections']} />
 	<div class="bg-sections px-4 py-14 md:py-[125px]">
 		<StaffTeamRow team={faros} />
 	</div>
+	<SectionPattern bottom="base-pattern" additionalClasses={['text-sections']} />
 
 	<div class="px-4 py-14 md:py-[126px]">
 		<StaffTeamRow team={foco} />

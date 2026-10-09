@@ -17,7 +17,7 @@ import {
 import { SCHOOL_EXPERIENCES_WHATSAPP_URL } from '../lib/lead-links';
 
 import heroBg from '../assets/gallery/juegos-7.webp?url';
-import allyImage from '../assets/gallery/deportes.webp?url';
+import allyImage from '../assets/gallery/IMG_2459.webp?url';
 
 const schoolDialogId = 'school-lead-dialog';
 const schoolFields = [
@@ -36,9 +36,10 @@ const schoolFields = [
 	<SectionHero
 		bgImage={heroBg}
 		eyebrow="EXPERIENCIAS ESCOLARES"
-		title="Hay aprendizajes que no caben en un "
-		highlight="salón de clases"
-		subtitle="Llevamos la energía Xtremo a tu colegio para que tus alumnos jueguen, se conecten de verdad y vivan algo que van a recordar por mucho tiempo."
+		title="Creamos la experiencia "
+		highlight="Xtrema única"
+		titleAfter=" para tu promoción."
+		subtitle="Momentos inolvidables para niños, adolescentes e instituciones."
 		buttons={[
 			{ label: 'Hablemos por WhatsApp', href: SCHOOL_EXPERIENCES_WHATSAPP_URL, variant: 'primary', target: '_blank', rel: 'noopener noreferrer' },
 			{ label: 'Quiero más información', href: `#${schoolDialogId}`, variant: 'white', dialogId: schoolDialogId },
@@ -86,6 +87,7 @@ const schoolFields = [
 		items={schoolReasons}
 		tone="dark"
 	/>
+	<SectionPattern bottom="base-pattern" />
 
 	<ContentListSection
 		id="nuestros-principios"

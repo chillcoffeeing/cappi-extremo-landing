@@ -28,7 +28,7 @@ import ctaBg from '../assets/gallery/all/horizontal-images/IMG_2697.webp?url';
 import activity1 from '../assets/gallery/padel-fest.webp?url';
 import activity2 from '../assets/gallery/paseo-a-caballo.webp?url';
 import activity3 from '../assets/gallery/juegos-6.webp?url';
-import activity4 from '../assets/gallery/deportes.webp?url';
+import activity4 from '../assets/gallery/IMG_2459.webp?url';
 import activity5 from '../assets/gallery/spa.webp?url';
 import activity6 from '../assets/gallery/rally-barro.webp?url';
 import activity7 from '../assets/gallery/var-ritmo.webp?url';
@@ -65,7 +65,7 @@ const activitiesCards: ActivityGridItem[] = [
 ];
 
 const galleryModules = import.meta.glob(
-	'../assets/gallery/**/*.{jpg,jpeg,png,webp,avif,gif}',
+	'../assets/gallery/all/**/*.{jpg,jpeg,png,webp,avif,gif}',
 	{ eager: true, query: '?url', import: 'default' },
 ) as Record<string, string>;
 
@@ -79,7 +79,10 @@ const galleryRow1: GalleryImage[] = randomGalleryImages.slice(0, 15);
 const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
 ---
 
-<Layout>
+<Layout
+	title="Vacaciones extremas, planes y aventuras para niños - Cappi Xtremo"
+	description="Deportes, amigos, aventuras y risas infinitas. Planes vacacionales, experiencias escolares, fiestas y eventos para crear recuerdos inolvidables."
+>
 	<SectionHero
 		bgImage={heroPosterBg}
 		bgVideo={heroVideoMp4Bg}
@@ -164,9 +167,10 @@ const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
 		eyebrow="Respondemos tus dudas"
 		title="Preguntas "
 		underline="frecuentes"
-		items={faqs}
-	/>
-
+	items={faqs}
+		/>
+	
+		
 	<CtaSection
 		variant="image"
 		disfuminar='bottom'
@@ -177,6 +181,4 @@ const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
 		buttons={[{ label: 'Contáctanos', href: '/contacto', variant: 'white' }]}
 		padding="large"
 	/>
-	
-
 </Layout>

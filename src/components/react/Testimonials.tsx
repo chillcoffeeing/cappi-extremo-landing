@@ -45,7 +45,7 @@ export default function Testimonials({ items }: TestimonialsProps) {
           <ul className="flex">
             {items.map((testimonial) => (
               <li
-                key={testimonial.name}
+                key={testimonial.id}
                 className="min-w-0 shrink-0 grow-0 basis-full pr-6 sm:basis-1/2 lg:basis-1/4"
               >
                 <figure className="flex h-full flex-col bg-white p-6 shadow-sm">
