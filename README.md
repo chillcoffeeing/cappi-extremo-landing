@@ -1,46 +1,35 @@
-# Astro Starter Kit: Basics
+# Cappi Xtremo — Landing
 
-```sh
-pnpm create astro@latest -- --template basics
+Sitio público en `https://www.cappixtremo.com` (Astro estático). Repo
+`chillcoffeeing/cappi-extremo-landing`. No tiene backend: los formularios y los botones de
+inscripción abren WhatsApp con los datos (`wa.me`; la postulación de staff abre un `mailto:`) y "Login" lleva al portal
+(`app.cappixtremo.com`).
+
+## Stack
+
+Astro 7 (salida `static`) · Tailwind v4 (tokens CSS-first) · islas React 19 solo en
+`src/components/react/` · `motion` · Embla · astro-icon (lucide) · `@astrojs/sitemap`.
+
+## Desarrollo
+
+```powershell
+pnpm install
+pnpm dev        # http://localhost:4321
+pnpm build      # dist/ (sitio estático + sitemap-index.xml)
+pnpm preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Desplegar
 
-## 🚀 Project Structure
+`.\scripts\deploy.ps1 [--dry-run]` publica `dist/` en `~/cappixtremo.com` (nunca en
+`public_html/`). Independiente del API y del portal. Guía: [scripts/README.md](scripts/README.md)
+y [../docs/despliegue.md](../docs/despliegue.md).
 
-Inside of your Astro project, you'll see the following folders and files:
+## Documentación
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Documento | Contenido |
+| --- | --- |
+| [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) | Stack, carpetas, anatomía de una página, hidratación |
+| [docs/VISTAS.md](docs/VISTAS.md) | Rutas y patrón de cada página |
+| [docs/SISTEMA-DISENO.md](docs/SISTEMA-DISENO.md) | Tokens, tipografía, componentes |
+| [docs/LAYOUT-PRINCIPAL.md](docs/LAYOUT-PRINCIPAL.md) | Header, footer y layout global |

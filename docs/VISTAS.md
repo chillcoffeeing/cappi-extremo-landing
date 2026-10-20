@@ -18,10 +18,12 @@ Mapa de todas las rutas, su composición de secciones y las plantillas que sirve
 | `/plan-vacacional`                          | Plan Navidad       | hero + datos + inclusiones + actividades + CTA |
 | `/planes-vacacionales`                      | Alias legacy       | redirige a `/plan-vacacional` (`redirects` en `astro.config.mjs`) |
 | `/nuestro-staff`                            | Nuestro Staff      | recruitment + perfiles + popup            |
+| `/quiero-ser-staff`                         | Quiero ser Staff   | recruitment + formulario en modal (Turnstile) que abre un `mailto:` a info@cappixtremo.com |
+| `/cappi-social`                             | Cappi Social       | hero + donaciones (monetaria/insumos) + galería + FAQ + CTA |
 | `/experiencias-escolares`                   | Experiencias escolares | hero + contenido + formulario WhatsApp |
 | `/eventos-corporativos`                     | Eventos corporativos | hero + principios + propuesta            |
 | `/celebra-con-cappi`                        | Celebra con Cappi  | editorial + pasos + CTA WhatsApp         |
-| `/programas-especiales`                     | Alias legacy       | redirige a `/celebra-con-cappi`           |
+| `/programas-especiales`                     | Alias legacy       | ya **no** está en el código; en producción sigue la página de redirección a `/celebra-con-cappi` de un build anterior (el script de despliegue la lista como huérfana) |
 | `/familias`                                 | Portal de familias | features + pasos + CTA light             |
 | `/contacto`                                 | Contacto           | hero + formulario + canales + horario    |
 | `/tienda`                                   | Tienda             | **`ComingSoonSection`**                  |

@@ -7,7 +7,7 @@ export const INSTAGRAM_HANDLE = `@${SOCIAL_HANDLE}`;
 export const INSTAGRAM_URL = `https://instagram.com/${SOCIAL_HANDLE}`;
 export const FACEBOOK_URL = `https://facebook.com/${SOCIAL_HANDLE}`;
 
-// Portal de familias (inscripción y login). Ver docs/despliegue-cpanel.md.
+// Portal de familias (inscripción y login). Ver ../docs/despliegue.md.
 export const PORTAL_URL = "https://app.cappixtremo.com";
 export const PORTAL_ONBOARDING_URL = `${PORTAL_URL}/onboarding`;
 

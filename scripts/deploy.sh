@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Despliegue y actualización de la landing (Astro estático) en cPanel por SSH.
-# Guía: scripts/README.md · Procedimiento manual equivalente: ../docs/despliegue-cpanel.md Paso 1
+# Guía: scripts/README.md · Procedimiento: ../docs/despliegue.md
 #
 #   bash scripts/deploy.sh               build + subir + publicar
 #   bash scripts/deploy.sh --dry-run     build + paquete, sin conectar al servidor
