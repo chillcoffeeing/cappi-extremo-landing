@@ -249,6 +249,8 @@ export default function MobileMenu({
           </ul>
           <a
             href={ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => closeMenu(false)}
             className="mt-4 flex min-h-11 items-center justify-center rounded-full bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
           >

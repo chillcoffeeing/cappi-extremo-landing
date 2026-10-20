@@ -1,5 +1,6 @@
 ---
 import { WHATSAPP_URL, EMAIL_URL } from "../../lib/social";
+import { ENROLL_WHATSAPP_URL, PORTAL_ACCESS_WHATSAPP_URL } from "../../lib/lead-links";
 import logoSrc from "../../assets/cappi-extremo-logo.png?url";
 
 
@@ -27,14 +28,18 @@ const year = new Date().getFullYear();
 		</a>
 
 		<a
-			href="/coming-soon"
+			href={ENROLL_WHATSAPP_URL}
+			target="_blank"
+			rel="noopener noreferrer"
 			class=" text-lg font-medium uppercase text-neutral-700 transition-colors hover:text-primary"
 		>
 			Inscribirse
 		</a>
 
 		<a
-			href="/coming-soon"
+			href={PORTAL_ACCESS_WHATSAPP_URL}
+			target="_blank"
+			rel="noopener noreferrer"
 			class="text-lg font-medium uppercase text-neutral-700 transition-colors hover:text-primary"
 		>
 			Login

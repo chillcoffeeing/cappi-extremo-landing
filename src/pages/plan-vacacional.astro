@@ -95,9 +95,9 @@ const activitiesCards: ActivityItem[] = [
 		title="Reservar "
 		underline="cupo"
 		titleAfter=""
-		intro={`Reserva la experiencia de Navidad en ${plan.registrationUrl.replace('https://', '')}. También puedes encontrarnos en Instagram: ${plan.instagramHandle}.`}
+		intro={`Reserva la experiencia de Navidad en ${new URL(plan.registrationUrl).host}. También puedes encontrarnos en Instagram: ${plan.instagramHandle}.`}
 		buttons={[
-			{ label: 'Cappixtremo.com', href: plan.registrationUrl, variant: 'primary' },
+			{ label: 'Reservar cupo', href: plan.registrationUrl, variant: 'primary' },
 			{ label: `Instagram ${plan.instagramHandle}`, href: plan.instagramUrl, variant: 'link' },
 		]}
 		padding="large"

@@ -77,7 +77,7 @@ src/
 │   └── testimonials.ts
 ├── layouts/Layout.astro           # shell global (head + Header + main + WhatsApp + Footer)
 ├── lib/social.ts                  # URLs de contacto/redes
-├── lib/lead-links.ts              # destinos de WhatsApp y correo de formularios
+├── lib/lead-links.ts              # destinos de WhatsApp y correo de formularios (formularios: wa.me; wa.link solo CTA directos)
 ├── pages/                         # rutas (ver VISTAS.md)
 └── scripts/reveal.ts              # animaciones on-scroll (data-motion)
 ```

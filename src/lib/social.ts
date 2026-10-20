@@ -1,7 +1,15 @@
 export const WHATSAPP_URL = "https://wa.me/584140712311";
 export const EMAIL_URL = "mailto:info@cappixtremo.com";
-export const INSTAGRAM_URL = "https://instagram.com/cappiextremo";
-export const FACEBOOK_URL = "https://facebook.com/cappiextremo";
+// F-060 (decisión del usuario 2026-10-19): la cuenta real es "cappixtremo".
+// Único origen de verdad de las redes en toda la landing.
+export const SOCIAL_HANDLE = "cappixtremo";
+export const INSTAGRAM_HANDLE = `@${SOCIAL_HANDLE}`;
+export const INSTAGRAM_URL = `https://instagram.com/${SOCIAL_HANDLE}`;
+export const FACEBOOK_URL = `https://facebook.com/${SOCIAL_HANDLE}`;
+
+// Portal de familias (inscripción y login). Ver docs/despliegue-cpanel.md.
+export const PORTAL_URL = "https://app.cappixtremo.com";
+export const PORTAL_ONBOARDING_URL = `${PORTAL_URL}/onboarding`;
 
 // F-048: todo link a WhatsApp abre en pestaña nueva. Hosts reconocidos como
 // WhatsApp (incluye los acortadores wa.link usados en lib/lead-links.ts).

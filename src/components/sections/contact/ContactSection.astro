@@ -145,6 +145,11 @@ const inputClass =
 	</div>
 
 	<script>
+		// F-060: el script es un módulo aparte del frontmatter; sin este import
+		// `WHATSAPP_URL` no existía en el navegador (ReferenceError al enviar).
+		import { WHATSAPP_URL } from '../../../lib/social';
+		import { buildWhatsAppUrl } from '../../../lib/lead-links';
+
 		const params = new URLSearchParams(window.location.search);
 		const asunto = params.get('asunto');
 		if (asunto) {
@@ -176,15 +181,15 @@ const inputClass =
 			if (status) status.textContent = '';
 
 			const values = new FormData(form);
-			const body = [
+			const lines = [
 				`Nombre: ${values.get('name') ?? ''}`,
 				`Correo: ${values.get('email') ?? ''}`,
 				`Asunto: ${values.get('subject') ?? ''}`,
 				`Mensaje: ${values.get('message') ?? ''}`,
-			].join('\n');
+			];
 			// F-048: WhatsApp en pestaña nueva; si el navegador bloquea la
 			// ventana emergente, se mantiene la navegación en la misma pestaña.
-			const whatsappHref = `${WHATSAPP_URL}?text=${encodeURIComponent(body)}`;
+			const whatsappHref = buildWhatsAppUrl(WHATSAPP_URL, lines);
 			const whatsappWindow = window.open(whatsappHref, '_blank');
 			if (whatsappWindow) {
 				whatsappWindow.opener = null;

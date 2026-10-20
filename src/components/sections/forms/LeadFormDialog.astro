@@ -23,7 +23,10 @@ export interface Props {
 	title: string;
 	intro?: string;
 	submitLabel?: string;
+	/** Base `https://wa.me/<numero>` (NO un wa.link: descarta el `?text=`). */
 	whatsappUrl: string;
+	/** Primera línea del mensaje de WhatsApp/correo. */
+	whatsappGreeting?: string;
 	fields: LeadField[];
 	mailto?: string;
 	mailtoSubject?: string;
@@ -36,15 +39,22 @@ const {
 	intro,
 	submitLabel = 'Enviar',
 	whatsappUrl,
+	whatsappGreeting = '',
 	fields,
 	mailto,
 	mailtoSubject = 'Solicitud de propuesta - Cappi Xtremo',
 } = Astro.props;
 
 const inputClass = 'mt-1.5 block w-full max-w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary';
-const isCorporate = Boolean(mailto);
 
-const dialogData: Record<string, string> = { 'data-whatsapp-url': whatsappUrl };
+// F-060: el script (módulo procesado por Astro) lee la configuración del
+// propio <dialog>, así puede importar `buildWhatsAppUrl`/`buildMailtoUrl`.
+const dialogData: Record<string, string> = {
+	'data-lead-dialog': '',
+	'data-whatsapp-url': whatsappUrl,
+	'data-whatsapp-greeting': whatsappGreeting,
+	'data-submit-label': submitLabel,
+};
 if (mailto) {
 	dialogData['data-mailto'] = mailto;
 	dialogData['data-mailto-subject'] = mailtoSubject;
@@ -75,14 +85,14 @@ if (mailto) {
 					{field.label}{field.required && <span aria-hidden="true"> *</span>}
 				</label>
 				{field.type === 'textarea' ? (
-					<textarea id={`${id}-${field.id}`} name={field.name} rows={3} required={field.required} placeholder={field.placeholder} autocomplete={field.autocomplete} class={inputClass}></textarea>
+					<textarea id={`${id}-${field.id}`} name={field.name} data-lead-label={field.label} rows={3} required={field.required} placeholder={field.placeholder} autocomplete={field.autocomplete} class={inputClass}></textarea>
 				) : field.type === 'select' ? (
-					<select id={`${id}-${field.id}`} name={field.name} required={field.required} class={inputClass}>
+					<select id={`${id}-${field.id}`} name={field.name} data-lead-label={field.label} required={field.required} class={inputClass}>
 						<option value="">Selecciona una opción</option>
 						{field.options?.map((option) => <option value={option}>{option}</option>)}
 					</select>
 				) : (
-					<input id={`${id}-${field.id}`} name={field.name} type={field.type} required={field.required} placeholder={field.placeholder} autocomplete={field.autocomplete} class={inputClass} />
+					<input id={`${id}-${field.id}`} name={field.name} data-lead-label={field.label} type={field.type} required={field.required} placeholder={field.placeholder} autocomplete={field.autocomplete} class={inputClass} />
 				)}
 			</div>
 		))}
@@ -100,25 +110,33 @@ if (mailto) {
 	</form>
 </ModalComponent>
 
-<script define:vars={{ id, isCorporate, submitLabel }} is:inline>
-	const dialog = document.getElementById(id);
-	const form = dialog?.querySelector('form[data-lead-form]');
-	const status = dialog?.querySelector('[data-lead-status]');
-	const submit = dialog?.querySelector('[data-lead-submit]');
 
-	if (dialog instanceof HTMLDialogElement && form instanceof HTMLFormElement && status && submit) {
-		dialog.addEventListener('modal:open', () => {
-			status.textContent = '';
-			submit.disabled = false;
-			submit.removeAttribute('aria-busy');
-			submit.textContent = submitLabel;
-		});
+<script>
+	import { buildMailtoUrl, buildWhatsAppUrl } from '../../../lib/lead-links';
+
+	// F-060 (fe-A-3): el enlace se arma con `buildWhatsAppUrl` sobre
+	// `https://wa.me/<numero>` para que los datos del formulario lleguen a
+	// WhatsApp (los wa.link descartan el `?text=`). Un solo script por página
+	// que inicializa todos los diálogos de leads.
+	document.querySelectorAll<HTMLDialogElement>('dialog[data-lead-dialog]').forEach((dialog) => {
+		const id = dialog.id;
+		const form = dialog.querySelector<HTMLFormElement>('form[data-lead-form]');
+		const status = dialog.querySelector<HTMLElement>('[data-lead-status]');
+		const submit = dialog.querySelector<HTMLButtonElement>('[data-lead-submit]');
+		if (!form || !status || !submit) return;
+
+		const submitLabel = dialog.dataset.submitLabel || submit.textContent || 'Enviar';
 
 		const resetSubmit = () => {
 			submit.disabled = false;
 			submit.removeAttribute('aria-busy');
 			submit.textContent = submitLabel;
 		};
+
+		dialog.addEventListener('modal:open', () => {
+			status.textContent = '';
+			resetSubmit();
+		});
 
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
@@ -133,12 +151,19 @@ if (mailto) {
 			submit.textContent = 'Enviando…';
 			status.textContent = 'Enviando tu solicitud…';
 
-			const values = new FormData(form);
-			// F-052 (B-4): el widget de Turnstile agrega un input oculto con el
-			// token (`cf-turnstile-response`); no debe viajar en el mensaje.
-			const lines = Array.from(values.entries())
-				.filter(([name]) => name !== 'cf-turnstile-response')
-				.map(([name, value]) => `${name}: ${String(value)}`);
+			// "Etiqueta: valor" por campo con dato. F-052 (B-4): el token de
+			// Turnstile (`cf-turnstile-response`) no tiene `data-lead-label` y no
+			// viaja en el mensaje.
+			const fieldLines = Array.from(
+				form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[data-lead-label]'),
+			)
+				.map((control) => {
+					const value = control.value.trim();
+					return value ? `${control.dataset.leadLabel}: ${value}` : '';
+				})
+				.filter(Boolean);
+			const lines = [dialog.dataset.whatsappGreeting ?? '', ...fieldLines];
+
 			const whatsappUrl = dialog.dataset.whatsappUrl;
 			if (!whatsappUrl) {
 				// F-052 (A-14): sin URL de WhatsApp el botón no queda en "Enviando…".
@@ -147,25 +172,21 @@ if (mailto) {
 				return;
 			}
 
-			const whatsappHref = `${whatsappUrl}?text=${encodeURIComponent(lines.join('\n'))}`;
-			if (isCorporate) {
-				const email = dialog.dataset.mailto;
+			const whatsappHref = buildWhatsAppUrl(whatsappUrl, lines);
+			const email = dialog.dataset.mailto;
+			if (email) {
 				const subject = dialog.dataset.mailtoSubject ?? 'Solicitud para Cappi Xtremo';
-				if (email) {
-					const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
-					window.open(mailto, '_blank', 'noopener,noreferrer');
-				}
+				window.open(buildMailtoUrl(email, subject, lines), '_blank', 'noopener,noreferrer');
 			}
 
 			// F-048: WhatsApp en pestaña nueva; si el navegador bloquea la
 			// ventana emergente (p. ej. ya se abrió el mailto), se navega en la
-			// misma pestaña como antes.
+			// misma pestaña.
 			const whatsappWindow = window.open(whatsappHref, '_blank');
 			if (whatsappWindow) {
 				whatsappWindow.opener = null;
 				// F-052 (A-14/B-4): envío completado -> formulario limpio, token de
-				// Turnstile reiniciado y diálogo cerrado (un segundo clic ya no
-				// abre otra pestaña con los mismos datos).
+				// Turnstile reiniciado y diálogo cerrado.
 				form.reset();
 				window.cappiResetTurnstile(`${id}-turnstile`);
 				resetSubmit();
@@ -175,5 +196,5 @@ if (mailto) {
 				window.location.href = whatsappHref;
 			}
 		});
-	}
+	});
 </script>

@@ -16,8 +16,7 @@ Mapa de todas las rutas, su composición de secciones y las plantillas que sirve
 | `/`                                         | Inicio             | hero + contenido + bandas + CTA          |
 | `/quienes-somos`                            | Quiénes somos      | editorial + franja con ImageAccent       |
 | `/plan-vacacional`                          | Plan Navidad       | hero + datos + inclusiones + actividades + CTA |
-| `/planes-vacacionales`                      | Alias legacy       | redirige a `/plan-vacacional`             |
-| `/planes-vacacionales/[slug]`               | Detalle legacy     | conserva `dia-completo`; `vacacional` redirige |
+| `/planes-vacacionales`                      | Alias legacy       | redirige a `/plan-vacacional` (`redirects` en `astro.config.mjs`) |
 | `/nuestro-staff`                            | Nuestro Staff      | recruitment + perfiles + popup            |
 | `/experiencias-escolares`                   | Experiencias escolares | hero + contenido + formulario WhatsApp |
 | `/eventos-corporativos`                     | Eventos corporativos | hero + principios + propuesta            |
@@ -30,7 +29,7 @@ Mapa de todas las rutas, su composición de secciones y las plantillas que sirve
 | `/privacidad`                               | Legal              | **`LegalSection`**                       |
 | `/terminos`                                 | Legal              | **`LegalSection`**                       |
 
-`[slug]` (getStaticPaths) conserva `dia-completo` y el path legacy `vacacional`; este último redirige a `/plan-vacacional` para no publicar el contenido antiguo.
+> Nota (F-060, 2026-10-19): no existe ninguna ruta dinámica `/planes-vacacionales/[slug]` (ni `dia-completo` ni `vacacional`); solo el redirect de `/planes-vacacionales` a `/plan-vacacional` en `astro.config.mjs`. Por decisión del usuario no se crea ningún alias.
 
 ---
 
@@ -40,7 +39,7 @@ Hero + filosofía + banda de servicios + actividades + testimonios + galería + 
 
 **Composición** (`src/pages/index.astro`):
 
-1. `SectionHero` — vídeo (mp4) con póster, `disfuminar="bottom"`, botones [`primary`→planes, `white`→`#`], `dock`.
+1. `SectionHero` — vídeo (mp4) con póster, `disfuminar="bottom"`, botones [`primary`→planes, `white` "Únete ahora"→portal (`PORTAL_ONBOARDING_URL`)], `dock`.
 2. `PhilosophySection` — grid 4 pilares (iconos Tabler: flag, people, laugh, shield) + CTA.
 3. `<SectionPattern top>` + `ServicesBand` + `<SectionPattern bottom>` — banda `bg-sections` con 3 service cards + **countdown** (`countdownSize="hero"`, target `NEXT_CAMP_START = '2027-06-15T09:00:00-04:00'`).
 4. `ActivitiesSection` — 9 tarjetas de actividad con color de acento.
@@ -77,11 +76,11 @@ Página canónica del Plan Vacacional - Edición Navidad, con contenido exacto s
 
 **Composición** (`src/pages/plan-vacacional.astro`):
 
-1. `SectionHero` con breadcrumb, fechas, horario y edades en el subtítulo y CTA a `https://cappixtremo.com`.
+1. `SectionHero` con breadcrumb, fechas, horario y edades en el subtítulo y CTA "Reservar cupo" al portal (`PORTAL_ONBOARDING_URL` = `https://app.cappixtremo.com/onboarding`, en `src/lib/social.ts`).
 2. `CountdownSection` + `SectionPattern` — cuenta regresiva de la edición.
 3. `InclusionsBandSection` — pills (fecha/horario/edades), ubicación e inclusiones con íconos lucide.
 4. `ActivitiesSection` — 9 actividades navideñas y recreativas.
-5. `CtaSection variant="light"` — enlaces a Cappixtremo.com e Instagram `@cappixtremo`.
+5. `CtaSection variant="light"` — "Reservar cupo" (portal, onboarding) e Instagram `@cappixtremo`.
 
 Los datos viven en `src/data/plan-vacacional.ts`. No se muestra precio ni año porque no fueron suministrados.
 
@@ -106,11 +105,11 @@ Recruitment, selección, capacitación y perfiles del equipo.
 
 ## 7. Experiencias escolares — `/experiencias-escolares`
 
-Landing para colegios con observaciones, propuesta, formas de trabajo, beneficios, razones, principios y formulario de cinco campos que continúa a WhatsApp.
+Landing para colegios con observaciones, propuesta, formas de trabajo, beneficios, razones, principios y formulario de cinco campos que continúa a WhatsApp (`wa.me` + `buildWhatsAppUrl`, con los datos en el texto; los `wa.link` solo se usan en CTA directos porque descartan `?text=`).
 
 ## 8. Eventos corporativos — `/eventos-corporativos`
 
-Landing para empresas con razones verificables, principios, bloque Hablemos y formulario de propuesta con selects para evento y cantidad de niños. La solicitud compone correo a `INFO@CAPPIXTREMO.COM` y continúa a WhatsApp.
+Landing para empresas con razones verificables, principios, bloque Hablemos y formulario de propuesta con selects para evento y cantidad de niños. La solicitud compone correo a `INFO@CAPPIXTREMO.COM` y continúa a WhatsApp (`wa.me` + `buildWhatsAppUrl`, con los datos en el texto).
 
 ## 9. Celebra con Cappi — `/celebra-con-cappi`
 
@@ -134,7 +133,7 @@ Portal (próximamente en su mayoría) con features del producto.
 
 **Composición** (`src/pages/familias.astro`):
 
-1. `SectionHero` con 2 botones (Crear mi cuenta / Iniciar sesión → `/coming-soon`).
+1. `SectionHero` con 2 botones: Crear mi cuenta → `ENROLL_WHATSAPP_URL`, Iniciar sesión → `PORTAL_ACCESS_WHATSAPP_URL`. Los dos son `wa.me` con saludo (`src/lib/lead-links.ts`) y abren en pestaña nueva. El CTA de `StepsSection` ("Comenzar ahora") y el "Crear mi cuenta" del `CtaSection` van también a `ENROLL_WHATSAPP_URL`.
 2. `FeaturesSection` — 6 cards con `FeatureIcon` (`dashboard|inscription|payments|health|photos|balance`).
 3. `<SectionPattern top>` + `StepsSection columns={4}` + `<SectionPattern bottom>`.
 4. `CtaSection variant="light"` — CTA claro (fondo `bg-sections`), botones `primary` + `outline`.
@@ -162,7 +161,7 @@ Detalle del asunto (importante): el `<select id="subject">` incluye la opción *
 
 ### Próximamente — `/coming-soon`
 
-`ComingSoonSection` **sin props** (usa defaults del componente). El portal de familias/pagos.
+`ComingSoonSection` **sin props** (usa defaults del componente). La página se conserva, pero desde F-060 ningún botón de inscripción ni de login apunta aquí: van al WhatsApp de la landing.
 
 ### Privacidad / Términos — `/privacidad`, `/terminos`
 

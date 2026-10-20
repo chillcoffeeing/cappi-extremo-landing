@@ -16,6 +16,7 @@ import type { GalleryImage } from '../components/sections/gallery/GallerySection
 import SectionPattern from '../components/astro/SectionPattern.astro';
 import { testimonials } from '../data/testimonials';
 import { faqs } from '../data/faqs';
+import { PORTAL_ONBOARDING_URL } from '../lib/social';
 
 import heroPosterBg from '../assets/gallery/motos-full-view-2.webp?url';
 import heroVideoMp4Bg from '../assets/videos/hero-video-bg.mp4?url';
@@ -94,7 +95,7 @@ const galleryRow2: GalleryImage[] = randomGalleryImages.slice(15, 30);
 		subtitle="<p>Deportes, amigos, aventuras y risas infinitas.</p> <hr class='border-0'> <p>Unas vacaciones que va a recordar para siempre.</p>"
 		buttons={[
 			{ label: 'Ver fechas y plan vacacional', href: '/plan-vacacional', variant: 'primary' },
-			{ label: 'Únete ahora', href: '#', variant: 'white' },
+			{ label: 'Únete ahora', href: PORTAL_ONBOARDING_URL, variant: 'white' },
 		]}
 		dock
 	/>

@@ -14,7 +14,7 @@ import {
 	schoolReasons,
 	schoolWays,
 } from '../data/experiencias-escolares';
-import { SCHOOL_EXPERIENCES_WHATSAPP_URL } from '../lib/lead-links';
+import { SCHOOL_EXPERIENCES_FORM_WHATSAPP_URL, SCHOOL_EXPERIENCES_GREETING, SCHOOL_EXPERIENCES_WHATSAPP_URL } from '../lib/lead-links';
 
 import heroBg from '../assets/gallery/juegos-7.webp?url';
 import allyImage from '../assets/gallery/IMG_2459.webp?url';
@@ -113,7 +113,8 @@ const schoolFields = [
 		title="Quiero más información"
 		intro="Déjanos tus datos y llevaremos la conversación a WhatsApp."
 		submitLabel="Enviar"
-		whatsappUrl={SCHOOL_EXPERIENCES_WHATSAPP_URL}
+		whatsappUrl={SCHOOL_EXPERIENCES_FORM_WHATSAPP_URL}
+		whatsappGreeting={SCHOOL_EXPERIENCES_GREETING}
 		fields={schoolFields}
 	/>
 </Layout>

@@ -64,9 +64,9 @@ El header, el mega menú desktop y la isla mobile consumen el árbol discriminad
 | --- | --- |
 | Izquierda | Link al logo (`/`): `<img src={logoSrc} />`, h-12 md:h-20. |
 | Centro | `<DesktopMegaMenu navigation={navigation} currentPath={pathname} />`, visible desde `lg`; enlaces directos y triggers de grupos. En tablet se conserva el menú móvil para evitar overflow. |
-| Derecha | `<MobileMenu client:load navigation={navigation} ctaHref="/coming-soon" currentPath={pathname} />` en mobile + CTA `Inscribir ahora` en desktop. |
+| Derecha | `<MobileMenu client:load navigation={navigation} ctaHref={ENROLL_WHATSAPP_URL} currentPath={pathname} />` en mobile + CTA `Inscribir ahora` en desktop. |
 
-El CTA de escritorio mantiene `/coming-soon` y sus estilos de marca.
+El CTA (escritorio y móvil) abre `ENROLL_WHATSAPP_URL` (`wa.me` + saludo "Hola, quiero inscribir a mi hijo…", en `src/lib/lead-links.ts`) en pestaña nueva con `rel="noopener noreferrer"` y mantiene sus estilos de marca. Antes iba a `/coming-soon`; se cambió en F-060.
 
 ### Mega menú desktop — `src/components/astro/DesktopMegaMenu.astro`
 
@@ -112,8 +112,8 @@ DESKTOP: `md:grid md:grid-cols-5 md:max-w-max md:text-center`.
 | ------- | ---------------------------------------------------------- |
 | 1 | Link **WhatsApp** (→ `WHATSAPP_URL`, `target="_blank"`)     |
 | 2 | Link **Mail** (→ `EMAIL_URL`)                               |
-| 3 | Link **Inscribirse** (→ `/coming-soon`)                     |
-| 4 | Link **Login** (→ `/coming-soon`)                           |
+| 3 | Link **Inscribirse** (→ `ENROLL_WHATSAPP_URL`, `target="_blank"`) |
+| 4 | Link **Login** (→ `PORTAL_ACCESS_WHATSAPP_URL`, `target="_blank"`) |
 | 5 | `<Button href="/contacto?asunto=staff" label="¡QUIERO SER STAFF!" variant="primary" />` |
 
 Cada columna: `text-lg font-medium uppercase text-neutral-700 hover:text-primary`.
@@ -145,6 +145,6 @@ Debajo, `© {year} Cappi Extremo. Todos los derechos reservados.` (año dinámic
 
 1. Cualquier página nueva se declara con `<Layout title description>` y sus secciones dentro de `<main>` (automático por el shell).
 2. Los links de navegación (y del footer) deben mantenerse consistentes con `navLinks`/pie del footer al añadir rutas.
-3. El orden de zonas del hero/CTA del header no deben duplicarse en el footer si no cambia de propósito (el footer repite Secciones completas: inscribirse/login apuntan a `coming-soon`).
+3. El orden de zonas del hero/CTA del header no deben duplicarse en el footer si no cambia de propósito (el footer repite Secciones completas: inscribirse/login abren el WhatsApp de la landing con saludo).
 4. No mover el botón WhatsApp del `<Layout>` (es global). Evitar anidarlo en el footer.
 5. No usar `theme-color` ni tokens hardcodeados en este archivo; todo color se hereda de tokens del spec de diseño.

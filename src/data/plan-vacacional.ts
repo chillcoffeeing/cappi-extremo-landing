@@ -1,3 +1,5 @@
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, PORTAL_ONBOARDING_URL } from "../lib/social";
+
 export interface VacationPlan {
   name: string;
   date: string;
@@ -43,7 +45,8 @@ export const christmasVacationPlan: VacationPlan = {
     "Competencias",
     "Sorpresas",
   ],
-  registrationUrl: "https://cappixtremo.com",
-  instagramHandle: "@cappixtremo",
-  instagramUrl: "https://instagram.com/cappixtremo",
+  // F-060 (fe-A-21): reservar = inscripción en el portal de familias.
+  registrationUrl: PORTAL_ONBOARDING_URL,
+  instagramHandle: INSTAGRAM_HANDLE,
+  instagramUrl: INSTAGRAM_URL,
 };

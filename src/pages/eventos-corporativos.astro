@@ -13,7 +13,7 @@ import {
 	corporatePrinciples,
 	corporateReasons,
 } from '../data/eventos-corporativos';
-import { CORPORATE_EVENTS_WHATSAPP_URL, INFO_EMAIL } from '../lib/lead-links';
+import { CORPORATE_EVENTS_FORM_WHATSAPP_URL, CORPORATE_EVENTS_GREETING, INFO_EMAIL } from '../lib/lead-links';
 
 const corporateDialogId = 'corporate-proposal-dialog';
 const corporateFields = [
@@ -92,7 +92,8 @@ const corporateFields = [
 		title="Solicitar propuesta"
 		intro="Tu solicitud se enviará a nuestro equipo y luego podrás continuar por WhatsApp."
 		submitLabel="Enviar solicitud"
-		whatsappUrl={CORPORATE_EVENTS_WHATSAPP_URL}
+		whatsappUrl={CORPORATE_EVENTS_FORM_WHATSAPP_URL}
+		whatsappGreeting={CORPORATE_EVENTS_GREETING}
 		mailto={INFO_EMAIL}
 		mailtoSubject="Solicitud de propuesta corporativa - Cappi Xtremo"
 		fields={corporateFields}

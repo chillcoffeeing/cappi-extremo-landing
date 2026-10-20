@@ -3,10 +3,12 @@ import MobileMenu from "../react/MobileMenu";
 import DesktopMegaMenu from "./DesktopMegaMenu.astro";
 import Button from "../buttons/Button.astro";
 import { navigation } from "../../data/navigation";
+import { ENROLL_WHATSAPP_URL } from "../../lib/lead-links";
 
 import logoSrc from "../../assets/cappi-extremo-logo.png?url";
 
-const ctaHref = "/coming-soon";
+// F-060: "Inscribir ahora" abre WhatsApp (antes /coming-soon).
+const ctaHref = ENROLL_WHATSAPP_URL;
 const { pathname } = Astro.url;
 ---
 
